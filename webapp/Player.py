@@ -3,6 +3,8 @@ import requests
 import pandas as pd
 import pickle
 import itertools
+import sys
+import json
 
 players_link = 'http://www.nba.com/players/active_players.json'
 head = {"USER-AGENT":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"}
@@ -60,9 +62,9 @@ class Player:
         print player_two
 
         if(player_one > player_two):
-            print self.name
+            return self.name
         else:
-            print otherPlayer.name
+            return otherPlayer.name
 
     def select_info(self):
         x = 2
@@ -70,13 +72,23 @@ class Player:
     def compare_league(self, season):
         season = 'x'
 
+def read_in():
+  lines = sys.stdin.readlines()
+    #Since our input would only be having one line, parse our JSON data from that
+  
+  return json.loads(lines[0])   
 
-dload = Player("""Russell Westbrook""", 'Base','2016-17')
-
-lonzo = Player("LeBron James", 'Base', '2016-17')
-
-dload.compare_player(lonzo)
-
+def main():
+    lines = sys.stdin.readlines()
+    #Since our input would only be having one line, parse our JSON data from that
+    data = json.loads(lines[0])   
+    #data = read_in()
+    #data = numpy.array(lines)
+    print lines;
+    dload = Player("Lebron James", 'Base','2016-17')
+    lonzo = Player("Chris Paul", 'Base', '2016-17')
+    #print data
+    #dload.compare_player(lonzo)
 
 
 
@@ -93,10 +105,13 @@ link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
        '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&Vs' \
        'Conference=&VsDivision='
 
-print link
+#print main()
 
 other_link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
              'DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=' \
              '&MeasureType=Advanced&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame' \
              '&Period=0&PlayerID=1626156&PlusMinus=N&Rank=N&Season=2017-18' \
              '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&VsConference=&VsDivision='
+
+if __name__ == '__main__':
+    main()
