@@ -20,7 +20,9 @@
         <tbody>
           <tr>
             <td colspan="3" align="right">
-              <input type="text" ng-keydown="leftkeypress($event)" ng-model="inLeft" placeholder="Search for a player or team here">
+              <form ng-submit = "add()">
+              <input type="text" name="player1" ng-model = "player1"  ng-keydown="leftkeypress($event)" ng-model="inLeft" placeholder="Search for a player or team here" >
+            </form>
             </td>
             <td class="table-separator"></td>
             <td colspan="3">

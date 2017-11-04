@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import pickle
 import itertools
-import sys
+#import sys
 import json
 
 players_link = 'http://www.nba.com/players/active_players.json'
@@ -79,16 +79,13 @@ def read_in():
   return json.loads(lines[0])   
 
 def main():
-    lines = sys.stdin.readlines()
-    #Since our input would only be having one line, parse our JSON data from that
-    data = json.loads(lines[0])   
-    #data = read_in()
+   #data = read_in()
     #data = numpy.array(lines)
-    print lines;
-    dload = Player("Lebron James", 'Base','2016-17')
-    lonzo = Player("Chris Paul", 'Base', '2016-17')
-    #print data
-    #dload.compare_player(lonzo)
+
+   dload = Player(data["name"], 'Base','2016-17')
+   #lonzo = Player("Chris Paul", 'Base', '2016-17')
+    #lonzo = Player("Chris Paul", 'Base', '2016-17')
+   print (dload.player_dict);
 
 
 
