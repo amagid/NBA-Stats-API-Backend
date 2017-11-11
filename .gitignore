@@ -1,4 +1,5 @@
 node_modules/**
+webapp/node_modules/**
 .vscode/**
 logs/*.log
 logs/exceptions/*.exceptions
