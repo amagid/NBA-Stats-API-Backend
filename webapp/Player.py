@@ -26,6 +26,13 @@ class Player:
         self.statType = statType
         #get the player id with name
         self.id= player_information[name]['personId']
+        self.stats = dict()
+        self.stats['Base'] = 0
+        self.stats['Advanced'] = 0
+        self.stats['Shooting'] = 0
+        self.stats['Hustle'] = 0
+        self.stats['Offense'] = 0
+        self.stats['Defense'] = 0
 
         #get player basic data
         self.height = player_information[name]['heightFeet'] + """'""" + player_information[name]['heightInches'] + '"'
@@ -50,8 +57,22 @@ class Player:
         values = response.json()['resultSets'][0]['rowSet']
 
         self.player_dict = dict(zip(keys, values[0]))
+        self.stats[traditional] = self.player_dict
 
-        #get the stats
+
+
+    def get_stats(self, statType):
+        stats_link = ['http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
+                      'DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=' \
+                      '&MeasureType=', '&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=' \
+                                       'N&PerMode=PerGame&Period=0&PlayerID=', '&PlusMinus=N&Rank=N&Season=',
+                      '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&Vs' \
+                      'Conference=&VsDivision=']
+
+    #allows for the user to set a date range
+    def date_range(self, statType, dateFrom, dateTo):
+
+
 
 
 
