@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import pickle
 import itertools
-#import sys
+import sys
 import json
 
 players_link = 'http://www.nba.com/players/active_players.json'
@@ -79,7 +79,7 @@ def read_in():
   return json.loads(lines[0])   
 
 def main():
-   #data = read_in()
+   data = read_in()
     #data = numpy.array(lines)
 
    dload = Player(data["name"], 'Base','2016-17')
