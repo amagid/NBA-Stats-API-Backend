@@ -3,8 +3,9 @@ import requests
 import pandas as pd
 import pickle
 import itertools
-#import sys
+import sys
 import json
+
 
 players_link = 'http://www.nba.com/players/active_players.json'
 head = {"USER-AGENT":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"}
@@ -14,8 +15,19 @@ player_information = dict()
 
 players = response.json()
 
+#for front-end
+playerID = dict()
+
 for player in players:
-    player_information[player['firstName'] + ' ' + player['lastName']] = player
+    name = player['firstName'] + ' ' + player['lastName']
+    player_information[name] = player
+    playerID[name] = player_information[name]['personId']
+
+
+f = open('playerID.txt', 'w')
+f.write(json.dumps(playerID))
+f.close()
+
 
 
 class Player:
@@ -26,6 +38,14 @@ class Player:
         self.statType = statType
         #get the player id with name
         self.id= player_information[name]['personId']
+        self.stats = dict()
+        self.stats['Base'] = 0
+        self.stats['Advanced'] = 0
+        self.stats['Misc'] = 0
+        self.stats['Four Factors'] = 0
+        self.stats['Scoring'] = 0
+        self.stats['Oponent'] = 0
+        self.stats['Usage'] = 0
 
         #get player basic data
         self.height = player_information[name]['heightFeet'] + """'""" + player_information[name]['heightInches'] + '"'
@@ -43,6 +63,8 @@ class Player:
         stats_link_param = stats_link[0] + 'Base' + stats_link[1] + self.id + stats_link[2] + self.year + stats_link[
             3]
 
+        print stats_link
+
         response = requests.get(stats_link_param, headers=head)
 
         keys = response.json()['resultSets'][0]['headers']
@@ -50,8 +72,22 @@ class Player:
         values = response.json()['resultSets'][0]['rowSet']
 
         self.player_dict = dict(zip(keys, values[0]))
+        self.stats[traditional] = self.player_dict
 
-        #get the stats
+
+
+    def get_stats(self, statType):
+        stats_link = ['http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
+                      'DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=' \
+                      '&MeasureType=', '&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=' \
+                                       'N&PerMode=PerGame&Period=0&PlayerID=', '&PlusMinus=N&Rank=N&Season=',
+                      '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&Vs' \
+                      'Conference=&VsDivision=']
+
+    #allows for the user to get specific stat type for specific range
+    def date_range(self, statType, dateFrom, dateTo):
+        print 'x'
+
 
 
 
@@ -72,6 +108,10 @@ class Player:
     def compare_league(self, season):
         season = 'x'
 
+<<<<<<< HEAD
+    def compare_stat(self, otherPlayer, statType):
+        x = 2
+=======
 def read_in():
   lines = sys.stdin.readlines()
     #Since our input would only be having one line, parse our JSON data from that
@@ -79,13 +119,24 @@ def read_in():
   return json.loads(lines[0])   
 
 def main():
-   #data = read_in()
+   data = read_in()
     #data = numpy.array(lines)
+>>>>>>> 32f235e66fb71c8702fbd2c20db3a86f0fdd2c79
 
-   dload = Player(data["name"], 'Base','2016-17')
-   #lonzo = Player("Chris Paul", 'Base', '2016-17')
-    #lonzo = Player("Chris Paul", 'Base', '2016-17')
-   print (dload.player_dict);
+# def read_in():
+#   lines = sys.stdin.readlines()
+#     #Since our input would only be having one line, parse our JSON data from that
+#
+#   return json.loads(lines[0])
+#
+# def main():
+#    #data = read_in()
+#     #data = numpy.array(lines)
+#
+#    #dload = Player(data["name"], 'Base','2016-17')
+#    #lonzo = Player("Chris Paul", 'Base', '2016-17')
+#     #lonzo = Player("Chris Paul", 'Base', '2016-17')
+#    print (dload.player_dict);
 
 
 
@@ -102,6 +153,8 @@ link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
        '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&Vs' \
        'Conference=&VsDivision='
 
+print link
+
 #print main()
 
 other_link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
@@ -110,5 +163,5 @@ other_link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
              '&Period=0&PlayerID=1626156&PlusMinus=N&Rank=N&Season=2017-18' \
              '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&VsConference=&VsDivision='
 
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+    #main()
