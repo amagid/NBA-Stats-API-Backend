@@ -1,23 +1,30 @@
-var app = angular.module('nbaApp', []);
+var app = angular.module('nbaApp', ['ngMaterial'])
+                  .config(function($mdThemingProvider) {
+                    $mdThemingProvider.disableTheming();
+                  });
 app.controller('myController', function($scope, $http) {
   $scope.data = [];
-  
-  
-  
+
+  $scope.player1selected = "";
+  $scope.searchText1="";
+
+  var vm = null;
+
   $scope.players = [];
-  
-  // hardcode the players for now
+
+  // TODO make this call players.init instead
   $scope.players = [{
-		"name": "LeBron James",
+		"value": "LeBron James".toLowerCase(),
+    "display":"LeBron James",
 		"id": "1"
 	},
 	{
-		"name": "Stephen Curry",
+		"value": "Stephen Curry".toLowerCase(),
+    "display":"Stephen Curry",
 		"id": "2"
 	}
 	]
-	$scope.playerNames = ["LeBron James", "Stephen Curry"];
-  
+
   $scope.autoCompleteOptions = {
             minimumChars: 1,
 			dropdownHeight: "100px",
@@ -30,7 +37,7 @@ app.controller('myController', function($scope, $http) {
             },
 			itemSelected: function(item) {}
   }
-  
+
   $scope.rsData = [];
   $scope.lsData = [];
   $scope.player1data = [];
@@ -49,45 +56,28 @@ app.controller('myController', function($scope, $http) {
 	});
   };
 
-
-  $scope.curryData = [4,18,1,93,6,43,2,3];
-  $scope.irvingData = [2,7,52,6,75,1,88,5];
-  
-  $scope.leftkeypress = function($event) {
-	if ($event.keyCode === 13) {
-	if ($scope.inLeft === 'curry') {
-			$scope.lsData = $scope.curryData;
-			$scope.lsShow = true;
-			$scope.leftimg="img/curry.jpg";
-	}else if ($scope.inLeft === 'irving' ) {
-			$scope.lsData = $scope.irvingData;
-			$scope.lsShow=true;
-			$scope.leftimg="img/irving.jpg";
-    } else {
-			$scope.lsData = [];
-			$scope.lsShow = false;
-			$scope.leftimg="img";
-    }
-	  }
-  }
-  
-    $scope.rightkeypress = function($event) {
-	  if ($event.keyCode === 13) {
-	  if ($scope.inRight === 'curry') {
-			$scope.rsData = $scope.curryData;
-			$scope.rsShow = true;
-			$scope.rightimg="img/curry.jpg";
-	  }else if ($scope.inRight === 'irving' ) {
-			$scope.rsData = $scope.irvingData;
-			$scope.rsShow=true;
-			$scope.rightimg="img/irving.jpg";
-    } else {
-			$scope.rsData = [];
-			$scope.rsShow = false;
-			$scope.rightimg="img";
-    }
-	  }
+  $scope.searchTextChange - function(text) {
+    $log.info('Text changed to ' + text);
   }
 
+  $scope.selectedItemChange = function(item) {
+    // 1) Get the info
+    // 2) Set the
+  }
+
+  $scope.querySearch = function(query) {
+    if (!query) return [];
+    return $scope.players.filter($scope.createFilterFor(query));
+  }
+
+  $scope.createFilterFor = function(query) {
+    var lowercaseQuery = angular.lowercase(query);
+
+    return function filterFn(currentValue) {
+      console.log(currentValue);
+      //return (state.value.indexOf(lowercaseQuery) === 0);
+        return (currentValue.value.includes(lowercaseQuery));
+    }
+  }
 
 })

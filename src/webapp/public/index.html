@@ -2,84 +2,123 @@
 <head>
   <link rel="stylesheet" href="css/style.css">
   <script src="js/jquery/dist/jquery.js"></script>
-  <script src="js/angular/angular.js"></script>
-  <script src="js/angular-animate/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-animate.min.js"></script>
   <script src="js/angular-resource/angular-resource.js"></script>
   <script src="js/angular-route/angular-route.js"></script>
-  <script src="js/angular-auto-complete.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.11/angular-sanitize.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-  
-  <!-- <script src="app.module.js"></script> -->
-  <!-- <script src="app.config.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.11/angular-sanitize.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
   <script src="app.js"></script>
 </head>
+<body>
+  <div class="nbaApp">
+    <div ng-controller="myController as ctrl">
 
-<div class="nbaApp">
-  <div ng-controller="myController">
-    <div class="container">
-      <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
-      <img src="img/fillercomp.png" style="margin: auto; display: block" width="35">
-      <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
-        <tbody>
-          <tr>
-            <td colspan="3" align="right">
-              <!--<form ng-submit = "add()">-->
-			  <div> <!--ng-controller="MainCtrl as vm"-->
-				<input type="text"
-				ng-model="selectedPlayer"
-				placeholder="Search for a player"
-				auto-complete="autoCompleteOptions" />
-			  </div>
-                <!--<input type="text" name="player1" ng-model = "player1"  ng-keydown="leftkeypress($event)" ng-model="inLeft" placeholder="Search for a player or team here" >-->
-			  <!--</form>-->
+      <div class="container">
+        <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
+        <img src="img/fillercomp.png" style="margin: auto; display: block" width="35">
+        <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
+          <tbody>
+            <tr>
+              <td colspan="3" align="right">
+                <md-content>
+                  <form ng-submit="$event.preventDefault()">
+                    <md-autocomplete  md-selected-item="player1selected"
+                    md-search-text-change="searchTextChange(searchText1)"
+                    md-search-text="searchText1"
+                    md-selected-item-change="selectedItemChange(item)"
+                    md-items = "item in querySearch(searchText1)"
+                    md-item-text="item.display"
+                    md-min-length="0"
+                    placeholder="Search for a player">
+
+                    <md-item-template>
+                      <span md-highlight-text = "searchText1" md-highlight-flags = "^i">{{item.display}}</span>
+                    </md-item-template>
+
+                    <md-not-found>
+                      No players matching "{{searchText1}}" were found.
+                    </md-not-found>
+                  </md-autocomplete>
+
+                </form>
+              </md-content>
+              <!--<input type="text" name="player1" ng-model = "player1"  ng-keydown="leftkeypress($event)" ng-model="inLeft" placeholder="Search for a player or team here" >-->
+              <!--</form>-->
             </td>
             <td class="table-separator"></td>
             <td colspan="3">
-              <input type="text" ng-keydown="rightkeypress($event)" ng-model="inRight" placeholder="Search for a player or team here">
-            </td>
-          </tr>
-          <tr>
-            <td class="imgContainer"> <img  ng-show="lsShow" width="200" ng-src="{{leftimg}}"></td>
-            <td  class="container" align="right">
-              Points per game <br>
-              Rebounds per game <br>
-              Assists per game <br>
-              Blocks per game <br>
-              Steals per game <br>
-              Turnovers per game <br>
-              Three pointers per game <br>
-              Free throws made per game <br>
-            </td>
-            <td class="numContainer" align="center" border-right="1">
-              <div class="container statNumber" ng-repeat="item in lsData">{{item}}</div>
-            </td>
-            <td class="table-separator"></td>
-            <td class="numContainer" align="center">
-              <div class="container statNumber" ng-repeat="item in rsData">{{item}}</div>
-            </td>
-            <td rsclass="container">
-              Points per game <br>
-              Rebounds per game <br>
-              Assists per game <br>
-              Blocks per game <br>
-              Steals per game <br>
-              Turnovers per game <br>
-              Three pointers per game <br>
-              Free throws made per game <br>
-            </td>
-            <td class="imgContainer"> <img ng-show="rsShow" width="200" align="right" ng-src="{{rightimg}}"> </td>
-          </tr>
-          <tr class="chartRow">
-            <td colspan="3" align="right"><img width="300" ng-show="lsShow" src="img/fillerchart.png"> </td>
-            <td class="table-separator"></td>
-            <td colspan="3"> <img width="300" ng-show="rsShow" src="img/fillerchart.png"></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+              <md-content>
+                <form ng-submit="$event.preventDefault()">
+                  <md-autocomplete  md-selected-item="player2selected"
+                  md-search-text-change="searchTextChange(searchText2)"
+                  md-search-text="searchText2"
+                  md-selected-item-change="selectedItemChange(item)"
+                  md-items = "item in querySearch(searchText2)"
+                  md-item-text="item.display"
+                  md-min-length="0"
+                  placeholder="Search for a player">
 
+                  <md-item-template>
+                    <span md-highlight-text = "searchText2" md-highlight-flags = "^i">{{item.display}}</span>
+                  </md-item-template>
+
+                  <md-not-found>
+                    No players matching "{{searchText2}}" were found.
+                  </md-not-found>
+                </md-autocomplete>
+
+              </form>
+            </md-content>
+          </td>
+        </tr>
+        <tr>
+          <td class="imgContainer"> <img  ng-show="lsShow" width="200" ng-src="{{leftimg}}"></td>
+          <td  class="container" align="right">
+            Points per game <br>
+            Rebounds per game <br>
+            Assists per game <br>
+            Blocks per game <br>
+            Steals per game <br>
+            Turnovers per game <br>
+            Three pointers per game <br>
+            Free throws made per game <br>
+          </td>
+          <td class="numContainer" align="center" border-right="1">
+            <div class="container statNumber" ng-repeat="item in lsData">{{item}}</div>
+          </td>
+          <td class="table-separator"></td>
+          <td class="numContainer" align="center">
+            <div class="container statNumber" ng-repeat="item in rsData">{{item}}</div>
+          </td>
+          <td rsclass="container">
+            Points per game <br>
+            Rebounds per game <br>
+            Assists per game <br>
+            Blocks per game <br>
+            Steals per game <br>
+            Turnovers per game <br>
+            Three pointers per game <br>
+            Free throws made per game <br>
+          </td>
+          <td class="imgContainer"> <img ng-show="rsShow" width="200" align="right" ng-src="{{rightimg}}"> </td>
+        </tr>
+        <tr class="chartRow">
+          <td colspan="3" align="right"><img width="300" ng-show="lsShow" src="img/fillerchart.png"> </td>
+          <td class="table-separator"></td>
+          <td colspan="3"> <img width="300" ng-show="rsShow" src="img/fillerchart.png"></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
 </div>
+</div>
+</body>
 
 </html>
