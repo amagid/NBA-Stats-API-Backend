@@ -6,6 +6,20 @@ app.controller('myController', function($scope, $http) {
 
   $scope.players = [];
 
+  $http.get('/api/players').
+  then(function(response) {
+    //$scope.player1data = response.data
+    $scope.players = response['data'];
+    // this callback will be called asynchronously
+    // when the response is available
+  }, function(response) {
+    console.log("There was an error getting init data!");
+    console.log(response.data);
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
+
+
   $scope.lpStats = {
     "points":0,
     "rebounds":0,
@@ -32,19 +46,6 @@ app.controller('myController', function($scope, $http) {
 
   $scope.rpImage = "";
 
-  // TODO make this call players.init instead
-  $scope.players = [{
-    "value": "LeBron James".toLowerCase(),
-    "display":"LeBron James",
-    "id": "1"
-  },
-  {
-    "value": "Stephen Curry".toLowerCase(),
-    "display":"Stephen Curry",
-    "id": "2"
-  }
-]
-
 $scope.autoCompleteOptions = {
   minimumChars: 1,
   dropdownHeight: "100px",
@@ -58,37 +59,38 @@ $scope.autoCompleteOptions = {
   itemSelected: function(item) {}
 }
 
-$scope.add = function(){
+$scope.getPlayerStats = function(id, whichSide){
   console.log($scope.player1)
-  $http.get('/player1/' + $scope.player1).
+  $http.get('/api/players/' + id).
   then(function(response) {
     //$scope.player1data = response.data
     console.log(response['data']);
-    // this callback will be called asynchronously
-    // when the response is available
+    if (whichSide === 0) {
+      $scope.lpStats = response['data'];
+    } else {
+      $scope.rpStats = response['data'];
+    }
   }, function(response) {
-    console.log(response.data)
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
+    console.log("Error getting player data!");
+    console.log(response.data);
   });
 };
 
 $scope.searchTextChange - function(text) {
-  $log.info('Text changed to ' + text);
+  // If we want to do something every time
+  // the user types, do something here
 }
 
 // item is the json from players.init, whichInput = 0 for left and 1 for right
 $scope.selectedItemChange = function(item, whichInput) {
-  // 1) Get the info; the id is {{item.id}}
-  // $http.get('/player1/' + item.id).
-  // then(function(response) {
-  //   // 2) Set each value in $scope.lpStats or rpSTats
-  //   // depending on whichInput from the response
-  // });
+  // Get the info; the id is {{item.id}}
+  // Should come in correct format so hopefully no
+  // json manipulation needed
+  $scope.getPlayerStats(item.id, whichInput);
 
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)
-  var headshotQuery = 'https://nba-players.herokuapp.com/players/' + item.display.replace(" ", "_");
+  var headshotQuery = 'https://nba-players.herokuapp.com/players/' + item.name.replace(" ", "_");
 
   // lmao actually you dont have to do a real ajax call
   // you can just set the var to the URL hahahahahahhahaha
@@ -97,18 +99,6 @@ $scope.selectedItemChange = function(item, whichInput) {
   } else {
     $scope.rpImage = headshotQuery;
   }
-
-  // $http.get('https://nba-players.herokuapp.com/players/' + headshotQuery).
-  // then(function(response) {
-  //   if (whichInput === 0) {
-  //     $scope.rpImage = response['data'];
-  //     console.log($scope.rpImage);
-  //   } else {
-  //     $scope.lpImage = response['data'];
-  //     console.log($scope.lpImage);
-  //   }
-  // });
-
 }
 
 $scope.querySearch = function(query) {
@@ -120,7 +110,6 @@ $scope.createFilterFor = function(query) {
   var lowercaseQuery = angular.lowercase(query);
 
   return function filterFn(currentValue) {
-    console.log(currentValue);
     //return (state.value.indexOf(lowercaseQuery) === 0);
     return (currentValue.value.includes(lowercaseQuery));
   }

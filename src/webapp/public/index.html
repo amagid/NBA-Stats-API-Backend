@@ -34,12 +34,12 @@
                     md-search-text="searchText1"
                     md-selected-item-change="selectedItemChange(item, 0)"
                     md-items = "item in querySearch(searchText1)"
-                    md-item-text="item.display"
+                    md-item-text="item.name"
                     md-min-length="0"
                     placeholder="Search for a player">
 
                     <md-item-template>
-                      <span md-highlight-text = "searchText1" md-highlight-flags = "^i">{{item.display}}</span>
+                      <span md-highlight-text = "searchText1" md-highlight-flags = "^i">{{item.name}}</span>
                     </md-item-template>
 
                     <md-not-found>
@@ -61,12 +61,12 @@
                   md-search-text="searchText2"
                   md-selected-item-change="selectedItemChange(item, 1)"
                   md-items = "item in querySearch(searchText2)"
-                  md-item-text="item.display"
+                  md-item-text="item.name"
                   md-min-length="0"
                   placeholder="Search for a player">
 
                   <md-item-template>
-                    <span md-highlight-text = "searchText2" md-highlight-flags = "^i">{{item.display}}</span>
+                    <span md-highlight-text = "searchText2" md-highlight-flags = "^i">{{item.name}}</span>
                   </md-item-template>
 
                   <md-not-found>
