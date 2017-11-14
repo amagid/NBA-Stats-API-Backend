@@ -18,3 +18,4 @@ for player in players:
     playerID[name] = player_information[name]['personId']
 
 print json.dumps(playerID)
+#changes
