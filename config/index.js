@@ -18,7 +18,18 @@ function get() {
     }
 }
 
+function set(prop, value) {
+    if (process.env.type === 'development') {
+        dev[prop] = value;
+    } else if (process.env.type === 'production') {
+        prod[prop] = value;
+    } else {
+        dev[prop] = value;
+    }
+}
+
 module.exports = {
     get,
-    getKeys: keys.getKeys
+    getKeys: keys.getKeys,
+    set
 };
