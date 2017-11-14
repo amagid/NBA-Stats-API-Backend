@@ -126,4 +126,86 @@ $scope.createFilterFor = function(query) {
   }
 }
 
+$scope.chartInputData = [{
+  "type": "points",
+
+  "time": 1500552000,
+  "value": 22
+
+},
+{
+  "type": "points",
+  "time": 1500724800,
+  "value": 25
+},
+{
+  "type": "points",
+  "time": 1500897600,
+  "value": 23
+},
+{
+  "type": "rebounds",
+  "time": 1500552000,
+  "value": 8
+},
+{
+  "type": "rebounds",
+  "time": 1500724800,
+  "value": 6
+},
+{
+  "type": "rebounds",
+  "time": 1500897600,
+  "value": 9
+},
+
+{
+  "type": "assists",
+  "time": 1500552000,
+  "value": 14
+},
+{
+  "type": "assists",
+  "time": 1500724800,
+  "value": 18
+},
+{
+  "type": "assists",
+  "time": 1500897600,
+  "value": 10
+}
+]
+
+var ctx = $("#myChart");
+//console.log(ctx);
+$scope.myChart = new Chart(ctx, {
+  type: 'line',
+  // data: {
+  //   label: "Stats",
+  //   xAxisID: "Date",
+  //   yAxisID: "Amount",
+  //   backgroundColor: "rgba(0, 0, 0, 0.5)"
+  // }
+  data: {
+    datasets: [
+      {
+        data: [
+          {
+            x: 10,
+            y: 20
+          },
+          {
+            x: 15,
+            y: 22
+          }
+        ]
+      }
+    ]
+  }
+});
+
+
+
+
+
 })

@@ -6,6 +6,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-animate.min.js"></script>
   <script src="js/angular-resource/angular-resource.js"></script>
   <script src="js/angular-route/angular-route.js"></script>
+  <script src="js/Chart.min.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.11/angular-sanitize.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
@@ -98,7 +99,7 @@
               {{lpStats.steals}} <br>
               {{lpStats.turnovers}} <br>
               {{lpStats.three}} <br>
-              {{lpStats.free}}
+              {{lpStats.free}} <br>
             </div>
           </td>
           <td class="table-separator"></td>
@@ -111,7 +112,7 @@
                 {{rpStats.steals}} <br>
                 {{rpStats.turnovers}} <br>
                 {{rpStats.three}} <br>
-                {{rpStats.free}}
+                {{rpStats.free}} <br>
             </div>
           </td>
           <td rsclass="container">
@@ -128,9 +129,10 @@
         </tr>
         <tr class="chartRow">
           <!-- TODO do the charts.. -->
-          <!-- <td colspan="3" align="right"><img width="300" src="img/fillerchart.png"> </td>
+          <!-- <td colspan="3" align="right"><img width="300" src="img/fillerchart.png"> </td> -->
+          <td colspan="3" align="right"><div id="myChart"></div> </td>
           <td class="table-separator"></td>
-          <td colspan="3"> <img width="300" src="img/fillerchart.png"></td> -->
+          <!-- <td colspan="3"> <img width="300" src="img/fillerchart.png"></td> -->
         </tr>
       </tbody>
     </table>

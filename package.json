@@ -14,8 +14,10 @@
   "author": "Aaron Magid",
   "homepage": "https://github.com/amagid",
   "dependencies": {
+    "angular-chart.js": "^1.1.1",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
+    "chart.js": "^2.7.1",
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-jwt": "^5.1.0",
