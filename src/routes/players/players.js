@@ -6,7 +6,7 @@ module.exports = {
 };
 
 function getAll() {
-    return Python.run('playerId.py').spread(function(players) {
+    return Python.run('playerId.py').then(function(players) {
         return players;
     });
 }
