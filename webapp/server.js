@@ -11,9 +11,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.get('/teams',function(req,res){
- 
+app.get('/',function(req,res){
   res.sendFile(path.join(__dirname+'/public/index.html'));
+  //__dirname : It will resolve to your project folder.
+});
+
+app.get('/teams',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/teams.html'));
+  //__dirname : It will resolve to your project folder.
+});
+
+app.get('/players',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/index.html'));
+  //__dirname : It will resolve to your project folder.
+});
+
+app.get('/games',function(req,res){
+  res.sendFile(path.join(__dirname+'/public/games.html'));
   //__dirname : It will resolve to your project folder.
 });
 
