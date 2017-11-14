@@ -21,6 +21,29 @@ md-virtual-repeat-container {
   background-color: white !important;
 }
 
+.comparisonBar {
+  border-color: black;
+  border-width: 3px;
+  min-height: 50px;
+  width: 50%;
+  min-width: 50%;
+}
+
+.comparisonBar.Left {
+
+}
+
+.comparisonBar.Right {
+
+}
+
+.compareButton {
+  background-color: white !important;
+  border-color: black !important;
+  margin: auto !important;
+  display: block !important;
+}
+
 .container { /* contains the table */
   font-family: Arial;
 }

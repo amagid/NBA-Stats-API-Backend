@@ -115,6 +115,20 @@ $scope.createFilterFor = function(query) {
   }
 }
 
+$scope.comparePlayers = function() {
+  if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
+    $http.get('/api/players/' + $scope.searchText1 + '/compare/' + $scope.searchText2).
+    then(function(response) {
+      //$scope.player1data = response.data
+      console.log(response['data']);
+      $scope.rpStats = response['data'];
+    }, function(response) {
+      console.log("Error getting player comparison result!");
+      console.log(response.data);
+    });
+  }
+}
+
 $scope.chartInputData = [{
   "type": "points",
 
@@ -165,6 +179,7 @@ $scope.chartInputData = [{
 }
 ]
 
+
 var ctx = $("#myChart");
 //console.log(ctx);
 $scope.myChart = new Chart(ctx, {
@@ -192,9 +207,4 @@ $scope.myChart = new Chart(ctx, {
     ]
   }
 });
-
-
-
-
-
 })
