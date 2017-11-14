@@ -18,7 +18,3 @@ for player in players:
     playerID[name] = player_information[name]['personId']
 
 print json.dumps(playerID)
-
-f = open('playerID.txt', 'w')
-f.write(json.dumps(playerID))
-f.close()
