@@ -10,12 +10,16 @@ player_information = dict()
 players = response.json()
 
 #for front-end
-playerID = dict()
+playerID = list()
 
+#do in curly brace form
 for player in players:
     name = player['firstName'] + ' ' + player['lastName']
     player_information[name] = player
-    playerID[name] = player_information[name]['personId']
+    player_dict = dict()
+    player_dict['name'] = name
+    player_dict['id'] = player_information[name]['personId']
+    playerID.append(player_dict)
 
 print json.dumps(playerID)
 #changes
