@@ -39,9 +39,7 @@ class TestPlayer(TestCase):
         self.assertEqual(pos, 'F')
 
     def test_team(self):
-        jimmyGBuckets = Player("Jimmy Butler", 'Base', '2016-17')
-        team = jimmyGBuckets.team
+        bigKAT = Player("Karl-Anthony Towns", 'Base', '2016-17')
+        team = bigKAT.team
 
-        self.assertEqual(team, "")
-
-    def
+        self.assertEqual(team, "Minnesota Timberwolves")
