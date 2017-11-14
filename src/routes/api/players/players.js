@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-const Python = require('../../services/python');
+const Python = require('../../../services/python');
 
 module.exports = {
     getAll
