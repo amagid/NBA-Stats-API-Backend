@@ -1,0 +1,12 @@
+{
+    "app": {
+        "port": 3000
+    },
+
+    "python": {
+        "mode": "text",
+        "pythonPath": "C:/Python27/python.exe",
+        "pythonOptions": ["-u"],
+        "scriptPath": "/../../python/"
+    }
+}
