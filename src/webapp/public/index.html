@@ -31,7 +31,7 @@
                     <md-autocomplete  md-selected-item="player1selected"
                     md-search-text-change="searchTextChange(searchText1)"
                     md-search-text="searchText1"
-                    md-selected-item-change="selectedItemChange(item)"
+                    md-selected-item-change="selectedItemChange(item, 0)"
                     md-items = "item in querySearch(searchText1)"
                     md-item-text="item.display"
                     md-min-length="0"
@@ -58,7 +58,7 @@
                   <md-autocomplete  md-selected-item="player2selected"
                   md-search-text-change="searchTextChange(searchText2)"
                   md-search-text="searchText2"
-                  md-selected-item-change="selectedItemChange(item)"
+                  md-selected-item-change="selectedItemChange(item, 1)"
                   md-items = "item in querySearch(searchText2)"
                   md-item-text="item.display"
                   md-min-length="0"
@@ -78,7 +78,7 @@
           </td>
         </tr>
         <tr>
-          <td class="imgContainer"> <img  ng-show="lsShow" width="200" ng-src="{{leftimg}}"></td>
+          <td class="imgContainer"> <img width="200" ng-src="{{lpImage}}"></td>
           <td  class="container" align="right">
             Points per game <br>
             Rebounds per game <br>
@@ -90,11 +90,29 @@
             Free throws made per game <br>
           </td>
           <td class="numContainer" align="center" border-right="1">
-            <div class="container statNumber" ng-repeat="item in lsData">{{item}}</div>
+            <div class="container statNumber">
+              {{lpStats.points}} <br>
+              {{lpStats.rebounds}} <br>
+              {{lpStats.assists}} <br>
+              {{lpStats.blocks}} <br>
+              {{lpStats.steals}} <br>
+              {{lpStats.turnovers}} <br>
+              {{lpStats.three}} <br>
+              {{lpStats.free}}
+            </div>
           </td>
           <td class="table-separator"></td>
           <td class="numContainer" align="center">
-            <div class="container statNumber" ng-repeat="item in rsData">{{item}}</div>
+            <div class="container statNumber">
+                {{rpStats.points}} <br>
+                {{rpStats.rebounds}} <br>
+                {{rpStats.assists}} <br>
+                {{rpStats.blocks}} <br>
+                {{rpStats.steals}} <br>
+                {{rpStats.turnovers}} <br>
+                {{rpStats.three}} <br>
+                {{rpStats.free}}
+            </div>
           </td>
           <td rsclass="container">
             Points per game <br>
@@ -106,12 +124,13 @@
             Three pointers per game <br>
             Free throws made per game <br>
           </td>
-          <td class="imgContainer"> <img ng-show="rsShow" width="200" align="right" ng-src="{{rightimg}}"> </td>
+          <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
         </tr>
         <tr class="chartRow">
-          <td colspan="3" align="right"><img width="300" ng-show="lsShow" src="img/fillerchart.png"> </td>
+          <!-- TODO do the charts.. -->
+          <!-- <td colspan="3" align="right"><img width="300" src="img/fillerchart.png"> </td>
           <td class="table-separator"></td>
-          <td colspan="3"> <img width="300" ng-show="rsShow" src="img/fillerchart.png"></td>
+          <td colspan="3"> <img width="300" src="img/fillerchart.png"></td> -->
         </tr>
       </tbody>
     </table>
