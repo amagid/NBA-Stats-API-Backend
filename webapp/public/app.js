@@ -2,24 +2,52 @@ var app = angular.module('nbaApp', []);
 app.controller('myController', function($scope, $http) {
   $scope.data = [];
   
+  
+  
+  $scope.players = [];
+  
+  // hardcode the players for now
+  $scope.players = [{
+		"name": "LeBron James",
+		"id": "1"
+	},
+	{
+		"name": "Stephen Curry",
+		"id": "2"
+	}
+	]
+	$scope.playerNames = ["LeBron James", "Stephen Curry"];
+  
+  $scope.autoCompleteOptions = {
+            minimumChars: 1,
+			dropdownHeight: "100px",
+            data: function (term) {
+                term = term.toUpperCase();
+                var match = _.filter($scope.playerNames, function (value) {
+                    return value.name.startsWith(term);
+                });
+                return _.pluck(match, 'name');
+            },
+			itemSelected: function(item) {}
+  }
+  
   $scope.rsData = [];
   $scope.lsData = [];
   $scope.player1data = [];
   $scope.add = function(){
-  	console.log($scope.player1)
-$http.get('/player1/' + $scope.player1).
-  then(function(response) {
-  	//$scope.player1data = response.data
-  	console.log(response['data']);
-    // this callback will be called asynchronously
-    // when the response is available
-  }, function(response) {
-  	console.log(response.data)
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
-  });
-
-};  
+	console.log($scope.player1)
+	$http.get('/player1/' + $scope.player1).
+		then(function(response) {
+			//$scope.player1data = response.data
+			console.log(response['data']);
+			// this callback will be called asynchronously
+			// when the response is available
+		}, function(response) {
+			console.log(response.data)
+		// called asynchronously if an error occurs
+		// or server returns response with an error status.
+	});
+  };
 
 
   $scope.curryData = [4,18,1,93,6,43,2,3];

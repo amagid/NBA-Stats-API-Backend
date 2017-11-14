@@ -1,12 +1,9 @@
-
- 
-// package.json
- 
 {
   "name": "NBAapp",
   "description": "An app displays player,team and game stats.",
   "main": "server.js",
   "dependencies": {
+    "@ng-select/ng-select": "^0.6.2",
     "handlebars": "^4.0.6",
     "hapi": "^16.0.2",
     "lodash.filter": "^4.6.0",
@@ -15,4 +12,3 @@
     "vision": "^4.1.1"
   }
 }
- 

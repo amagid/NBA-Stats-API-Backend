@@ -17,3 +17,4 @@ EC2/**
 .idea/NBA-Stats-API-Backend.iml
 
 .idea/workspace.xml
+webapp/package.json
