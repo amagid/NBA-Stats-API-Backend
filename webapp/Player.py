@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import pickle
 import itertools
-#import sys
+import sys
 import json
 
 
@@ -108,8 +108,20 @@ class Player:
     def compare_league(self, season):
         season = 'x'
 
+<<<<<<< HEAD
     def compare_stat(self, otherPlayer, statType):
         x = 2
+=======
+def read_in():
+  lines = sys.stdin.readlines()
+    #Since our input would only be having one line, parse our JSON data from that
+  
+  return json.loads(lines[0])   
+
+def main():
+   data = read_in()
+    #data = numpy.array(lines)
+>>>>>>> 32f235e66fb71c8702fbd2c20db3a86f0fdd2c79
 
 # def read_in():
 #   lines = sys.stdin.readlines()

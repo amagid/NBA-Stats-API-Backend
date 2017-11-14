@@ -13,9 +13,6 @@ const cors = require('cors');
 setUpAPI();
 
 const server = http.Server(app);
-//const io = socketIO(server);
-
-//setUpSocket();
 
 server.listen(process.env.PORT || config.app.port);
 logger.info(`Server listening on port ${process.env.PORT || config.app.port}`);
@@ -34,16 +31,3 @@ function setUpAPI() {
     routes(router);
     app.use('/', router);
 }
-
-/*
-function setUpSocket() {
-    io.on('connection', socket => {
-        console.log('Connection Received');
-        socket.emit('connected', 'connected');
-
-        socket.on('disconnect', () => {
-            console.log('Connection Terminated');
-        });
-    });
-}
-*/
