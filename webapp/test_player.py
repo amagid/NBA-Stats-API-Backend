@@ -38,3 +38,10 @@ class TestPlayer(TestCase):
 
         self.assertEqual(pos, 'F')
 
+    def test_team(self):
+        jimmyGBuckets = Player("Jimmy Butler", 'Base', '2016-17')
+        team = jimmyGBuckets.team
+
+        self.assertEqual(team, "")
+
+    def

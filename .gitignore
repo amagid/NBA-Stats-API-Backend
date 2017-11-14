@@ -8,3 +8,12 @@ config/keys/jwt*
 config/*.json
 EC2/**
 *.log
+.idea/vcs.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/NBA-Stats-API-Backend.iml
+
+.idea/workspace.xml
