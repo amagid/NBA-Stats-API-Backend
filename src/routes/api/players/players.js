@@ -7,6 +7,9 @@ module.exports = {
 
 function getAll() {
     return Python.run('playerId.py').then(function(players) {
+        for (let i = 0; i < players.length; i++) {
+            players[i].value = players[i].name.toLowerCase();
+        }
         return players;
     });
 }
