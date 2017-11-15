@@ -34,7 +34,7 @@ function get(playerId) {
         };
     })
     .catch(err => {
-        if (err.message.indexOf("KeyError") !== -1) {
+        if (err.message.indexOf("404") !== -1) {
             throw APIError(404, "Player Not Found");
         }
         throw APIError(500, "Unknown Error", err);
@@ -49,7 +49,7 @@ function compare(player1Id, player2Id) {
         return comparison;
     })
     .catch(err => {
-        if (err.message.indexOf("KeyError") !== -1) {
+        if (err.message.indexOf("404") !== -1) {
             throw APIError(404, "Player(s) not found");
         }
         throw APIError(500, "Unknown Error", err);
