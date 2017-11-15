@@ -58,8 +58,6 @@ class Player:
         stats_link_param = stats_link[0] + 'Base' + stats_link[1] + self.id + stats_link[2] + self.year + stats_link[
             3]
 
-        print stats_link_param
-
         response = requests.get(stats_link_param, headers=head)
 
         keys = response.json()['resultSets'][0]['headers']
@@ -101,8 +99,6 @@ class Player:
     def compare_player(self, otherPlayer):
         player_one = self.player_dict['BLK']*2 + self.player_dict['REB'] + self.player_dict['AST'] + self.player_dict['PTS'] - self.player_dict['TOV']
         player_two = otherPlayer.player_dict['BLK']*2 + otherPlayer.player_dict['REB'] + otherPlayer.player_dict['AST'] + otherPlayer.player_dict['PTS'] - otherPlayer.player_dict['TOV']
-        print player_one
-        print player_two
 
         if(player_one > player_two):
             return self.name
