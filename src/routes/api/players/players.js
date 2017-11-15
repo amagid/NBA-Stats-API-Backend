@@ -2,7 +2,9 @@ const Promise = require('bluebird');
 const Python = require('../../../services/python');
 
 module.exports = {
-    getAll
+    getAll,
+    get,
+    compare
 };
 
 function getAll() {
@@ -11,5 +13,17 @@ function getAll() {
             players[i].value = players[i].name.toLowerCase();
         }
         return players;
+    });
+}
+
+function get(playerId) {
+    return Python.run('player.py').then(function(player) {
+        return player;
+    });
+}
+
+function compare(player1Id, player2Id) {
+    return Python.run('player.py').then(function(comparison) {
+        return comparison;
     });
 }
