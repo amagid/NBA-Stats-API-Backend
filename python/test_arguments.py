@@ -11,5 +11,6 @@ def main():
     data = read_in()
     print data
 
+#run main
 if __name__ == '__main__':
     main()
