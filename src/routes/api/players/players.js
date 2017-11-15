@@ -1,5 +1,6 @@
 const Promise = require('bluebird');
 const Python = require('../../../services/python');
+const APIError = require('../../../APIError');
 
 module.exports = {
     getAll,
@@ -17,13 +18,40 @@ function getAll() {
 }
 
 function get(playerId) {
-    return Python.run('player.py').then(function(player) {
-        return player;
+    if (!playerId) {
+        return Promise.reject(APIError(400, "No Player Supplied"));
+    }
+    return Python.run('Player.py', ['get', playerId]).then(function(player) {
+        return {
+            assists: player.AST,
+            blocks: player.BLK,
+            rebounds: player.REB,
+            steals: player.STL,
+            turnovers: player.TOV,
+            points: player.PTS,
+            three: player.FG3_PCT,
+            free: player.FT_PCT
+        };
+    })
+    .catch(err => {
+        if (err.message.indexOf("KeyError") !== -1) {
+            throw APIError(404, "Player Not Found");
+        }
+        throw APIError(500, "Unknown Error", err);
     });
 }
 
 function compare(player1Id, player2Id) {
-    return Python.run('test_arguments.py', ['compare', player1Id, player2Id]).then(function(comparison) {
+    if (!player1Id || !player2Id) {
+        return Promise.reject(APIError(400, 'Player(s) missing'));
+    }
+    return Python.run('Player.py', ['compare', player1Id, player2Id]).then(function(comparison) {
         return comparison;
+    })
+    .catch(err => {
+        if (err.message.indexOf("KeyError") !== -1) {
+            throw APIError(404, "Player(s) not found");
+        }
+        throw APIError(500, "Unknown Error", err);
     });
 }

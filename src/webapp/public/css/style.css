@@ -21,10 +21,16 @@ md-virtual-repeat-container {
   background-color: white !important;
 }
 
+p {
+	font-family: 'Anton', sans-serif;
+	font-size: 18px;
+}
+
 .compareContainer {
-  border-color: black;
-  border-width: 3px;
-  min-width: 700px;
+  max-width: 450px;
+  min-height: 75px;
+  height: 75px;
+  position: relative;
 }
 
 .comparisonBar {
@@ -32,14 +38,17 @@ md-virtual-repeat-container {
 	height: 75px;
 }
 
-/*.comparisonBar.Left {
-	width: 0px;
+.comparisonBar.left {
+	position: absolute;
+	top:0;
+    right: 0;
 }
 
-.comparisonBar.Right {
-	width: 0px;
-	background-color: green;
-}*/
+.comparisonBar.right {
+	position: absolute;
+	top:0;
+    left: 0;
+}
 
 .compareButton {
   background-color: white !important;

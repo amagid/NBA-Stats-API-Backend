@@ -3,7 +3,7 @@ import requests
 #import pandas as pd
 #import pickle
 #import itertools
-#import sys
+import sys
 import json
 
 
@@ -58,8 +58,6 @@ class Player:
         stats_link_param = stats_link[0] + 'Base' + stats_link[1] + self.id + stats_link[2] + self.year + stats_link[
             3]
 
-        print stats_link_param
-
         response = requests.get(stats_link_param, headers=head)
 
         keys = response.json()['resultSets'][0]['headers']
@@ -101,8 +99,6 @@ class Player:
     def compare_player(self, otherPlayer):
         player_one = self.player_dict['BLK']*2 + self.player_dict['REB'] + self.player_dict['AST'] + self.player_dict['PTS'] - self.player_dict['TOV']
         player_two = otherPlayer.player_dict['BLK']*2 + otherPlayer.player_dict['REB'] + otherPlayer.player_dict['AST'] + otherPlayer.player_dict['PTS'] - otherPlayer.player_dict['TOV']
-        print player_one
-        print player_two
 
         if(player_one > player_two):
             return self.name
@@ -118,37 +114,6 @@ class Player:
     def compare_stat(self, otherPlayer, statType):
         x = 2
 
-def read_in():
-  lines = sys.stdin.readlines()
-    #Since our input would only be having one line, parse our JSON data from that
-  
-  return json.loads(lines[0])   
-
-def main():
-   data = read_in()
-   data = numpy.array(lines)
-
-# def read_in():
-#   lines = sys.stdin.readlines()
-#     #Since our input would only be having one line, parse our JSON data from that
-#
-#   return json.loads(lines[0])
-#
-# def main():
-#    #data = read_in()
-#     #data = numpy.array(lines)
-#
-#    #dload = Player(data["name"], 'Base','2016-17')
-#    #lonzo = Player("Chris Paul", 'Base', '2016-17')
-#     #lonzo = Player("Chris Paul", 'Base', '2016-17')
-#    print (dload.player_dict);
-
-
-
-
-
-
-
 
 
 link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
@@ -158,15 +123,29 @@ link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
        '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&Vs' \
        'Conference=&VsDivision='
 
-print link
+def read_in():
+    lines = sys.argv
+    # Since our input would only be having one line, parse our JSON data from that
+    return lines
 
-#print main()
 
-other_link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
-             'DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=' \
-             '&MeasureType=Advanced&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame' \
-             '&Period=0&PlayerID=1626156&PlusMinus=N&Rank=N&Season=2017-18' \
-             '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&VsConference=&VsDivision='
+def main():
+    data = read_in()
+    if data[1] == 'get':
+        player1 = Player(data[2],"Base","2016-17")
+        print json.dumps(player1.player_dict)
+    if data[1] == 'compare':
+        player1 = Player(data[2],"Base","2016-17")
+        player2 = Player(data[3],"Base","2016-17")
 
-#if __name__ == '__main__':
-    #main()
+        print json.dumps(player1.compare_player(player2))
+
+
+
+#run main
+if __name__ == '__main__':
+    main()
+
+
+#get player by id --> traditional stats ["get", "id"]
+#compare --> running comparison on two players ["compare", id1, id2]
