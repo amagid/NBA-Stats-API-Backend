@@ -118,37 +118,6 @@ class Player:
     def compare_stat(self, otherPlayer, statType):
         x = 2
 
-def read_in():
-  lines = sys.stdin.readlines()
-    #Since our input would only be having one line, parse our JSON data from that
-  
-  return json.loads(lines[0])   
-
-def main():
-   data = read_in()
-   data = numpy.array(lines)
-
-# def read_in():
-#   lines = sys.stdin.readlines()
-#     #Since our input would only be having one line, parse our JSON data from that
-#
-#   return json.loads(lines[0])
-#
-# def main():
-#    #data = read_in()
-#     #data = numpy.array(lines)
-#
-#    #dload = Player(data["name"], 'Base','2016-17')
-#    #lonzo = Player("Chris Paul", 'Base', '2016-17')
-#     #lonzo = Player("Chris Paul", 'Base', '2016-17')
-#    print (dload.player_dict);
-
-
-
-
-
-
-
 
 
 link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
@@ -158,15 +127,23 @@ link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
        '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&Vs' \
        'Conference=&VsDivision='
 
-print link
+def read_in():
+    lines = sys.argv
+    # Since our input would only be having one line, parse our JSON data from that
+    print lines
 
-#print main()
 
-other_link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
-             'DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=' \
-             '&MeasureType=Advanced&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame' \
-             '&Period=0&PlayerID=1626156&PlusMinus=N&Rank=N&Season=2017-18' \
-             '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&VsConference=&VsDivision='
+def main():
+    data = read_in()
+    if data[0] = 'get':
+        print 3
 
-#if __name__ == '__main__':
-    #main()
+
+
+#run main
+if __name__ == '__main__':
+    main()
+
+
+#get player by id --> traditional stats ["get", "id"]
+#compare --> running comparison on two players ["compare", id1, id2]
