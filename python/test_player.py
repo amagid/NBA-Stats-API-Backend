@@ -31,10 +31,10 @@ class TestPlayer(TestCase):
         # some test to see if creating player failed...
 
     def test_get_score(self):
-        westbrook = Player("Russell Westbrook", 'Base', '2016-17')
-        #score = westbrook.select_score()
+         westbrook = Player("Russell Westbrook", 'Base', '2016-17')
+         score = westbrook.select_score()
 
-        #self.assertEqual(score, 48.1)
+         self.assertEqual(score, 48.1)
 
     def test_height(self):
         dload = Player("""D'Angelo Russell""", 'Base', '2016-17')
