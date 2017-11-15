@@ -130,7 +130,7 @@ link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
 def read_in():
     lines = sys.argv
     # Since our input would only be having one line, parse our JSON data from that
-    print lines
+    return lines
 
 
 def main():
