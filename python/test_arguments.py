@@ -9,4 +9,7 @@ def read_in():
 
 def main():
     data = read_in()
-    return data
+    print data
+
+if __name__ == '__main__':
+    main()
