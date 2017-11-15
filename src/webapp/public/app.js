@@ -139,10 +139,52 @@ $scope.comparePlayers = function() {
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
-      $scope.rpStats = response['data'];
+	  
+	  response.data = {
+		  player1:76,
+		  player2:30
+	  }
+	  
+	  
+      $scope.leftBar.width = response['data'].player1 + "%";
+	  $scope.rightBar.width = response['data'].player2 + "%";
+	  
+	  if (response['data'].player1 > response['data'].player2 ) {
+		  $scope.leftBar.backgroundColor = "LightGreen";
+		  $scope.rightBar.backgroundColor = "LightPink";
+	  } else if (response['data'].player1 < response['data'].player2 ) {
+		  $scope.leftBar.backgroundColor = "LightPink";
+		  $scope.rightBar.backgroundColor = "LightGreen";
+	  } else {
+		  $scope.leftBar.backgroundColor = "LightGreen";
+		  $scope.rightBar.backgroundColor = "LightGreen";
+	  }
+	  
     }, function(response) {
-      console.log("Error getting player comparison result!");
-      console.log(response.data);
+		// temp comment this error handling to test
+      //console.log("Error getting player comparison result!");
+      //console.log(response.data);
+	  console.log(response['data']);
+	  
+	  response.data = {
+		  player1:76,
+		  player2:30
+	  }
+	  
+	  
+      $scope.leftBar.width = response['data'].player1 + "%";
+	  $scope.rightBar.width = response['data'].player2 + "%";
+	  
+	  if (response['data'].player1 > response['data'].player2 ) {
+		  $scope.leftBar.backgroundColor = "LightGreen";
+		  $scope.rightBar.backgroundColor = "LightPink";
+	  } else if (response['data'].player1 < response['data'].player2 ) {
+		  $scope.leftBar.backgroundColor = "LightPink";
+		  $scope.rightBar.backgroundColor = "LightGreen";
+	  } else {
+		  $scope.leftBar.backgroundColor = "LightGreen";
+		  $scope.rightBar.backgroundColor = "LightGreen";
+	  }
     });
   }
 }
