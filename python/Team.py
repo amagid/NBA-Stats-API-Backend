@@ -49,7 +49,7 @@ class Team:
 		self.stats_link = self.teams_link[0] + self.statType + self.teams_link[1] + str(self.Id) + self.teams_link[2]
 		#print self.stats_link
 		response = requests.get(self.stats_link, headers=self.head)
-	#	print response.json()
+		#print response.json()
 		keys = response.json()['resultSets'][0]['headers']
 		values = response.json()['resultSets'][0]['rowSet']
 		self.team_dict = dict(zip(keys,values[0]))
@@ -60,7 +60,16 @@ class Team:
 	
 	def compare_team(self,team2):
 		if (self.team_dict["PLUS_MINUS"]> team2.team_dict["PLUS_MINUS"]):
-			print self
+			print self.team_dict["TEAM_NAME"]
+		else:
+			print team2.team_dict["TEAM_NAME"]
+
+
+
+
+
+	def find_winner(self,team2):
+
 
 
 
