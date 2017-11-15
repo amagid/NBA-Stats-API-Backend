@@ -136,7 +136,7 @@ def read_in():
 def main():
     data = read_in()
     if data[0] = 'get':
-        print 2
+        print 3
 
 
 
