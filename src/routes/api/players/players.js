@@ -17,13 +17,13 @@ function getAll() {
 }
 
 function get(playerId) {
-    return Python.run('player.py').then(function(player) {
+    return Python.run('Player.py', ['get', playerId]).then(function(player) {
         return player;
     });
 }
 
 function compare(player1Id, player2Id) {
-    return Python.run('player.py').then(function(comparison) {
+    return Python.run('Player.py', ['compare', player1Id, player2Id]).then(function(comparison) {
         return comparison;
     });
 }
