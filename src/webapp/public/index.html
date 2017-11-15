@@ -23,10 +23,27 @@
       <div class="container">
         <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
         <img src="img/fillercomp.png" style="margin: auto; display: block" width="35">
+		<div class="compareContainer">
+			
+		</div>
         <br>
-        <md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button>
+		<md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button></td>
         <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
           <tbody>
+			<tr>
+				<td colspan="3">
+					<div class="comparisonBar left">
+					
+					</div>
+				</td>
+				<td>
+					
+				<td colspan="3">
+					<div class="comparisonBar right">
+					
+					</div>
+				</td>
+			</tr>
             <tr>
               <td colspan="3" align="right">
                 <md-content>
@@ -37,7 +54,7 @@
                     md-selected-item-change="selectedItemChange(item, 0)"
                     md-items = "item in querySearch(searchText1)"
                     md-item-text="item.name"
-                    md-min-length="0"
+                    md-min-length="1"
                     placeholder="Search for a player">
 
                     <md-item-template>
@@ -64,7 +81,7 @@
                   md-selected-item-change="selectedItemChange(item, 1)"
                   md-items = "item in querySearch(searchText2)"
                   md-item-text="item.name"
-                  md-min-length="0"
+                  md-min-length="1"
                   placeholder="Search for a player">
 
                   <md-item-template>

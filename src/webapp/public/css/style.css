@@ -21,20 +21,24 @@ md-virtual-repeat-container {
   background-color: white !important;
 }
 
-.comparisonBar {
+.compareContainer {
   border-color: black;
   border-width: 3px;
-  min-height: 50px;
-  width: 50%;
-  min-width: 50%;
+  min-width: 700px;
+}
+
+.comparisonBar {
+	max-width: 450px;
+	height: 75px;
 }
 
 .comparisonBar.Left {
-
+	width: 0px;
 }
 
 .comparisonBar.Right {
-
+	width: 0px;
+	/*background-color: green;*/
 }
 
 .compareButton {
