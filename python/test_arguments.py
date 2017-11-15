@@ -9,4 +9,4 @@ def read_in():
 
 def main():
     data = read_in()
-    print data
+    return data
