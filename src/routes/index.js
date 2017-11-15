@@ -1,22 +1,17 @@
 const express = require('express');
-const mountGames = require('./games');
-const mountTeams = require('./teams');
-const mountPlayers = require('./players');
+const mountAPI = require('./api');
+const mountFrontend = require('./frontend');
 var router = express.Router();
-var path = require('path');
 
 module.exports = addRoutes;
 
 function addRoutes(router) {
-    const games = express.Router(),
-        teams = express.Router(),
-        players = express.Router();
+    const api = express.Router(),
+        frontend = express.Router();
 
-    mountGames(games);
-    mountTeams(teams);
-    mountPlayers(players);
+    mountAPI(api);
+    mountFrontend(frontend);
 
-    router.use('/games', games);
-    router.use('/teams', teams);
-    router.use('/players', players);
+    router.use('/api', api);
+    router.use('/', frontend);
 };

@@ -2,6 +2,9 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+const path = require('path');
+const configModule = require('../config');
+configModule.set('appRoot', path.resolve(__dirname));
 const config = require('../config').get();
 const logger = require('./services/logger');
 const routes = require('./routes');
@@ -9,6 +12,7 @@ const bodyParser = require('body-parser');
 const responsePromise = require('./middlewares/response-promise');
 const morgan = require('morgan');
 const cors = require('cors');
+app.use(express.static(path.join(__dirname, '/webapp/public')));
 
 setUpAPI();
 
