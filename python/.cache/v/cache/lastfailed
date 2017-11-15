@@ -1,7 +1,3 @@
 {
-  "test_player.py::TestPlayer::test_create_nonActivePlayer": true, 
-  "test_player.py::TestPlayer::test_create_nonExistingPlayer": true, 
-  "test_player.py::TestPlayer::test_create_nullPlayer": true, 
-  "test_player.py::TestPlayer::test_invalidPlayer": true, 
-  "test_player.py::TestPlayer::test_invalidStatType": true
+  "test_player.py::TestPlayer::test_invalidPlayer": true
 }

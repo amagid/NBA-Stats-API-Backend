@@ -15,17 +15,34 @@ class TestPlayer(TestCase):
 
     # tests creating a player with a non-existing player
     def test_create_nonExistingPlayer(self):
-        self.assertEquals(Player("Nate Celeste", 'base', '2016-17'), "404")
+        with self.assertRaises(SystemExit) as cm:
+            Player("Nate Celeste", 'base', '2016-17')
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "404")
+        #self.assertEquals(Player("Nate Celeste", 'base', '2016-17'), "404")
 
     def test_create_nonActivePlayer(self):
-        self.assertEquals(Player("Kobe Bryant", 'base', '2016-17'), "404")
+        with self.assertRaises(SystemExit) as cm:
+            Player("Kobe Bryant", 'base', '2016-17')
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "404")
+        #self.assertEquals(Player("Kobe Bryant", 'base', '2016-17'), "404")
 
+    #null player
     def test_create_nullPlayer(self):
-        self.assertEquals(Player("", 'base', '2016-17'), "404")
+        with self.assertRaises(SystemExit) as cm:
+            Player("", 'base', '2016-17')
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "400")
+        #self.assertEquals(Player("", 'base', '2016-17'), "400")
 
     # tests creating a player with an invalid stat type
     def test_invalidStatType(self):
-        self.assertEquals(Player("LeBron James", 'Fake', '2016-17'), "404")
+        with self.assertRaises(SystemExit) as cm:
+            Player("LeBron James", 'Fake', '2016-17')
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "404")
+        #self.assertEquals(Player("LeBron James", 'Fake', '2016-17'), "404")
 
     # tests creating a player with an invalid season
     def test_invalidSeason(self):
@@ -70,7 +87,7 @@ class TestPlayer(TestCase):
 
         self.assertEqual(weight, "193")
 
-    # tests getting a player's posisiton
+    # tests getting a player's position
     def test_position(self):
         durant = Player("Kevin Durant", 'Base', '2016-17')
         pos = durant.position

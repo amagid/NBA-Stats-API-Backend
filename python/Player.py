@@ -28,8 +28,12 @@ for player in players:
 class Player:
 
     def __init__(self, name, statType, year):
-        if name = "":
+        if name == "":
             sys.exit("400")
+
+        if statType not in ['Base', 'Advanced', 'Misc', 'Four Factors', 'Scoring', 'Opponent',
+                            'Usage']:
+            sys.exit("404")
 
         self.name = name
         self.year = year

@@ -15,7 +15,7 @@
         <entry file="file://$PROJECT_DIR$/Player.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="158" column="4" lean-forward="false" selection-start-line="158" selection-start-column="4" selection-end-line="158" selection-end-column="4" />
+              <caret line="162" column="4" lean-forward="false" selection-start-line="162" selection-start-column="4" selection-end-line="162" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -24,8 +24,8 @@
       <file leaf-file-name="test_player.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_player.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state relative-caret-position="-673">
+              <caret line="41" column="53" lean-forward="false" selection-start-line="41" selection-start-column="53" selection-end-line="41" selection-end-column="53" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -170,18 +170,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 02m 20s.xml">
-      <configuration name="py.test in test_player.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 03m 10s.xml">
-      <configuration name="py.test in test_player.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 05m 32s.xml">
-      <configuration name="py.test in test_player.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 09m 15s.xml">
-      <configuration name="py.test in test_player.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 09m 48s.xml">
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
@@ -195,6 +183,21 @@
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
     <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 24m 24s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 56m 53s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 57m 10s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 58m 15s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 58m 37s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 06h 02m 01s.xml">
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -240,8 +243,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        <state relative-caret-position="-673">
+          <caret line="41" column="53" lean-forward="false" selection-start-line="41" selection-start-column="53" selection-end-line="41" selection-end-column="53" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
@@ -251,7 +254,7 @@
     <entry file="file://$PROJECT_DIR$/Player.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="158" column="4" lean-forward="false" selection-start-line="158" selection-start-column="4" selection-end-line="158" selection-end-column="4" />
+          <caret line="162" column="4" lean-forward="false" selection-start-line="162" selection-start-column="4" selection-end-line="162" selection-end-column="4" />
           <folding />
         </state>
       </provider>
