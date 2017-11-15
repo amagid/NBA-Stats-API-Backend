@@ -18,7 +18,16 @@ function getAll() {
 
 function get(playerId) {
     return Python.run('Player.py', ['get', playerId]).then(function(player) {
-        return player;
+        return {
+            assists: player.AST,
+            blocks: player.BLK,
+            rebounds: player.REB,
+            steals: player.STL,
+            turnovers: player.TOV,
+            points: player.PTS,
+            three: player.FG3_PCT,
+            free: player.FT_PCT
+        };
     });
 }
 
