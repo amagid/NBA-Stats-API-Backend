@@ -18,6 +18,7 @@ function get() {
     }
 }
 
+//Set a config value for global access while the program is running.
 function set(prop, value) {
     if (process.env.type === 'development') {
         dev[prop] = value;
