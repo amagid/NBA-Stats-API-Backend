@@ -18,3 +18,4 @@ EC2/**
 
 .idea/workspace.xml
 webapp/package.json
+.nyc_output/**
