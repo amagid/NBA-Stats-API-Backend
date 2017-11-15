@@ -1,9 +1,9 @@
-import numpy
+#import numpy
 import requests
-import pandas as pd
-import pickle
-import itertools
-import sys
+#import pandas as pd
+#import pickle
+#import itertools
+#import sys
 import json
 
 
@@ -22,11 +22,6 @@ for player in players:
     name = player['firstName'] + ' ' + player['lastName']
     player_information[name] = player
     playerID[name] = player_information[name]['personId']
-
-
-f = open('playerID.txt', 'w')
-f.write(json.dumps(playerID))
-f.close()
 
 
 
@@ -63,7 +58,7 @@ class Player:
         stats_link_param = stats_link[0] + 'Base' + stats_link[1] + self.id + stats_link[2] + self.year + stats_link[
             3]
 
-        print stats_link
+        print stats_link_param
 
         response = requests.get(stats_link_param, headers=head)
 
@@ -72,7 +67,7 @@ class Player:
         values = response.json()['resultSets'][0]['rowSet']
 
         self.player_dict = dict(zip(keys, values[0]))
-        self.stats[traditional] = self.player_dict
+        self.stats['Base'] = self.player_dict
 
 
 
@@ -86,7 +81,19 @@ class Player:
 
     #allows for the user to get specific stat type for specific range
     def date_range(self, statType, dateFrom, dateTo):
-        print 'x'
+        ['http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
+         'DateFrom=, &DateTo=, &GameSegment=&LastNGames=0&LeagueID=00&Location=' \
+         '&MeasureType=', '&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=' \
+                          'N&PerMode=PerGame&Period=0&PlayerID=', '&PlusMinus=N&Rank=N&Season=',
+         '&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&Vs' \
+         'Conference=&VsDivision=']
+
+        dateFrom = dateFrom.split('/')
+        dateFrom = dateFrom[0] + '%2F' + dateFrom[1] + '%2F' + dateFrom[2]
+        dateTo = dateTo.split('/')
+        dateTo = dateTo[0] + '%2F' + dateTo[1] + '%2F' + dateTo[2]
+
+
 
 
 
@@ -108,10 +115,9 @@ class Player:
     def compare_league(self, season):
         season = 'x'
 
-<<<<<<< HEAD
     def compare_stat(self, otherPlayer, statType):
         x = 2
-=======
+
 def read_in():
   lines = sys.stdin.readlines()
     #Since our input would only be having one line, parse our JSON data from that
@@ -120,8 +126,7 @@ def read_in():
 
 def main():
    data = read_in()
-    #data = numpy.array(lines)
->>>>>>> 32f235e66fb71c8702fbd2c20db3a86f0fdd2c79
+   data = numpy.array(lines)
 
 # def read_in():
 #   lines = sys.stdin.readlines()

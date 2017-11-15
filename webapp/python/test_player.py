@@ -44,4 +44,5 @@ class TestPlayer(TestCase):
 
         self.assertEqual(team, "")
 
-    def
+
+        
