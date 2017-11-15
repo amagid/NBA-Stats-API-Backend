@@ -123,4 +123,69 @@ describe('Players', function () {
             });
         });
     });
+
+    describe('compare', function () {
+        it('should return an APIError with a 400 status code and an additional parameter stating which player(s) were invalid', function (done) {
+            Players.compare(null, 'LeBron James').then(betterPlayer => {
+                throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
+            }).catch(err => {
+                if (err && err.status === 400 && !err.additionalData.player1Valid && err.additionalData.player2Valid) {
+                    return done();
+                }
+                throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
+            });
+        });
+    });
+
+    describe('compare', function () {
+        it('should return an APIError with a 400 status code and an additional parameter stating which player(s) were invalid', function (done) {
+            Players.compare('LeBron James').then(betterPlayer => {
+                throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
+            }).catch(err => {
+                if (err && err.status === 400 && err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                    return done();
+                }
+                throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
+            });
+        });
+    });
+
+    describe('compare', function () {
+        it('should return an APIError with a 400 status code and an additional parameter stating which player(s) were invalid', function (done) {
+            Players.compare().then(betterPlayer => {
+                throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
+            }).catch(err => {
+                if (err && err.status === 400 && !err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                    return done();
+                }
+                throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
+            });
+        });
+    });
+
+    describe('compare', function () {
+        it('should prioritize the 400 status code over the 404', function (done) {
+            Players.compare('LeBron Jamessssssss').then(betterPlayer => {
+                throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
+            }).catch(err => {
+                if (err && err.status === 400 && !err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                    return done();
+                }
+                throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
+            });
+        });
+    });
+
+    describe('compare', function () {
+        it('should prioritize the 400 status code over the 404', function (done) {
+            Players.compare(null, 'LeBron Jamessssssss').then(betterPlayer => {
+                throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
+            }).catch(err => {
+                if (err && err.status === 400 && !err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                    return done();
+                }
+                throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
+            });
+        });
+    });
 });
