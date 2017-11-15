@@ -32,14 +32,14 @@ md-virtual-repeat-container {
 	height: 75px;
 }
 
-.comparisonBar.Left {
+/*.comparisonBar.Left {
 	width: 0px;
 }
 
 .comparisonBar.Right {
 	width: 0px;
-	/*background-color: green;*/
-}
+	background-color: green;
+}*/
 
 .compareButton {
   background-color: white !important;

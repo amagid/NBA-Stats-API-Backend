@@ -49,6 +49,14 @@ app.controller('myController', function($scope, $http) {
 
   $scope.rpImage = "";
 
+  $scope.leftBar = {
+    'width': 0 + "%"
+	};
+  
+  $scope.rightBar = {
+    'width': 0 + "%"
+	};
+	
   // Function configuring md-autocomplete options
 $scope.autoCompleteOptions = {
   minimumChars: 1,
