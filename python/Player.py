@@ -133,12 +133,12 @@ def main():
     data = read_in()
     if data[1] == 'get':
         player1 = Player(data[2],"Base","2016-17")
-        print player1.player_dict
+        print json.dumps(player1.player_dict)
     if data[1] == 'compare':
         player1 = Player(data[2],"Base","2016-17")
         player2 = Player(dat[3],"Base","2016-17")
 
-        print player1.compare_player(player2)
+        print json.dumps(player1.compare_player(player2))
 
 
 
