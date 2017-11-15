@@ -28,11 +28,18 @@ for player in players:
 class Player:
 
     def __init__(self, name, statType, year):
+        if name = "":
+            sys.exit("400")
+
         self.name = name
         self.year = year
         self.statType = statType
-        #get the player id with name
-        self.id= player_information[name]['personId']
+        try:
+            self.id= player_information[name]['personId']
+        except Exception, e:
+            sys.exit("404")
+        print player_information[name]
+
         self.stats = dict()
         self.stats['Base'] = 0
         self.stats['Advanced'] = 0
@@ -58,13 +65,18 @@ class Player:
         stats_link_param = stats_link[0] + 'Base' + stats_link[1] + self.id + stats_link[2] + self.year + stats_link[
             3]
 
+
         response = requests.get(stats_link_param, headers=head)
 
         keys = response.json()['resultSets'][0]['headers']
         keys = [x.encode('UTF8') for x in keys]
         values = response.json()['resultSets'][0]['rowSet']
 
-        self.player_dict = dict(zip(keys, values[0]))
+        try:
+            self.player_dict = dict(zip(keys, values[0]))
+        except Exception, e:
+            sys.exit("404")
+
         self.stats['Base'] = self.player_dict
 
 
@@ -102,6 +114,8 @@ class Player:
 
         if(player_one > player_two):
             return self.name
+        elif(player_one == player_two):
+            return "equal"
         else:
             return otherPlayer.name
 
@@ -140,9 +154,7 @@ def main():
 
         print json.dumps(player1.compare_player(player2))
 
-
-
-#run main
+run main
 if __name__ == '__main__':
     main()
 

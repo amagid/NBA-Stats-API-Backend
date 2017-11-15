@@ -29,7 +29,11 @@ class TestPlayer(TestCase):
 
     # tests creating a player with an invalid season
     def test_invalidSeason(self):
-        self.assertEquals(Player("LeBron James", 'Base', '2019-20'), "404")
+        with self.assertRaises(SystemExit) as cm:
+            Player("LeBron James", 'Base', '2019-20')
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "404")
+        #self.assertEquals(Player("LeBron James", 'Base', '2019-20'), "404")
 
     # tests comparison of different players
     def test_compare_player(self):
