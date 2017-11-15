@@ -1,0 +1,4 @@
+The Logs folder contains automatically generated server logs.
+A new log file is created every day that the application is active.
+The Exceptions folder within the Logs folder stores an additional log
+for each day that exclusively keeps track of internal server errors that occur.
