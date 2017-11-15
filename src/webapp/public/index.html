@@ -15,6 +15,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
   <script src="app.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Anton|Fjalla+One|Francois+One" rel="stylesheet">
 </head>
 <body>
   <div class="nbaApp">
@@ -22,23 +23,19 @@
 
       <div class="container">
         <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
-        <img src="img/fillercomp.png" style="margin: auto; display: block" width="35">
-		<div class="compareContainer">
-			
-		</div>
         <br>
 		<md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button></td>
         <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
           <tbody>
 			<tr>
-				<td colspan="3">
+				<td class="compareContainer" colspan="3">
 					<div ng-style="leftBar" class="comparisonBar left">
 					
 					</div>
 				</td>
 				<td>
 				</td>
-				<td colspan="3">
+				<td class="compareContainer" colspan="3">
 					<div ng-style="rightBar" class="comparisonBar right">
 					
 					</div>
@@ -100,49 +97,49 @@
         <tr>
           <td class="imgContainer"> <img width="200" ng-src="{{lpImage}}"></td>
           <td  class="container" align="right">
-            Points per game <br>
+            <p>Points per game <br>
             Rebounds per game <br>
             Assists per game <br>
             Blocks per game <br>
             Steals per game <br>
             Turnovers per game <br>
             Three pointers per game <br>
-            Free throws made per game <br>
+            Free throws made per game <br></p>
           </td>
           <td class="numContainer" align="center" border-right="1">
             <div class="container statNumber">
-              {{lpStats.points}} <br>
+              <p>{{lpStats.points}} <br>
               {{lpStats.rebounds}} <br>
               {{lpStats.assists}} <br>
               {{lpStats.blocks}} <br>
               {{lpStats.steals}} <br>
               {{lpStats.turnovers}} <br>
               {{lpStats.three}} <br>
-              {{lpStats.free}} <br>
+              {{lpStats.free}} <br></p>
             </div>
           </td>
           <td class="table-separator"></td>
           <td class="numContainer" align="center">
             <div class="container statNumber">
-                {{rpStats.points}} <br>
+               <p> {{rpStats.points}} <br>
                 {{rpStats.rebounds}} <br>
                 {{rpStats.assists}} <br>
                 {{rpStats.blocks}} <br>
                 {{rpStats.steals}} <br>
                 {{rpStats.turnovers}} <br>
                 {{rpStats.three}} <br>
-                {{rpStats.free}} <br>
+                {{rpStats.free}} <br></p>
             </div>
           </td>
           <td rsclass="container">
-            Points per game <br>
+            <p>Points per game <br>
             Rebounds per game <br>
             Assists per game <br>
             Blocks per game <br>
             Steals per game <br>
             Turnovers per game <br>
             Three pointers per game <br>
-            Free throws made per game <br>
+            Free throws made per game <br></p>
           </td>
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
         </tr>
