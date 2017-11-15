@@ -34,7 +34,7 @@ describe('Players', function () {
                         player.hasOwnProperty('free')) {
                         return done();
                     }
-                    throw new Error(`Malformed Player. Given:\n${JSON.stringify(player, null, 4)}`);
+                    throw new Error(`Malformed Player. Received:\n${JSON.stringify(player, null, 4)}`);
                 }
                 throw new Error(`Player not found or no data returned.`);
             }).catch(err => {
@@ -70,17 +70,15 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should return a list of players with 3 attributes: value, name, and id', function (done) {
-            Players.getAll().then(players => {
-                if (players.length) {
-                    if (players[0].hasOwnProperty('value') &&
-                        players[0].hasOwnProperty('name') &&
-                        players[0].hasOwnProperty('id')) {
-                        return done();
-                    }
-                    throw new Error(`Malformed Players. Given:\n${JSON.stringify(players[0], null, 4)}`);
+        it('should return the name of the superior player', function (done) {
+            Players.compare('Alex Abrines', 'LeBron James').then(betterPlayer => {
+                if (betterPlayer === 'LeBron James') {
+                    return done();
+                } else if (betterPlayer === 'Alex Abrines') {
+                    throw new Error("Incorrect Player Returned.");
+                } else {
+                    throw new Error(`Malformed Return Value. Received: \n${JSON.stringify(betterPlayer, null, 4)}`);
                 }
-                throw new Error("No Players Retrieved")
             }).catch(err => {
                 throw new Error(`Error Running Function:\n${JSON.stringify(err, null, 4)}`);
             });
