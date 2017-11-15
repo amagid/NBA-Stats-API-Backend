@@ -136,7 +136,7 @@ def main():
         print json.dumps(player1.player_dict)
     if data[1] == 'compare':
         player1 = Player(data[2],"Base","2016-17")
-        player2 = Player(dat[3],"Base","2016-17")
+        player2 = Player(data[3],"Base","2016-17")
 
         print json.dumps(player1.compare_player(player2))
 
