@@ -37,12 +37,21 @@ function get(playerId) {
         if (err.message.indexOf("KeyError") !== -1) {
             throw APIError(404, "Player Not Found");
         }
-        throw APIError(500, "Unknown Error");
+        throw APIError(500, "Unknown Error", err);
     });
 }
 
 function compare(player1Id, player2Id) {
+    if (!player1Id || !player2Id) {
+        return Promise.reject(APIError(400, 'Player(s) missing'));
+    }
     return Python.run('Player.py', ['compare', player1Id, player2Id]).then(function(comparison) {
         return comparison;
+    })
+    .catch(err => {
+        if (err.message.indexOf("KeyError") !== -1) {
+            throw APIError(404, "Player(s) not found");
+        }
+        throw APIError(500, "Unknown Error", err);
     });
 }
