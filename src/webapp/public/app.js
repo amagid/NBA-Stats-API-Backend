@@ -6,6 +6,7 @@ app.controller('myController', function($scope, $http) {
 
   $scope.players = [];
 
+  // On app start, grab all the players for the autofill lists
   $http.get('/api/players').
   then(function(response) {
     //$scope.player1data = response.data
@@ -19,7 +20,7 @@ app.controller('myController', function($scope, $http) {
     // or server returns response with an error status.
   });
 
-
+	// Init data for left player
   $scope.lpStats = {
     "points":0,
     "rebounds":0,
@@ -31,8 +32,10 @@ app.controller('myController', function($scope, $http) {
     "free":0
   }
 
+  // Init slot for player's image URL
   $scope.lpImage = ""
 
+  // Init data for right player
   $scope.rpStats = {
     "points":0,
     "rebounds":0,
@@ -46,6 +49,15 @@ app.controller('myController', function($scope, $http) {
 
   $scope.rpImage = "";
 
+  $scope.leftBar = {
+    'width': 0 + "%"
+	};
+  
+  $scope.rightBar = {
+    'width': 0 + "%"
+	};
+	
+  // Function configuring md-autocomplete options
 $scope.autoCompleteOptions = {
   minimumChars: 1,
   dropdownHeight: "100px",
@@ -59,6 +71,7 @@ $scope.autoCompleteOptions = {
   itemSelected: function(item) {}
 }
 
+ // This is a sort of dao function
 $scope.getPlayerStats = function(id, whichSide){
   console.log($scope.player1)
   $http.get('/api/players/' + id).
@@ -82,6 +95,7 @@ $scope.searchTextChange - function(text) {
 }
 
 // item is the json from players.init, whichInput = 0 for left and 1 for right
+// This is the function that's called when the user clicks an item
 $scope.selectedItemChange = function(item, whichInput) {
   // Get the info; the id is {{item.id}}
   // Should come in correct format so hopefully no
@@ -101,11 +115,14 @@ $scope.selectedItemChange = function(item, whichInput) {
   }
 }
 
+// function that md-autocomplete calls to search the array
 $scope.querySearch = function(query) {
   if (!query) return [];
   return $scope.players.filter($scope.createFilterFor(query));
 }
 
+// need a custom function for the md-autocomplete filter to 
+// ensure it is searching the way we want (search the whole name list, not exact matches)
 $scope.createFilterFor = function(query) {
   var lowercaseQuery = angular.lowercase(query);
 
@@ -115,6 +132,7 @@ $scope.createFilterFor = function(query) {
   }
 }
 
+// Function that gets called when user clicks 'compare'
 $scope.comparePlayers = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
     $http.get('/api/players/' + $scope.searchText1 + '/compare/' + $scope.searchText2).

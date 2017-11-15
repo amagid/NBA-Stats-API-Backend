@@ -93,8 +93,8 @@ class Player:
         dateTo = dateTo.split('/')
         dateTo = dateTo[0] + '%2F' + dateTo[1] + '%2F' + dateTo[2]
 
-
-
+    def select_score(self):
+        return self.player_dict['BLK'] * 2 + self.player_dict['REB'] + self.player_dict['AST'] + self.player_dict['PTS'] - self.player_dict['TOV']
 
 
 
