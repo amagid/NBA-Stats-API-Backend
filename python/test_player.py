@@ -17,6 +17,9 @@ class TestPlayer(TestCase):
     def test_create_nonExistingPlayer(self):
         self.assertEquals(Player("Nate Celeste", 'base', '2016-17'), "404")
 
+    def test_create_nonActivePlayer(self):
+        self.assertEquals(Player("Kobe Bryant", 'base', '2016-17'), "404")
+
     def test_create_nullPlayer(self):
         self.assertEquals(Player("", 'base', '2016-17'), "404")
 
