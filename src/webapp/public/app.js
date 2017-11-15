@@ -77,7 +77,7 @@ $scope.getPlayerStats = function(id, whichSide){
   $http.get('/api/players/' + id).
   then(function(response) {
     //$scope.player1data = response.data
-    console.log(response['data']);
+    console.log(response);
     if (whichSide === 0) {
       $scope.lpStats = response['data'];
     } else {
@@ -100,7 +100,8 @@ $scope.selectedItemChange = function(item, whichInput) {
   // Get the info; the id is {{item.id}}
   // Should come in correct format so hopefully no
   // json manipulation needed
-  $scope.getPlayerStats(item.id, whichInput);
+  console.log(item.name);
+  $scope.getPlayerStats(item.name, whichInput);
 
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)
@@ -139,12 +140,7 @@ $scope.comparePlayers = function() {
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
-	  
-	  response.data = {
-		  player1:76,
-		  player2:30
-	  }
-	  
+	  $scope.betterPlayer = response['data'];
 	  
       $scope.leftBar.width = response['data'].player1 + "%";
 	  $scope.rightBar.width = response['data'].player2 + "%";

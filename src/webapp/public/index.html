@@ -29,7 +29,7 @@
           <tbody>
 			<tr>
 				<td class="compareContainer" colspan="3">
-					<div ng-style="leftBar" class="comparisonBar left">
+					<!--<div ng-style="leftBar" class="comparisonBar left">
 					
 					</div>
 				</td>
@@ -38,7 +38,8 @@
 				<td class="compareContainer" colspan="3">
 					<div ng-style="rightBar" class="comparisonBar right">
 					
-					</div>
+					</div>-->
+					{{betterPlayer}}
 				</td>
 			</tr>
             <tr>
@@ -146,7 +147,9 @@
         <tr class="chartRow">
           <!-- TODO do the charts.. -->
           <!-- <td colspan="3" align="right"><img width="300" src="img/fillerchart.png"> </td> -->
-          <td colspan="3" align="right"><div id="myChart"></div> </td>
+          <td colspan="3" align="right">
+			<div id="myChart"></div> 
+		  </td>
           <td class="table-separator"></td>
           <!-- <td colspan="3"> <img width="300" src="img/fillerchart.png"></td> -->
         </tr>
