@@ -80,7 +80,7 @@ describe('Players', function () {
             });
         });
 
-        it('should return an APIError with a 404 status code', function (done) {
+        it('should return an APIError with a 404 status code when Player1 is not found', function (done) {
             Players.compare('Alex Abrinessssss', 'LeBron James').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
@@ -91,7 +91,7 @@ describe('Players', function () {
             });
         });
         
-        it('should return an APIError with a 404 status code', function (done) {
+        it('should return an APIError with a 404 status code when Player2 is not found', function (done) {
             Players.compare('Alex Abrines', 'LeBron Jamessssssssssss').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
@@ -102,7 +102,7 @@ describe('Players', function () {
             });
         });
         
-        it('should return an APIError with a 404 status code', function (done) {
+        it('should return an APIError with a 404 status code when neither Player is found', function (done) {
             Players.compare('Alex Abrinessssss', 'LeBron Jamessssssssssss').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
@@ -113,7 +113,7 @@ describe('Players', function () {
             });
         });
         
-        it('should return an APIError with a 400 status code', function (done) {
+        it('should return an APIError with a 400 status code when Player1 is missing', function (done) {
             Players.compare(null, 'LeBron James').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
@@ -124,7 +124,7 @@ describe('Players', function () {
             });
         });
         
-        it('should return an APIError with a 400 status code', function (done) {
+        it('should return an APIError with a 400 status code when Player2 is missing', function (done) {
             Players.compare('LeBron James').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
@@ -135,7 +135,7 @@ describe('Players', function () {
             });
         });
         
-        it('should return an APIError with a 400 status code', function (done) {
+        it('should return an APIError with a 400 status code when both Players are missing', function (done) {
             Players.compare().then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
@@ -146,8 +146,8 @@ describe('Players', function () {
             });
         });
 
-        it('should prioritize the 400 status code over the 404, because it should not run the script if a player is missing', function (done) {
-            Players.compare('LeBron Jamessssssss').then(betterPlayer => {
+        it('should prioritize the 400 status code for Player1 over the 404 for Player2, because it should not run the Python script if Player1 is missing', function (done) {
+            Players.compare(null, 'LeBron Jamessssssss').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
                 if (err && err.status === 400) {
@@ -157,8 +157,8 @@ describe('Players', function () {
             });
         });
 
-        it('should prioritize the 400 status code over the 404, because it should not run the script if a player is missing', function (done) {
-            Players.compare(null, 'LeBron Jamessssssss').then(betterPlayer => {
+        it('should prioritize the 400 status code for Player2 over the 404 for Player1, because it should not run the Python script if Player2 is missing', function (done) {
+            Players.compare('LeBron Jamessssssss').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
                 if (err && err.status === 400) {
