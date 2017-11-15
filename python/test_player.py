@@ -14,6 +14,22 @@ class TestPlayer(TestCase):
 
         self.assertEqual(lebron2.compare_player(lebron), "LeBron James")
 
+    def test_invalidPlayer(self):
+        invalid1 = Player("Nate Celeste", 'Base', '2016-17')
+
+        #some test to see if creating player failed...
+
+    def test_invalidStatType(self):
+        lebron = Player("LeBron James", 'Fake', '2016-17')
+
+        # some test to see if creating player failed...
+
+
+    def test_invalidSeason(self):
+        lebron = Player("LeBron James", 'Base', '2019-20')
+
+        # some test to see if creating player failed...
+
     def test_get_score(self):
         westbrook = Player("Russell Westbrook", 'Base', '2016-17')
         #score = westbrook.select_score()
