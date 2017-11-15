@@ -42,6 +42,20 @@ describe('Players', function () {
             });
         });
     });
+    
+    describe('get', function () {
+        it('should return an APIError with a 404 status code when an invalid player name is supplied', function (done) {
+            Players.get('LeBron Jamesssssssss').then((player) => {
+                throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(player, null, 4)}`);
+            }).catch(err => {
+                if (err && err.status === 404) {
+                    return done();
+                }
+                throw new Error(`Incorrect Response. Received: \n${JSON.stringify(err, null, 4)}`);
+            });
+        });
+    });
+    
     describe('compare', function () {
         it('should return a list of players with 3 attributes: value, name, and id', function (done) {
             Players.getAll().then(players => {

@@ -1,5 +1,6 @@
 const Promise = require('bluebird');
 const Python = require('../../../services/python');
+const APIError = require('../../../APIError');
 
 module.exports = {
     getAll,
@@ -17,6 +18,9 @@ function getAll() {
 }
 
 function get(playerId) {
+    if (!playerId) {
+        return Promise.reject(APIError(400, "No Player Supplied"));
+    }
     return Python.run('Player.py', ['get', playerId]).then(function(player) {
         return {
             assists: player.AST,
@@ -28,6 +32,12 @@ function get(playerId) {
             three: player.FG3_PCT,
             free: player.FT_PCT
         };
+    })
+    .catch(err => {
+        if (err.message.indexOf("KeyError") !== -1) {
+            throw APIError(404, "Player Not Found");
+        }
+        throw APIError(500, "Unknown Error");
     });
 }
 
