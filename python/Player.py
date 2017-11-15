@@ -42,7 +42,7 @@ class Player:
             self.id= player_information[name]['personId']
         except Exception, e:
             sys.exit("404")
-        print player_information[name]
+#        print player_information[name]
 
         self.stats = dict()
         self.stats['Base'] = 0
@@ -158,7 +158,7 @@ def main():
 
         print json.dumps(player1.compare_player(player2))
 
-run main
+#run main
 if __name__ == '__main__':
     main()
 
