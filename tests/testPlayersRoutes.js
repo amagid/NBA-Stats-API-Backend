@@ -110,4 +110,17 @@ describe('Players', function () {
             });
         });
     });
+
+    describe('compare', function () {
+        it('should return an APIError with a 404 status code and an additional parameter stating which player(s) were not found', function (done) {
+            Players.compare('Alex Abrinessssss', 'LeBron Jamessssssssssss').then(betterPlayer => {
+                throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
+            }).catch(err => {
+                if (err && err.status === 404 && !err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                    return done();
+                }
+                throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
+            });
+        });
+    });
 });
