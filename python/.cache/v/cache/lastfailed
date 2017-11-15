@@ -1,3 +1,4 @@
 {
-  "test_player.py::TestPlayer::test_get_score": true
+  "test_player.py::TestPlayer::test_invalidPlayer": true, 
+  "test_player.py::TestPlayer::test_invalidSeason": true
 }
