@@ -1,5 +1,6 @@
 const assert = require('chai').assert;
 const Players = require('../src/routes/api/players/players');
+const baseTimeout = 5000;
 
 describe('Players', function () {
     describe('getAll', function () {
@@ -17,7 +18,7 @@ describe('Players', function () {
             }).catch(err => {
                 throw new Error(`Error Running Function:\n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
     });
     
     describe('get', function () {
@@ -40,7 +41,7 @@ describe('Players', function () {
             }).catch(err => {
                 throw new Error(`Error Running Function:\n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
         
         it('should return an APIError with a 404 status code when an invalid player name is supplied', function (done) {
             Players.get('LeBron Jamesssssssss').then(player => {
@@ -51,7 +52,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Incorrect Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
         
         it('should return an APIError with a 400 status code when no player name is supplied', function (done) {
             Players.get().then(player => {
@@ -62,7 +63,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Incorrect Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
     });
 
     describe('compare', function () {
@@ -78,7 +79,7 @@ describe('Players', function () {
             }).catch(err => {
                 throw new Error(`Error Running Function:\n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
 
         it('should return an APIError with a 404 status code when Player1 is not found', function (done) {
             Players.compare('Alex Abrinessssss', 'LeBron James').then(betterPlayer => {
@@ -89,7 +90,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
         
         it('should return an APIError with a 404 status code when Player2 is not found', function (done) {
             Players.compare('Alex Abrines', 'LeBron Jamessssssssssss').then(betterPlayer => {
@@ -100,7 +101,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
         
         it('should return an APIError with a 404 status code when neither Player is found', function (done) {
             Players.compare('Alex Abrinessssss', 'LeBron Jamessssssssssss').then(betterPlayer => {
@@ -111,7 +112,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
         
         it('should return an APIError with a 400 status code when Player1 is missing', function (done) {
             Players.compare(null, 'LeBron James').then(betterPlayer => {
@@ -122,7 +123,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
         
         it('should return an APIError with a 400 status code when Player2 is missing', function (done) {
             Players.compare('LeBron James').then(betterPlayer => {
@@ -133,7 +134,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
         
         it('should return an APIError with a 400 status code when both Players are missing', function (done) {
             Players.compare().then(betterPlayer => {
@@ -144,7 +145,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
 
         it('should prioritize the 400 status code for Player1 over the 404 for Player2, because it should not run the Python script if Player1 is missing', function (done) {
             Players.compare(null, 'LeBron Jamessssssss').then(betterPlayer => {
@@ -155,7 +156,7 @@ describe('Players', function () {
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
 
         it('should prioritize the 400 status code for Player2 over the 404 for Player1, because it should not run the Python script if Player2 is missing', function (done) {
             Players.compare('LeBron Jamessssssss').then(betterPlayer => {
@@ -166,6 +167,6 @@ describe('Players', function () {
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
             });
-        });
+        }).timeout(baseTimeout);
     });
 });
