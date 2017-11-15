@@ -86,11 +86,11 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should return an APIError with a 404 status code and an additional parameter stating which player(s) were not found', function (done) {
+        it('should return an APIError with a 404 status code', function (done) {
             Players.compare('Alex Abrinessssss', 'LeBron James').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
-                if (err && err.status === 404 && !err.additionalData.player1Valid && err.additionalData.player2Valid) {
+                if (err && err.status === 404) {
                     return done();
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
@@ -99,11 +99,11 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should return an APIError with a 404 status code and an additional parameter stating which player(s) were not found', function (done) {
+        it('should return an APIError with a 404 status code', function (done) {
             Players.compare('Alex Abrines', 'LeBron Jamessssssssssss').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
-                if (err && err.status === 404 && err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                if (err && err.status === 404) {
                     return done();
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
@@ -112,11 +112,11 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should return an APIError with a 404 status code and an additional parameter stating which player(s) were not found', function (done) {
+        it('should return an APIError with a 404 status code', function (done) {
             Players.compare('Alex Abrinessssss', 'LeBron Jamessssssssssss').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
-                if (err && err.status === 404 && !err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                if (err && err.status === 404) {
                     return done();
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
@@ -125,11 +125,11 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should return an APIError with a 400 status code and an additional parameter stating which player(s) were invalid', function (done) {
+        it('should return an APIError with a 400 status code', function (done) {
             Players.compare(null, 'LeBron James').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
-                if (err && err.status === 400 && !err.additionalData.player1Valid && err.additionalData.player2Valid) {
+                if (err && err.status === 400) {
                     return done();
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
@@ -138,11 +138,11 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should return an APIError with a 400 status code and an additional parameter stating which player(s) were invalid', function (done) {
+        it('should return an APIError with a 400 status code', function (done) {
             Players.compare('LeBron James').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
-                if (err && err.status === 400 && err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                if (err && err.status === 400) {
                     return done();
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
@@ -151,11 +151,11 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should return an APIError with a 400 status code and an additional parameter stating which player(s) were invalid', function (done) {
+        it('should return an APIError with a 400 status code', function (done) {
             Players.compare().then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
-                if (err && err.status === 400 && !err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                if (err && err.status === 400) {
                     return done();
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
@@ -164,11 +164,11 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should prioritize the 400 status code over the 404', function (done) {
+        it('should prioritize the 400 status code over the 404, because it should not run the script if a player is missing', function (done) {
             Players.compare('LeBron Jamessssssss').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
-                if (err && err.status === 400 && !err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                if (err && err.status === 400) {
                     return done();
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
@@ -177,11 +177,11 @@ describe('Players', function () {
     });
 
     describe('compare', function () {
-        it('should prioritize the 400 status code over the 404', function (done) {
+        it('should prioritize the 400 status code over the 404, because it should not run the script if a player is missing', function (done) {
             Players.compare(null, 'LeBron Jamessssssss').then(betterPlayer => {
                 throw new Error(`Promise was resolved, should have been rejected. Fulfillment value:\n${JSON.stringify(betterPlayer, null, 4)}`);
             }).catch(err => {
-                if (err && err.status === 400 && !err.additionalData.player1Valid && !err.additionalData.player2Valid) {
+                if (err && err.status === 400) {
                     return done();
                 }
                 throw new Error(`Improper Error Response. Received: \n${JSON.stringify(err, null, 4)}`);
