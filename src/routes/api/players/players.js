@@ -23,7 +23,7 @@ function get(playerId) {
 }
 
 function compare(player1Id, player2Id) {
-    return Python.run('player.py').then(function(comparison) {
+    return Python.run('test_arguments.py', ['compare', player1Id, player2Id]).then(function(comparison) {
         return comparison;
     });
 }
