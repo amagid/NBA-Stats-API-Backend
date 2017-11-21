@@ -24,5 +24,9 @@
                 "idle": 10000
             }
         }
+    },
+
+    "password": {
+        "saltRounds": 10
     }
 }
