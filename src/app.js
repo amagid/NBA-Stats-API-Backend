@@ -13,7 +13,7 @@ const responsePromise = require('./middlewares/response-promise');
 const morgan = require('morgan');
 const cors = require('cors');
 const DBSync = require('./models/sync');
-const db = require('./services/mysql');
+const db = require('./services/db');
 app.use(express.static(path.join(__dirname, '/webapp/public')));
 
 setUpAPI();
