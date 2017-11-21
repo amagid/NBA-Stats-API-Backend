@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-const db = require('../services/db');
+const db = require('../services/db').getConnection();
 
 //Define model
-module.exports = const TeamQuery = db.define('team_queries', {
+const TeamQuery = module.exports = db.define('team_queries', {
     id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,

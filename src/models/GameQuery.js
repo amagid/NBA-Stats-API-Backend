@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-const db = require('../services/db');
+const db = require('../services/db').getConnection();
 
 //Define model
-module.exports = const GameQuery = db.define('game_queries', {
+const GameQuery = module.exports = db.define('game_queries', {
     id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
