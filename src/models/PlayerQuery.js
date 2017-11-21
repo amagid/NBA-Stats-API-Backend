@@ -10,7 +10,7 @@ module.exports = const PlayerQuery = db.define('player_queries', {
     },
 
     user_id: {
-        type: Sequelize.DataTypes.STRING,
+        type: Sequelize.DataTypes.INTEGER,
         allowNull: false
     },
 
