@@ -12,15 +12,13 @@ const bodyParser = require('body-parser');
 const responsePromise = require('./middlewares/response-promise');
 const morgan = require('morgan');
 const cors = require('cors');
+const DBSync = require('models/sync');
+const db = require('services/mysql');
 app.use(express.static(path.join(__dirname, '/webapp/public')));
 
 setUpAPI();
-
-const server = http.Server(app);
-
-server.listen(process.env.PORT || config.app.port);
-logger.info(`Server listening on port ${process.env.PORT || config.app.port}`);
-
+setUpDB();
+setUpServer();
 
 function setUpAPI() {
     //General middlewares
@@ -34,4 +32,24 @@ function setUpAPI() {
     const router = express.Router();
     routes(router);
     app.use('/', router);
+}
+
+function setUpDB() {
+    DBSync();
+    db.testConnection()
+        .then(() => {
+            logger.info('DB Connection Established');
+        })
+        .catch((err) => {
+            logger.error(`DB Connection FAILED. Reason:\n\n${JSON.stringify(err, null, 4)}`);
+            process.exit(1);
+        });
+}
+
+function setUpServer() {
+    const server = http.Server(app);
+
+    server.listen(process.env.PORT || config.app.port);
+    logger.info(`Server listening on port ${process.env.PORT || config.app.port}`);
+
 }
