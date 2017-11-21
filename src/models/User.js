@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../services/db').getConnection();
+const APIError = require('../../APIError');
 
 const User = module.exports = db.define('users', {
     id: {
@@ -30,4 +31,18 @@ const User = module.exports = db.define('users', {
     lname: {
         type: Sequelize.DataTypes.STRING
     }
+}, {
+    classMethods: {
+        findByEmail
+    }
 });
+
+function findByEmail(email) {
+    return User.findOne({where: {email}})
+        .then(user => {
+            if (!user) {
+                throw APIError(404, 'User Not Found');
+            }
+            return user;
+        });
+}
