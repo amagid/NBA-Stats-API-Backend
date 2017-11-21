@@ -1,5 +1,28 @@
 {
     "app": {
         "port": 3000
+    },
+
+    "python": {
+        "mode": "text",
+        "pythonPath": "C:/Python27/python.exe",
+        "pythonOptions": ["-u"],
+        "scriptPath": "/../../python/"
+    },
+
+    "db": {
+        "name": "nba_stats_api",
+        "username": "nba_stats_api",
+        "password": "nba123",
+        "settings": {
+            "host": "localhost",
+            "dialect": "mysql",
+            "pool": {
+                "max": 5,
+                "min": 0,
+                "acquire": 30000,
+                "idle": 10000
+            }
+        }
     }
 }
