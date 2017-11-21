@@ -4,6 +4,9 @@
 -- ------------------------------------------------------
 -- Server version	5.7.16-log
 
+CREATE DATABASE IF NOT EXISTS nba_stats_api;
+use nba_stats_api;
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -137,5 +140,12 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+/*Create Application User*/
+DROP USER 'nba_stats_api'@'localhost';
+FLUSH PRIVILEGES;
+CREATE USER 'nba_stats_api'@'localhost' IDENTIFIED BY 'nba123';
+GRANT ALL PRIVILEGES ON nba_stats_api.* TO 'nba_stats_api'@'localhost';
+FLUSH PRIVILEGES;
 
 -- Dump completed on 2017-11-20 22:01:37
