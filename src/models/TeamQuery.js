@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../services/db').getConnection();
 
 //Define model
-const TeamQuery = module.exports = db.define('team_queries', {
+const TeamQuery = db.define('team_queries', {
     id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
@@ -34,3 +34,7 @@ const TeamQuery = module.exports = db.define('team_queries', {
 //Set associations
 const User = require('./User');
 User.hasMany(TeamQuery);
+
+module.exports = Object.assign(TeamQuery, {
+
+});

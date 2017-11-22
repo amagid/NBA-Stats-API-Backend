@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../services/db').getConnection();
 
 //Define model
-const PlayerQuery = module.exports = db.define('player_queries', {
+const PlayerQuery = db.define('player_queries', {
     id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
@@ -30,3 +30,7 @@ const PlayerQuery = module.exports = db.define('player_queries', {
 //Set associations
 const User = require('./User');
 User.hasMany(PlayerQuery);
+
+module.exports = Object.assign(PlayerQuery, {
+
+});

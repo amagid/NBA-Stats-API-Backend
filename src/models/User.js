@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../services/db').getConnection();
 const APIError = require('../APIError');
 
-const User = module.exports = db.define('users', {
+const User = db.define('users', {
     id: {
         type: Sequelize.DataTypes.INTEGER,
         primaryKey: true,
@@ -39,7 +39,11 @@ const User = module.exports = db.define('users', {
 });
 
 function findByEmail(email) {
-    return User.findOne({where: {email}})
+    return User.findOne({
+            where: {
+                email
+            }
+        })
         .then(user => {
             if (!user) {
                 throw APIError(404, 'User Not Found');
@@ -60,3 +64,8 @@ function validateUser(userid) {
             return true;
         });
 }
+
+module.exports = Object.assign(User, {
+    findByEmail,
+    validateUser
+});
