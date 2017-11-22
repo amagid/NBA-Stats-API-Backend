@@ -132,6 +132,101 @@ class Player:
     def compare_stat(self, otherPlayer, statType):
         x = 2
 
+    #puts more weight on assists
+    def pg_score(self):
+        type = self.pg_type()
+        if type is 'superstar':
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else: #defensive
+            x = 2
+
+    #puts more weight on shooting and defense
+    def sg_score(self):
+        type = self.pg_type()
+        if type is 'superstar':
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else:  # defensive
+            x = 2
+
+    #puts all-around weight
+    def sf_score(self):
+        type = self.pg_type()
+        if type is 'superstar':
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else:  # defensive
+            x = 2
+
+    #puts weight on shooting (modern NBA) and inside game (rebounding)
+    def pf_score(self):
+        type = self.pg_type()
+        if type is 'superstar':
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else:  # defensive
+            x = 2
+
+    #puts weight on rebounding and blocks
+    def c_score(self):
+        type = self.pg_type()
+        if type is 'superstar':
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else:  # defensive
+            x = 2
+
+    #pass-first, scoring, defensive, shooting, all-around, superstar
+    def pg_type(self):
+        x = 2
+        # check for superstar status
+
+    #shooting, all-around scorer, defensive, shooting, all-around, superstar
+    def sg_type(self):
+        x = 2
+        #check for superstar status
+
+    #slasher, defender, scorer, all-around, superstar
+    def sf_type(self):
+        x = 2
+        # check for superstar status
+
+    #labels as a stretch-4, defensive-minded player, scorer, all-around, superstar
+    def pf_type(self):
+        x = 2
+        # check for superstar status
+
+    #labels the center as a defensive player, scorer, all-around, or shooter
+    def c_type(self):
+        x = 2
+        # check for superstar status
+
 
 
 link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
