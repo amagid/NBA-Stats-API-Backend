@@ -17,8 +17,8 @@ const db = require('./services/db');
 app.use(express.static(path.join(__dirname, '/webapp/public')));
 
 setUpAPI();
-setUpDB();
-setUpServer();
+setUpDB()
+    .then(setUpServer);
 
 function setUpAPI() {
     //General middlewares
@@ -36,7 +36,7 @@ function setUpAPI() {
 
 function setUpDB() {
     DBSync();
-    db.testConnection()
+    return db.testConnection()
         .then(() => {
             logger.info('DB Connection Established');
         })
@@ -51,5 +51,4 @@ function setUpServer() {
 
     server.listen(process.env.PORT || config.app.port);
     logger.info(`Server listening on port ${process.env.PORT || config.app.port}`);
-
 }
