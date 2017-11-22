@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../services/db').getConnection();
-const APIError = require('../../APIError');
+const APIError = require('../APIError');
 
 const User = module.exports = db.define('users', {
     id: {
