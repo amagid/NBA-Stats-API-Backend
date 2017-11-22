@@ -33,7 +33,8 @@ const User = module.exports = db.define('users', {
     }
 }, {
     classMethods: {
-        findByEmail
+        findByEmail,
+        validateUser
     }
 });
 
@@ -44,5 +45,18 @@ function findByEmail(email) {
                 throw APIError(404, 'User Not Found');
             }
             return user;
+        });
+}
+
+function validateUser(userid) {
+    return User.findById(userid)
+        .catch(err => {
+            throw APIError(err.status || 500, err.message || 'User Find Failed', err);
+        })
+        .then(user => {
+            if (!user) {
+                throw APIError(404, 'User Not Found');
+            }
+            return true;
         });
 }
