@@ -48,7 +48,7 @@ function findByEmail(email) {
             if (!user) {
                 throw APIError(404, 'User Not Found');
             }
-            return user;
+            return user.dataValues;
         });
 }
 
