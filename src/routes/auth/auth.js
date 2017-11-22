@@ -13,7 +13,7 @@ function login(email, password) {
 
 function checkUserData(userData) {
     if (userData && userData.user_id && typeof userData.user_id === 'number') {
-        return User.options.classMethods.validateUser(userData.user_id);
+        return User.validateUser(userData.user_id);
     }
     return Promise.reject(APIError(400, 'Invalid User Data'));
 }

@@ -14,7 +14,7 @@ module.exports = {
 function generate(data) {
     return makeJWT(data, privateKey, {algorithm: 'RS256'})
         .then(token => {
-            console.log(token);
+            return { token };
         })
         .catch(err => {
             throw APIError(err.status || 500, err.message || 'JWT Creation Failed', err);
