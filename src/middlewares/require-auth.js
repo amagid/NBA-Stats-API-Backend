@@ -1,4 +1,5 @@
 const jwt = require('express-jwt');
+const publicKey = require('../../config').getKeys().publicKey;
 
 module.exports = requireAuthentication;
 
