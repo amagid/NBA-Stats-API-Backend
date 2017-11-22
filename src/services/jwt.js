@@ -1,4 +1,4 @@
-const APIError = require('../../APIError');
+const APIError = require('../APIError');
 const Promise = require('bluebird');
 const jwt = require('jsonwebtoken');
 const {privateKey, publicKey} = require('../../config').getKeys();
@@ -22,7 +22,7 @@ function generate(data) {
 }
 
 function decode(token) {
-    return decodeJWT(token, publicKey)
+    return decodeJWT(token, publicKey, {algorithms:['RS256']})
         .then(data => {
             console.log(data);
         })
