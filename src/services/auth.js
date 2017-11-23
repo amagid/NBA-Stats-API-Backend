@@ -3,6 +3,9 @@ const bcrypt = require('bcrypt');
 const Promise = require('bluebird');
 const User = require('../models/User');
 const JWTService = require('./jwt');
+const APIError = require('../APIError');
+
+const hashPassword = Promise.promisify(hashFunc);
 
 module.exports = {
     attemptLogin,
@@ -15,10 +18,8 @@ function hashFunc(password, callback) {
     return bcrypt.hash(password, config.saltRounds, callback);    
 }
 
-const hashPassword = Promise.promisify(hashFunc);
-
 function attemptLogin(email, password) {
-    User.findByEmail(email)
+    return User.findByEmail(email)
         .then(user => {
             return Promise.all([user, checkPassword(password, user.password)]);
         })
@@ -26,6 +27,6 @@ function attemptLogin(email, password) {
             if (!match) {
                 throw APIError(401, "Incorrect Password");
             }
-            return JWTService.generate(user.id);
+            return JWTService.generate({user_id: user.id});
         });
 }
