@@ -121,6 +121,7 @@ CREATE TABLE `users` (
   `email` varchar(64) NOT NULL,
   `password` varchar(64) DEFAULT NULL,
   `token` varchar(64) DEFAULT NULL,
+  `verified` boolean DEFAULT FALSE,
   `fname` varchar(32) DEFAULT NULL,
   `lname` varchar(64) DEFAULT NULL,
   `createdAt` datetime,
