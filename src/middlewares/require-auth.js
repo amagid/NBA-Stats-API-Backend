@@ -25,9 +25,3 @@ function requireAuthentication(req, res, next) {
             res.status(err.status || 500).json(err);
         });
 }
-/*
-
-function requireAuthentication(req, res, next) {
-    jwt({ secret: publicKey })(req, res, next);
-}
-*/
