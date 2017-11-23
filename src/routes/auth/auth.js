@@ -7,7 +7,8 @@ const uuid = require('uuid');
 module.exports = {
     login,
     checkUserData,
-    signup
+    signup,
+    verifyEmail
 };
 
 function login(email, password) {
@@ -46,5 +47,21 @@ function signup(email, password, fname, lname) {
                     }
                     throw APIError(err.status || 500, err.message || 'User Creation Failed', err);
                 });
+        });
+}
+
+function verifyEmail(token) {
+    return User.findByToken(token)
+        .then(user => {
+            if (!user || user.verified) {
+                throw APIError(404, 'Invalid Token');
+            }
+            return User.update({ token: null, verified: true }, { where: { id: user.id } });
+        })
+        .then(() => {
+            return { message: 'Verification Complete'};
+        })
+        .catch(err => {
+            throw APIError(err.status || 500, err.message || 'User Find Failed', err);
         });
 }
