@@ -12,16 +12,22 @@ describe('JWT Service', function() {
                 }
             };
 
-            return jwt.generate(testData)
+            jwt.generate(testData)
                 .catch(err => { throw "Token Generation Failed"; })
-                .then(jwt.decode)
-                .catch(err => { throw "Token Decode Failed"; })
+                .then(generated => { return jwt.decode(generated.token); })
+                .catch(err => {
+                    console.log(JSON.stringify(err, null, 4)) 
+                    throw "Token Decode Failed"; })
                 .then(data => {
-                    assert.deepEqual(testData, data);
+                    if (data.woo === testData.woo && data.hoo.foo === testData.hoo.foo) {
+                        done();
+                    } else {
+                        assert.fail(data, testData, "Payload Data Not Preserved");
+                    }
                 })
                 .catch(err => {
                     assert.fail(null, null, err);
                 });
-        });
+        }).timeout(baseTimeout);
     });
 });
