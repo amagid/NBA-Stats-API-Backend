@@ -24,6 +24,10 @@ const User = db.define('users', {
         unique: true
     },
 
+    verified: {
+        type: Sequelize.DataTypes.BOOLEAN
+    },
+
     fname: {
         type: Sequelize.DataTypes.STRING
     },
@@ -52,6 +56,21 @@ function findByEmail(email) {
         });
 }
 
+function findByToken(token) {
+    return User.findOne({
+        where: {
+            token,
+            verified: false
+        }
+    })
+    .then(user => {
+        if (!user) {
+            throw APIError(400, 'Invalid Token');
+        }
+        return user.dataValues;
+    });
+}
+
 function validateUser(userid) {
     //Search database for user to see if they exist
     return User.findById(userid)
@@ -73,5 +92,6 @@ function validateUser(userid) {
 
 module.exports = Object.assign(User, {
     findByEmail,
+    findByToken,
     validateUser
 });
