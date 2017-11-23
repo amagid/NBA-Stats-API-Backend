@@ -53,15 +53,21 @@ function findByEmail(email) {
 }
 
 function validateUser(userid) {
+    //Search database for user to see if they exist
     return User.findById(userid)
         .catch(err => {
+            //Throw error if something goes wrong with query
             throw APIError(err.status || 500, err.message || 'User Find Failed', err);
         })
         .then(user => {
+            //If no user found, throw 404
             if (!user) {
                 throw APIError(404, 'User Not Found');
             }
-            return true;
+            //Otherwise, return userValid = true
+            return {
+                userValid: true
+            };
         });
 }
 

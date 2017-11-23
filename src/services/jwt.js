@@ -25,8 +25,14 @@ function decode(token) {
     return decodeJWT(token, publicKey, {algorithms:['RS256']})
         .then(data => {
             console.log(data);
+            return data;
         })
         .catch(err => {
+            if (err.message === 'invalid signature') {
+                throw APIError(400, 'JWT Invalid', err);
+            } else if (err.message === 'jwt must be provided') {
+                throw APIError(400, 'No JWT Provided', err);
+            }
             throw APIError(err.status || 500, err.message || 'JWT Invalid', err);
         });
 }
