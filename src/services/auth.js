@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const Promise = require('bluebird');
 const User = require('../models/User');
 const JWTService = require('./jwt');
+const APIError = require('../APIError');
 
 const hashPassword = Promise.promisify(hashFunc);
 
