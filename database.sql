@@ -120,7 +120,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(64) NOT NULL,
   `password` varchar(64) DEFAULT NULL,
-  `token` varchar(32) DEFAULT NULL,
+  `token` varchar(64) DEFAULT NULL,
   `fname` varchar(32) DEFAULT NULL,
   `lname` varchar(64) DEFAULT NULL,
   `createdAt` datetime,
