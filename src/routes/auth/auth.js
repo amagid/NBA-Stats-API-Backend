@@ -15,10 +15,13 @@ function login(email, password) {
     return authService.attemptLogin(email, password);
 }
 
+//Check if user data from JWT is valid
 function checkUserData(userData) {
+    //If we have an id and it's a number, check to see if it corresponds to a User in the db
     if (userData && userData.user_id && typeof userData.user_id === 'number') {
         return User.validateUser(userData.user_id);
     }
+    //Otherwise, the data is invalid
     return Promise.reject(APIError(400, 'Invalid User Data'));
 }
 
