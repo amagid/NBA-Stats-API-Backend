@@ -52,7 +52,7 @@ class Game:
         team_two_id = team_id[team2]
 
         request_link = game_link[0] + year + game_link[1] + str(team_one_id) + game_link[2] + str(team_two_id)
-        print request_link
+        #print request_link
         response = requests.get(request_link, headers=head)
 
         all_games = response.json()
@@ -65,21 +65,23 @@ class Game:
         if self.teams[0] != game_two.teams[0]:
             print "teams don't match"
             sys.exit("400")
+        else:
+            return self.teams[0] + " " + "performed better in the game against the Lakers"
 
 
 #for testing purposes
 datgame = Game("Los Angeles Lakers", "Boston Celtics", "2016-17")
-print datgame.games
+#print datgame.games
 
 
 
 def main():
     data = read_in()
     if data[1] == 'get':
-        player1 = Player(data[2],"Base","2016-17")
+        game = Player(data[1], data[2],"2016-17")
         print json.dumps(player1.player_dict)
-    if data[1] == 'compare':
-        player1 = Player(data[2],"Base","2016-17")
-        player2 = Player(data[3],"Base","2016-17")
+    #if data[1] == 'compare':
+        #player1 = Player(data[2],"Base","2016-17")
+        #player2 = Player(data[3],"Base","2016-17")
 
         print json.dumps(player1.compare_player(player2))
