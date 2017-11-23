@@ -28,5 +28,14 @@
 
     "password": {
         "saltRounds": 10
+    },
+    
+    "email": {
+        "apiKey": "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",
+        "fromEmail": "info@nbastatscomparison.com"
+    },
+
+    "urls": {
+        "baseUrl": "http://localhost:3000"
     }
 }
