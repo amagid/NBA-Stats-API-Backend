@@ -1,5 +1,8 @@
 const User = require('../../models/User');
 const authService = require('../../services/auth');
+const emailService = require('../../services/email');
+const APIError = require('../../APIError');
+const uuid = require('uuid');
 
 module.exports = {
     login,
@@ -19,7 +22,7 @@ function checkUserData(userData) {
 }
 
 function signup(email, password, fname, lname) {
-    authService.hashPassword(password)
+    return authService.hashPassword(password)
         .then(hash => {
             return User.create({
                     email,
@@ -28,11 +31,20 @@ function signup(email, password, fname, lname) {
                     lname
                 })
                 .then(user => {
-                    console.log(user);
-                    return "User Created Successfully!"
+                    const token = uuid.v4();
+                    return Promise.all([emailService.sendVerificationEmail(user.dataValues, token),
+                                        User.update({ token }, { where: { id: user.id } })]);
+                })
+                .spread((emailResult, updateResult) => {
+                    return emailResult;
                 })
                 .catch(err => {
-                    throw APIError(err.status || 500, err.message || 'User Creation Failed');
+                    if (err.name === 'SequelizeUniqueConstraintError') {
+                        throw APIError(400, 'Email Already In Use');
+                    } else if (err.message === 'Validation error') {
+                        throw APIError(400, 'Invalid Data')
+                    }
+                    throw APIError(err.status || 500, err.message || 'User Creation Failed', err);
                 });
         });
 }
