@@ -254,8 +254,8 @@ def main():
         print json.dumps(player1.compare_player(player2))
 
 #run main
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+    #main()
 
 
 #get player by id --> traditional stats ["get", "id"]
