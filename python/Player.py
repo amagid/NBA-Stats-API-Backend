@@ -80,8 +80,8 @@ class Player:
         except Exception, e:
             sys.exit("404")
 
-        for stat in self.player_dict:
-            print stat
+        #for stat in self.player_dict:
+            #print stat
 
         self.stats['Base'] = self.player_dict
 
@@ -111,7 +111,7 @@ class Player:
 
     def player_score(self):
         type = self.pg_type()
-        print type
+        #print type
 
 
 
@@ -209,7 +209,7 @@ class Player:
     def pg_type(self):
         stats = self.player_dict
         # check for superstar status
-        if stats['PTS'] > 25:
+        if stats['PTS'] > 23:
             if stats['AST'] > 5.5:
                 return "superstar"
             else:
