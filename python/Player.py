@@ -6,7 +6,6 @@ import requests
 import sys
 import json
 
-
 players_link = 'http://www.nba.com/players/active_players.json'
 head = {"USER-AGENT":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"}
 response = requests.get(players_link, headers=head)
@@ -81,6 +80,9 @@ class Player:
         except Exception, e:
             sys.exit("404")
 
+        for stat in self.player_dict:
+            print stat
+
         self.stats['Base'] = self.player_dict
 
 
@@ -107,8 +109,9 @@ class Player:
         dateTo = dateTo.split('/')
         dateTo = dateTo[0] + '%2F' + dateTo[1] + '%2F' + dateTo[2]
 
-    def select_score(self):
-        return self.player_dict['BLK'] * 2 + self.player_dict['REB'] + self.player_dict['AST'] + self.player_dict['PTS'] - self.player_dict['TOV']
+    def player_score(self):
+        type = self.pg_type()
+        print type
 
 
 
@@ -202,10 +205,32 @@ class Player:
         else:  # defensive
             x = 2
 
-    #pass-first, scoring, defensive, shooting, all-around, superstar
+    #pass-first, scoring, defensive, scoring, all-around, superstar
     def pg_type(self):
-        x = 2
+        stats = self.player_dict
         # check for superstar status
+        if stats['PTS'] > 25:
+            if stats['AST'] > 5.5:
+                return "superstar"
+            else:
+                return "scoring"
+        elif stats['AST'] > 9:
+            if stats['PTS'] > 19:
+                return "superstar"
+            elif stats['PTS'] > 15:
+                return "around"
+            else:
+                return "pass-first"
+        elif stats['STL'] > 1.5:
+            return "defensive"
+        elif stats['PTS']/stats['AST'] < 2.5:
+            return "pass-first"
+        elif stats['PTS']/stats['AST'] > 2.5:
+            return "scoring"
+        else:
+            return "around"
+
+
 
     #shooting, all-around scorer, defensive, shooting, all-around, superstar
     def sg_type(self):
@@ -252,6 +277,9 @@ def main():
         player2 = Player(data[3],"Base","2016-17")
 
         print json.dumps(player1.compare_player(player2))
+
+jc = Player("Jordan Clarkson", "Base", "2016-17")
+jc.player_score()
 
 #run main
 #if __name__ == '__main__':
