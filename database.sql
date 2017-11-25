@@ -31,6 +31,8 @@ CREATE TABLE `game_queries` (
   `game_id` int(11) DEFAULT NULL,
   `game2_id` int(11) DEFAULT NULL,
   `command` varchar(32) NOT NULL,
+  `createdAt` datetime,
+  `updatedAt` datetime,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `game_queries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -59,6 +61,8 @@ CREATE TABLE `player_queries` (
   `player_id` int(11) DEFAULT NULL,
   `player2_id` int(11) DEFAULT NULL,
   `command` varchar(32) NOT NULL,
+  `createdAt` datetime,
+  `updatedAt` datetime,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `player_queries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -88,6 +92,8 @@ CREATE TABLE `team_queries` (
   `team2_id` int(11) DEFAULT NULL,
   `team3_id` int(11) DEFAULT NULL,
   `command` varchar(32) NOT NULL,
+  `createdAt` datetime,
+  `updatedAt` datetime,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `team_queries_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -114,9 +120,12 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(64) NOT NULL,
   `password` varchar(64) DEFAULT NULL,
-  `token` varchar(32) DEFAULT NULL,
+  `token` varchar(64) DEFAULT NULL,
+  `verified` boolean DEFAULT FALSE,
   `fname` varchar(32) DEFAULT NULL,
   `lname` varchar(64) DEFAULT NULL,
+  `createdAt` datetime,
+  `updatedAt` datetime,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `token` (`token`)
