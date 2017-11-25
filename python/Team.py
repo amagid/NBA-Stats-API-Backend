@@ -135,7 +135,18 @@ class Team:
 		return stats
 
 
-	def year_over_year(self):
+	def year_over_year(self,**kwargs):
+		params = ["year1","year2","Season_type","TeamID","Measure_type"]
+		stats["Measure_type"] = "None"
+		stats["year1"] = "2017-18"
+		stats["year2"] = "2015-16"
+		stats["Season_type"] = "Regular+Season"
+
+		for key,value in kwargs.items():
+			if key in params:
+				stats[key] = value
+
+
 		link = ['https://stats.nba.com/stats/teamdashboardbyyearoveryear?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base',
 				'&Month=0&OpponentTeamID=0&Outcome=',
 				'&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlusMinus=N&Rank=N&Season=2017-18&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=yoy&TeamID=',
@@ -146,8 +157,10 @@ class Team:
 		keys = response.json()['resultSets'][1]['headers']
 		values = response.json()['resultSets'][1]['rowSet']
 		self.year_over_year_data = pd.DataFrame(values,columns=keys)
-
-		print
+		frame = self.year_over_year_data
+		frame1 = frame["GROUP_VALUE"]
+		frame = pd.DataFrame(values,columns=keys,index=frame1)
+		print frame.loc[stats["year1"]:stats["year2"]]
 
 
 
@@ -165,6 +178,9 @@ class Team:
 		stats_lt2 = opp.helper_search_team(Measure_type = "Base",Season_type = "Regular+Season",Season = "2016-17",Outcome = "L")
 		stats_oppt1 = self.helper_search_team(Measure_type = "Base",Season_type = "Regular+Season",Season = "2016-17",OppnentId = opp.Id)
 		stats_oppt2 = opp.helper_search_team(Measure_type = "Base",Season_type = "Regular+Season",Season = "2016-17",OppnentId = self.Id)
+
+
+
 
 
 
