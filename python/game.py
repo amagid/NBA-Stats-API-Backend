@@ -48,35 +48,57 @@ class Game:
         team_two_id = team_id[team2]
 
         request_link = game_link[0] + year + game_link[1] + str(team_one_id) + game_link[2] + str(team_two_id)
-        print request_link
+        #print request_link
         response = requests.get(request_link, headers=head)
 
         all_games = response.json()
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(all_games)
+        #pp = pprint.PrettyPrinter(indent=4)
+        ##pp.pprint(all_games)
         keys = all_games["resultSets"][0]['headers']
         games = all_games["resultSets"][0]["rowSet"]
         for game in games:
             self.games.append(dict(zip(keys, game)))
 
     def compare_games(self, game_two):
-        print self.games[0]["MIN"]
+        better_matchup = Game
         if self.teams[0] != game_two.teams[0]:
             print "teams for comparison don't match"
             sys.exit("400")
         else:
-            return self.teams[0] + " " + "performed better in the game against the " + self.teams[1]
+            selfWL = self.winlose_to_number(0)
+            game_twoWL = game_two.winlose_to_number(0)
 
+            if selfWL > game_twoWL:
+                better_matchup = self
+            elif game_twoWL > selfWL:
+                better_matchup = game_two
+            else:
+                better_matchup = self
+                if self.games[0]["PLUS_MINUS"] > game_two.games[0]["PLUS_MINUS"]:
+                    better_matchup = self
+                else:
+                    better_matchup = game_two
+
+        return self.teams[0] + " " + "performed better in the game against the " + better_matchup.teams[1]
+
+    def winlose_to_number(self, game):
+        if self.games[game]["WL"] == "W":
+            return 1
+        else:
+            return 0
 
 #for testing purposes
 pp = pprint.PrettyPrinter(indent=4)
 datgame = Game("Los Angeles Lakers", "Boston Celtics", "2016-17")
 datgame2 = Game("Los Angeles Lakers", "Minnesota Timberwolves", "2016-17")
 datgame3 = Game("Minnesota Timberwolves", "Los Angeles Lakers", "2016-17")
-pp.pprint(datgame.games)
-print datgame2.games
+datgame4 = Game("Los Angeles Lakers", "Golden State Warriors", "2016-17")
+#pp.pprint(datgame.games)
+#pp.pprint(datgame4.games)
+#print datgame2.games
 print datgame.compare_games(datgame2)
-print datgame.compare_games(datgame3)
+print datgame.compare_games(datgame4)
+#print datgame.compare_games(datgame3)
 
 
 
