@@ -35,6 +35,7 @@ const TeamQuery = db.define('team_queries', {
 const User = require('./User');
 User.hasMany(TeamQuery);
 
+//Additional methods
 module.exports = Object.assign(TeamQuery, {
 
 });

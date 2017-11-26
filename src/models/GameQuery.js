@@ -31,6 +31,7 @@ const GameQuery = db.define('game_queries', {
 const User = require('./User');
 User.hasMany(GameQuery);
 
+//Additional methods
 module.exports = Object.assign(GameQuery, {
 
 });
