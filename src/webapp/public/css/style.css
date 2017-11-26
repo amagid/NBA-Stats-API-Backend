@@ -86,3 +86,12 @@ p {
 .chartRow {
   padding-top: 30px;
 }
+
+.formContainer {
+  text-align: center;
+  padding-top: 30%;
+}
+
+.formItem {
+  padding-bottom: 10px;
+}
