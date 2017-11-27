@@ -33,22 +33,21 @@
           <md-button class="menuBarButton" href="/account.html">My Account</md-button>
         </div>
 
-        <md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button></td>
+        <md-button class="compareButton" ng-click="compareTeams()">Compare</md-button></td>
         <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
           <tbody>
             <tr>
               <td class="compareContainer" colspan="3">
-                <!--<div ng-style="leftBar" class="comparisonBar left">
-
-              </div>
-            </td>
-            <td>
-          </td>
-          <td class="compareContainer" colspan="3">
-          <div ng-style="rightBar" class="comparisonBar right">
-
-        </div>-->
-        {{betterPlayer}}
+        {{betterTeam}}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="7" align="center">
+        <select align="center">
+          <option value="overall">Overall</option>
+          <option value="offense">Offense</option>
+          <option value="defense">Defense</option>
+        </select>
       </td>
     </tr>
     <tr>
@@ -58,18 +57,18 @@
             <md-autocomplete  md-selected-item="player1selected"
             md-search-text-change="searchTextChange(searchText1)"
             md-search-text="searchText1"
-            md-selected-item-change="selectedItemChange(item, 0)"
-            md-items = "item in querySearch(searchText1)"
+            md-selected-item-change="selectedItemChangeTeam(item, 0)"
+            md-items = "item in querySearchTeam(searchText1)"
             md-item-text="item.name"
             md-min-length="1"
-            placeholder="Search for a player">
+            placeholder="Search for a team">
 
             <md-item-template>
               <span md-highlight-text = "searchText1" md-highlight-flags = "^i">{{item.name}}</span>
             </md-item-template>
 
             <md-not-found>
-              No players matching "{{searchText1}}" were found.
+              No teams matching "{{searchText1}}" were found.
             </md-not-found>
           </md-autocomplete>
 
@@ -78,31 +77,25 @@
       <!--<input type="text" name="player1" ng-model = "player1"  ng-keydown="leftkeypress($event)" ng-model="inLeft" placeholder="Search for a player or team here" >-->
       <!--</form>-->
     </td>
-    <td>
-      <select>
-        <option value="overall">Overall</option>
-        <option value="offense">Offense</option>
-        <option value="defense">Defense</option>
-      </select>
-    </td>
+    <td class="table-separator"></td>
     <td colspan="3">
       <md-content>
         <form ng-submit="$event.preventDefault()">
           <md-autocomplete  md-selected-item="player2selected"
           md-search-text-change="searchTextChange(searchText2)"
           md-search-text="searchText2"
-          md-selected-item-change="selectedItemChange(item, 1)"
-          md-items = "item in querySearch(searchText2)"
+          md-selected-item-change="selectedItemChangeTeam(item, 1)"
+          md-items = "item in querySearchTeam(searchText2)"
           md-item-text="item.name"
           md-min-length="1"
-          placeholder="Search for a player">
+          placeholder="Search for a team">
 
           <md-item-template>
             <span md-highlight-text = "searchText2" md-highlight-flags = "^i">{{item.name}}</span>
           </md-item-template>
 
           <md-not-found>
-            No players matching "{{searchText2}}" were found.
+            No teams matching "{{searchText2}}" were found.
           </md-not-found>
         </md-autocomplete>
 

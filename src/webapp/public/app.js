@@ -6,11 +6,27 @@ app.controller('myController', function($scope, $http) {
 
   $scope.players = [];
 
+  $scope.teams = [];
+
   // On app start, grab all the players for the autofill lists
   $http.get('/api/players').
   then(function(response) {
     //$scope.player1data = response.data
     $scope.players = response['data'];
+    // this callback will be called asynchronously
+    // when the response is available
+  }, function(response) {
+    console.log("There was an error getting init data!");
+    console.log(response.data);
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
+
+  $http.get('/api/teams').
+  then(function(response) {
+    //$scope.player1data = response.data
+    $scope.teams = response['data'];
+    console.log($scope.teams);
     // this callback will be called asynchronously
     // when the response is available
   }, function(response) {
@@ -52,11 +68,11 @@ app.controller('myController', function($scope, $http) {
   $scope.leftBar = {
     'width': 0 + "%"
 	};
-  
+
   $scope.rightBar = {
     'width': 0 + "%"
 	};
-	
+
   // Function configuring md-autocomplete options
 $scope.autoCompleteOptions = {
   minimumChars: 1,
@@ -89,6 +105,24 @@ $scope.getPlayerStats = function(id, whichSide){
   });
 };
 
+// This is a sort of dao function
+$scope.getTeamStats = function(id, whichSide){
+ console.log($scope.player1)
+ $http.get('/api/teams/' + id).
+ then(function(response) {
+   //$scope.player1data = response.data
+   console.log(response);
+   if (whichSide === 0) {
+     $scope.lpStats = response['data'];
+   } else {
+     $scope.rpStats = response['data'];
+   }
+ }, function(response) {
+   console.log("Error getting player data!");
+   console.log(response.data);
+ });
+};
+
 $scope.searchTextChange - function(text) {
   // If we want to do something every time
   // the user types, do something here
@@ -116,13 +150,40 @@ $scope.selectedItemChange = function(item, whichInput) {
   }
 }
 
+// When user clicks item but on the team screen
+$scope.selectedItemChange = function(item, whichInput) {
+  // Get the info; the id is {{item.id}}
+  // Should come in correct format so hopefully no
+  // json manipulation needed
+  console.log(item.name);
+  $scope.getTeamStats(item.name, whichInput);
+
+  // Also try using the nba headshot api?
+  // First we need to format for search (wants underscores)
+  var headshotQuery = 'https://nba-players.herokuapp.com/players/' + item.name.replace(" ", "_");
+
+  // lmao actually you dont have to do a real ajax call
+  // you can just set the var to the URL hahahahahahhahaha
+  if (whichInput === 0) {
+    $scope.lpImage = headshotQuery;
+  } else {
+    $scope.rpImage = headshotQuery;
+  }
+}
+
 // function that md-autocomplete calls to search the array
 $scope.querySearch = function(query) {
   if (!query) return [];
   return $scope.players.filter($scope.createFilterFor(query));
 }
 
-// need a custom function for the md-autocomplete filter to 
+// autocomplete for teams
+$scope.querySearchTeam = function(query) {
+  if (!query) return [];
+  return $scope.teams.filter($scope.createFilterFor(query));
+}
+
+// need a custom function for the md-autocomplete filter to
 // ensure it is searching the way we want (search the whole name list, not exact matches)
 $scope.createFilterFor = function(query) {
   var lowercaseQuery = angular.lowercase(query);
@@ -141,10 +202,10 @@ $scope.comparePlayers = function() {
       //$scope.player1data = response.data
       console.log(response['data']);
 	  $scope.betterPlayer = response['data'];
-	  
+
       $scope.leftBar.width = response['data'].player1 + "%";
 	  $scope.rightBar.width = response['data'].player2 + "%";
-	  
+
 	  if (response['data'].player1 > response['data'].player2 ) {
 		  $scope.leftBar.backgroundColor = "LightGreen";
 		  $scope.rightBar.backgroundColor = "LightPink";
@@ -155,22 +216,22 @@ $scope.comparePlayers = function() {
 		  $scope.leftBar.backgroundColor = "LightGreen";
 		  $scope.rightBar.backgroundColor = "LightGreen";
 	  }
-	  
+
     }, function(response) {
 		// temp comment this error handling to test
       //console.log("Error getting player comparison result!");
       //console.log(response.data);
 	  console.log(response['data']);
-	  
+
 	  response.data = {
 		  player1:76,
 		  player2:30
 	  }
-	  
-	  
-      $scope.leftBar.width = response['data'].player1 + "%";
+
+
+    $scope.leftBar.width = response['data'].player1 + "%";
 	  $scope.rightBar.width = response['data'].player2 + "%";
-	  
+
 	  if (response['data'].player1 > response['data'].player2 ) {
 		  $scope.leftBar.backgroundColor = "LightGreen";
 		  $scope.rightBar.backgroundColor = "LightPink";
@@ -185,82 +246,4 @@ $scope.comparePlayers = function() {
   }
 }
 
-$scope.chartInputData = [{
-  "type": "points",
-
-  "time": 1500552000,
-  "value": 22
-
-},
-{
-  "type": "points",
-  "time": 1500724800,
-  "value": 25
-},
-{
-  "type": "points",
-  "time": 1500897600,
-  "value": 23
-},
-{
-  "type": "rebounds",
-  "time": 1500552000,
-  "value": 8
-},
-{
-  "type": "rebounds",
-  "time": 1500724800,
-  "value": 6
-},
-{
-  "type": "rebounds",
-  "time": 1500897600,
-  "value": 9
-},
-
-{
-  "type": "assists",
-  "time": 1500552000,
-  "value": 14
-},
-{
-  "type": "assists",
-  "time": 1500724800,
-  "value": 18
-},
-{
-  "type": "assists",
-  "time": 1500897600,
-  "value": 10
-}
-]
-
-
-var ctx = $("#myChart");
-//console.log(ctx);
-$scope.myChart = new Chart(ctx, {
-  type: 'line',
-  // data: {
-  //   label: "Stats",
-  //   xAxisID: "Date",
-  //   yAxisID: "Amount",
-  //   backgroundColor: "rgba(0, 0, 0, 0.5)"
-  // }
-  data: {
-    datasets: [
-      {
-        data: [
-          {
-            x: 10,
-            y: 20
-          },
-          {
-            x: 15,
-            y: 22
-          }
-        ]
-      }
-    ]
-  }
-});
 })
