@@ -139,7 +139,7 @@ $scope.selectedItemChange = function(item, whichInput) {
   // Should come in correct format so hopefully no
   // json manipulation needed
   console.log(item);
-  $scope.getPlayerStats(item.id, whichInput);
+  $scope.getPlayerStats(item.name, whichInput);
 
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)
