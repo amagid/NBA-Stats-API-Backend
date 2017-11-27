@@ -17,5 +17,22 @@
     <script src="app.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Anton|Fjalla+One|Francois+One" rel="stylesheet">
   </head>
-  
+
+  <body>
+    <div class="container">
+      <h1>Hello, {{username}}</h1>
+      <br>
+      <h2>History</h2>
+      <ul class='historyList'>
+        <li class="historyListItem" ng-repeat='item in historyList'>
+          <table>
+            <td>Type: {{item.type}} |</td>
+            <td ng-if="item.type !== 'games'">{{item.item1}} vs. {{item.item2}}</td>
+            <td ng-if="item.type === 'games'">{{item.rootTeam}}: {{item.item1}} vs. {{item.item2}}</td>
+          </table>
+        </li>
+      </ul>
+    </div>
+  </body>
+
 </html>

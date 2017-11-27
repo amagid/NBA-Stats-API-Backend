@@ -23,7 +23,16 @@
 
       <div class="container">
         <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
+
         <br>
+
+        <div class="menuBarContainer">
+          <md-button class="menuBarButton" href="/">Players</md-button>
+          <md-button class="menuBarButton" href="/teams.html">Teams</md-button>
+          <md-button class="menuBarButton" href="/games.html">Games</md-button>
+          <md-button class="menuBarButton" href="/account.html">My Account</md-button>
+        </div>
+
         <md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button></td>
         <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
           <tbody>
@@ -40,6 +49,15 @@
 
         </div>-->
         {{betterPlayer}}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="7" align="center">
+        <select align="center">
+          <option value="overall">Overall</option>
+          <option value="offense">Offense</option>
+          <option value="defense">Defense</option>
+        </select>
       </td>
     </tr>
     <tr>

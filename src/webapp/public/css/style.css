@@ -26,6 +26,15 @@ p {
 	font-size: 14px;
 }
 
+.menuBarContainer {
+  text-align: center;
+}
+
+.menuBarButton {
+    background-color: white !important;
+    border-color: black !important;
+}
+
 .compareContainer {
   max-width: 450px;
   min-height: 75px;
@@ -89,7 +98,7 @@ p {
 
 .formContainer {
   text-align: center;
-  padding-top: 30%;
+  padding-top: 23%;
 }
 
 .formItem {
