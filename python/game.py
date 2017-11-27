@@ -67,8 +67,8 @@ class Game:
             print "teams for comparison don't match"
             sys.exit("400")
         else:
-            selfWL = self.winlose_to_number(0)
-            game_twoWL = game_two.winlose_to_number(0)
+            selfWL = self.winlose_to_number()
+            game_twoWL = game_two.winlose_to_number()
 
             # If the team for comparison won either game return that game
             if selfWL > game_twoWL:
@@ -83,13 +83,20 @@ class Game:
                 else:
                     better_matchup = game_two
 
-        return self.teams[0] + " " + "performed better in the game against the " + better_matchup.teams[1]
+        return self.teams[0] + " " + "performed better against the " + better_matchup.teams[1]
 
-    def winlose_to_number(self, game):
-        if self.games[game]["WL"] == "W":
-            return 1
-        else:
-            return 0
+    #calcuates the average winlose rate for a matchup of two teams
+    def winlose_to_number(self):
+        winlose_count = 0
+        total_games = len(self.games)
+
+        for x in range(0, total_games):
+            if self.games[x]["WL"] == "W":
+                winlose_count += 1
+            else:
+                winlose_count -= 1
+
+        return winlose_count / total_games
 
 def main():
     data = read_in()

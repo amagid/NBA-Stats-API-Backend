@@ -13,9 +13,10 @@ class TestGame(TestCase):
     datgame2 = Game("Los Angeles Lakers", "Minnesota Timberwolves", "2016-17")
     datgame3 = Game("Minnesota Timberwolves", "Los Angeles Lakers", "2016-17")
     datgame4 = Game("Los Angeles Lakers", "Golden State Warriors", "2016-17")
-    # pp.pprint(datgame.games)
+    pp.pprint(datgame3.games)
     # pp.pprint(datgame4.games)
     # print datgame2.games
     print datgame.compare_games(datgame2)
     print datgame.compare_games(datgame4)
+    print datgame3.winlose_to_number()
     # print datgame.compare_games(datgame3)
