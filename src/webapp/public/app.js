@@ -8,6 +8,10 @@ app.controller('myController', function($scope, $http) {
 
   $scope.teams = [];
 
+  $scope.modes = ['Overall', 'Offense', 'Defense'];
+
+  $scope.years = [2014, 2015, 2016, 2017];
+
   // On app start, grab all the players for the autofill lists
   $http.get('/api/players').
   then(function(response) {
@@ -228,6 +232,51 @@ $scope.comparePlayers = function() {
 		  player2:30
 	  }
 
+
+    $scope.leftBar.width = response['data'].player1 + "%";
+	  $scope.rightBar.width = response['data'].player2 + "%";
+
+	  if (response['data'].player1 > response['data'].player2 ) {
+		  $scope.leftBar.backgroundColor = "LightGreen";
+		  $scope.rightBar.backgroundColor = "LightPink";
+	  } else if (response['data'].player1 < response['data'].player2 ) {
+		  $scope.leftBar.backgroundColor = "LightPink";
+		  $scope.rightBar.backgroundColor = "LightGreen";
+	  } else {
+		  $scope.leftBar.backgroundColor = "LightGreen";
+		  $scope.rightBar.backgroundColor = "LightGreen";
+	  }
+    });
+  }
+}
+
+$scope.compareTeams = function() {
+  if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
+    $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2).
+    then(function(response) {
+      //$scope.player1data = response.data
+      console.log(response['data']);
+	  $scope.betterTeam = response['data'];
+
+    $scope.leftBar.width = response['data'].player1 + "%";
+	  $scope.rightBar.width = response['data'].player2 + "%";
+
+	  if (response['data'].player1 > response['data'].player2 ) {
+		  $scope.leftBar.backgroundColor = "LightGreen";
+		  $scope.rightBar.backgroundColor = "LightPink";
+	  } else if (response['data'].player1 < response['data'].player2 ) {
+		  $scope.leftBar.backgroundColor = "LightPink";
+		  $scope.rightBar.backgroundColor = "LightGreen";
+	  } else {
+		  $scope.leftBar.backgroundColor = "LightGreen";
+		  $scope.rightBar.backgroundColor = "LightGreen";
+	  }
+
+    }, function(response) {
+		// temp comment this error handling to test
+      //console.log("Error getting player comparison result!");
+      //console.log(response.data);
+	  console.log(response['data']);
 
     $scope.leftBar.width = response['data'].player1 + "%";
 	  $scope.rightBar.width = response['data'].player2 + "%";

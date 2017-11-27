@@ -43,10 +43,7 @@
             </tr>
     <tr>
       <td colspan="11" align="center">
-        <select align="center">
-          <option value="overall">Overall</option>
-          <option value="offense">Offense</option>
-          <option value="defense">Defense</option>
+        <select  ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
         </select>
       </td>
     </tr>
@@ -72,6 +69,9 @@
             </md-not-found>
           </md-autocomplete>
 
+          <br>
+          <select  ng-model='year.team1' ng-options = 'x for x in years' align="center">
+          </select>
         </form>
       </md-content>
       <!--<input type="text" name="player1" ng-model = "player1"  ng-keydown="leftkeypress($event)" ng-model="inLeft" placeholder="Search for a player or team here" >-->
@@ -99,6 +99,11 @@
           </md-not-found>
         </md-autocomplete>
 
+                  <br>
+                <span style='padding-left: 33%'>
+                  <select ng-model='year.team2' ng-options = 'x for x in years' align="center">
+                  </select>
+                </span>
       </form>
     </md-content>
   </td>
@@ -124,6 +129,10 @@
         </md-not-found>
       </md-autocomplete>
 
+
+                <br>
+                <select ng-model='year.team3' ng-options = 'x for x in years' align="center">
+                </select>
     </form>
   </md-content>
 </td>

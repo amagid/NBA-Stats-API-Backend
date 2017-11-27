@@ -38,15 +38,12 @@
           <tbody>
             <tr>
               <td class="compareContainer" colspan="3">
-        {{betterTeam}}
-      </td>
-    </tr>
+                {{betterTeam}}
+              </td>
+            </tr>
     <tr>
       <td colspan="7" align="center">
-        <select align="center">
-          <option value="overall">Overall</option>
-          <option value="offense">Offense</option>
-          <option value="defense">Defense</option>
+        <select  ng-model='modeSelect' ng-init="modes[0]" ng-options = 'x for x in modes' align="center">
         </select>
       </td>
     </tr>
