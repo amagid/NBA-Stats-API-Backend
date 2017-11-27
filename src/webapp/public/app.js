@@ -138,8 +138,8 @@ $scope.selectedItemChange = function(item, whichInput) {
   // Get the info; the id is {{item.id}}
   // Should come in correct format so hopefully no
   // json manipulation needed
-  console.log(item.name);
-  $scope.getPlayerStats(item.name, whichInput);
+  console.log(item);
+  $scope.getPlayerStats(item.id, whichInput);
 
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)
@@ -155,7 +155,7 @@ $scope.selectedItemChange = function(item, whichInput) {
 }
 
 // When user clicks item but on the team screen
-$scope.selectedItemChange = function(item, whichInput) {
+$scope.selectedItemChangeTeam = function(item, whichInput) {
   // Get the info; the id is {{item.id}}
   // Should come in correct format so hopefully no
   // json manipulation needed
