@@ -24,116 +24,116 @@
       <div class="container">
         <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
         <br>
-		<md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button></td>
+        <md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button></td>
         <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
           <tbody>
-			<tr>
-				<td class="compareContainer" colspan="3">
-					<!--<div ng-style="leftBar" class="comparisonBar left">
-					
-					</div>
-				</td>
-				<td>
-				</td>
-				<td class="compareContainer" colspan="3">
-					<div ng-style="rightBar" class="comparisonBar right">
-					
-					</div>-->
-					{{betterPlayer}}
-				</td>
-			</tr>
             <tr>
-              <td colspan="3" align="right">
-                <md-content>
-                  <form ng-submit="$event.preventDefault()">
-                    <md-autocomplete  md-selected-item="player1selected"
-                    md-search-text-change="searchTextChange(searchText1)"
-                    md-search-text="searchText1"
-                    md-selected-item-change="selectedItemChange(item, 0)"
-                    md-items = "item in querySearch(searchText1)"
-                    md-item-text="item.name"
-                    md-min-length="1"
-                    placeholder="Search for a player">
+              <td class="compareContainer" colspan="3">
+                <!--<div ng-style="leftBar" class="comparisonBar left">
 
-                    <md-item-template>
-                      <span md-highlight-text = "searchText1" md-highlight-flags = "^i">{{item.name}}</span>
-                    </md-item-template>
-
-                    <md-not-found>
-                      No players matching "{{searchText1}}" were found.
-                    </md-not-found>
-                  </md-autocomplete>
-
-                </form>
-              </md-content>
-              <!--<input type="text" name="player1" ng-model = "player1"  ng-keydown="leftkeypress($event)" ng-model="inLeft" placeholder="Search for a player or team here" >-->
-              <!--</form>-->
+              </div>
             </td>
-            <td class="table-separator"></td>
-            <td colspan="3">
-              <md-content>
-                <form ng-submit="$event.preventDefault()">
-                  <md-autocomplete  md-selected-item="player2selected"
-                  md-search-text-change="searchTextChange(searchText2)"
-                  md-search-text="searchText2"
-                  md-selected-item-change="selectedItemChange(item, 1)"
-                  md-items = "item in querySearch(searchText2)"
-                  md-item-text="item.name"
-                  md-min-length="1"
-                  placeholder="Search for a player">
+            <td>
+          </td>
+          <td class="compareContainer" colspan="3">
+          <div ng-style="rightBar" class="comparisonBar right">
 
-                  <md-item-template>
-                    <span md-highlight-text = "searchText2" md-highlight-flags = "^i">{{item.name}}</span>
-                  </md-item-template>
+        </div>-->
+        {{betterPlayer}}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" align="right">
+        <md-content>
+          <form ng-submit="$event.preventDefault()">
+            <md-autocomplete  md-selected-item="player1selected"
+            md-search-text-change="searchTextChange(searchText1)"
+            md-search-text="searchText1"
+            md-selected-item-change="selectedItemChange(item, 0)"
+            md-items = "item in querySearch(searchText1)"
+            md-item-text="item.name"
+            md-min-length="1"
+            placeholder="Search for a player">
 
-                  <md-not-found>
-                    No players matching "{{searchText2}}" were found.
-                  </md-not-found>
-                </md-autocomplete>
+            <md-item-template>
+              <span md-highlight-text = "searchText1" md-highlight-flags = "^i">{{item.name}}</span>
+            </md-item-template>
 
-              </form>
-            </md-content>
-          </td>
-        </tr>
-        <tr>
-          <td class="imgContainer"> <img width="200" ng-src="{{lpImage}}"></td>
-          <td  class="container" align="right">
-            <p>Points per game <br>
-            Rebounds per game <br>
-            Assists per game <br>
-            Blocks per game <br>
-            Steals per game <br>
-            Turnovers per game <br>
-            Three pointers per game <br>
-            Free throws made per game <br></p>
-          </td>
-          <td class="numContainer" align="center" border-right="1">
-            <div class="container statNumber">
-              <p>{{lpStats.points}} <br>
-              {{lpStats.rebounds}} <br>
-              {{lpStats.assists}} <br>
-              {{lpStats.blocks}} <br>
-              {{lpStats.steals}} <br>
-              {{lpStats.turnovers}} <br>
-              {{lpStats.three}} <br>
-              {{lpStats.free}} <br></p>
-            </div>
-          </td>
-          <td class="table-separator"></td>
-          <td class="numContainer" align="center">
-            <div class="container statNumber">
-               <p> {{rpStats.points}} <br>
-                {{rpStats.rebounds}} <br>
-                {{rpStats.assists}} <br>
-                {{rpStats.blocks}} <br>
-                {{rpStats.steals}} <br>
-                {{rpStats.turnovers}} <br>
-                {{rpStats.three}} <br>
-                {{rpStats.free}} <br></p>
-            </div>
-          </td>
-          <td rsclass="container">
-            <p>Points per game <br>
+            <md-not-found>
+              No players matching "{{searchText1}}" were found.
+            </md-not-found>
+          </md-autocomplete>
+
+        </form>
+      </md-content>
+      <!--<input type="text" name="player1" ng-model = "player1"  ng-keydown="leftkeypress($event)" ng-model="inLeft" placeholder="Search for a player or team here" >-->
+      <!--</form>-->
+    </td>
+    <td class="table-separator"></td>
+    <td colspan="3">
+      <md-content>
+        <form ng-submit="$event.preventDefault()">
+          <md-autocomplete  md-selected-item="player2selected"
+          md-search-text-change="searchTextChange(searchText2)"
+          md-search-text="searchText2"
+          md-selected-item-change="selectedItemChange(item, 1)"
+          md-items = "item in querySearch(searchText2)"
+          md-item-text="item.name"
+          md-min-length="1"
+          placeholder="Search for a player">
+
+          <md-item-template>
+            <span md-highlight-text = "searchText2" md-highlight-flags = "^i">{{item.name}}</span>
+          </md-item-template>
+
+          <md-not-found>
+            No players matching "{{searchText2}}" were found.
+          </md-not-found>
+        </md-autocomplete>
+
+      </form>
+    </md-content>
+  </td>
+</tr>
+<tr>
+  <td class="imgContainer"> <img width="200" ng-src="{{lpImage}}"></td>
+  <td  class="container" align="right">
+    <p>Points per game <br>
+      Rebounds per game <br>
+      Assists per game <br>
+      Blocks per game <br>
+      Steals per game <br>
+      Turnovers per game <br>
+      Three pointers per game <br>
+      Free throws made per game <br></p>
+    </td>
+    <td class="numContainer" align="center" border-right="1">
+      <div class="container statNumber">
+        <p>{{lpStats.points}} <br>
+          {{lpStats.rebounds}} <br>
+          {{lpStats.assists}} <br>
+          {{lpStats.blocks}} <br>
+          {{lpStats.steals}} <br>
+          {{lpStats.turnovers}} <br>
+          {{lpStats.three}} <br>
+          {{lpStats.free}} <br></p>
+        </div>
+      </td>
+      <td class="table-separator"></td>
+      <td class="numContainer" align="center">
+        <div class="container statNumber">
+          <p> {{rpStats.points}} <br>
+            {{rpStats.rebounds}} <br>
+            {{rpStats.assists}} <br>
+            {{rpStats.blocks}} <br>
+            {{rpStats.steals}} <br>
+            {{rpStats.turnovers}} <br>
+            {{rpStats.three}} <br>
+            {{rpStats.free}} <br></p>
+          </div>
+        </td>
+        <td rsclass="container">
+          <p>Points per game <br>
             Rebounds per game <br>
             Assists per game <br>
             Blocks per game <br>
@@ -148,8 +148,8 @@
           <!-- TODO do the charts.. -->
           <!-- <td colspan="3" align="right"><img width="300" src="img/fillerchart.png"> </td> -->
           <td colspan="3" align="right">
-			<div id="myChart"></div> 
-		  </td>
+            <div id="myChart"></div>
+          </td>
           <td class="table-separator"></td>
           <!-- <td colspan="3"> <img width="300" src="img/fillerchart.png"></td> -->
         </tr>
