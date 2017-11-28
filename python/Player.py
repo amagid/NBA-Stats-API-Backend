@@ -5,7 +5,6 @@ import requests
 #import itertools
 import sys
 import json
-import pandas as pd
 
 players_link = 'http://www.nba.com/players/active_players.json'
 head = {"USER-AGENT":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"}
@@ -193,7 +192,6 @@ class Player:
         keys = [x.encode('UTF8') for x in keys]
         values = response.json()['resultSets'][1]['rowSet']
 
-        year_df = pd.DataFrame()
         year_dict = dict()
 
         for year in values:
