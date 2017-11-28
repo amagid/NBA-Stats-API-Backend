@@ -9,9 +9,10 @@ const TeamQuery = db.define('team_queries', {
         autoIncrement: true
     },
 
-    user_id: {
+    userId: {
         type: Sequelize.DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        field: 'user_id'
     },
 
     url: {
@@ -19,16 +20,19 @@ const TeamQuery = db.define('team_queries', {
         allowNull: false
     },
 
-    team_id: {
-        type: Sequelize.DataTypes.INTEGER
+    team1Id: {
+        type: Sequelize.DataTypes.INTEGER,
+        field: 'team1_id'
     },
 
-    team2_id: {
-        type: Sequelize.DataTypes.INTEGER
+    team2Id: {
+        type: Sequelize.DataTypes.INTEGER,
+        field: 'team2_id'
     },
 
-    team3_id: {
-        type: Sequelize.DataTypes.INTEGER
+    dataType: {
+        type: Sequelize.DataTypes.STRING,
+        field: 'data_type'
     },
 
     command: {
@@ -50,10 +54,26 @@ module.exports = Object.assign(TeamQuery, {
     upsertSearch
 });
 
-function upsertSearch(user_id, url) {
+function upsertSearch(user_id, url, command, data) {
+    //Sanitize team1Id with valid value if not supplied
+    if (!data.team1Id) {
+        data.team1Id = null;
+    }
+    //Sanitize team2Id with valid value if not supplied
+    if (!data.team2Id) {
+        data.team2Id = null;
+    }
+    //Sanitize dataType with valid value if not supplied
+    if (!data.dataType) {
+        data.dataType = null;
+    }
     return TeamQuery.upsert({
         user_id,
         url,
+        command,
+        team1Id: data.team1Id,
+        team2Id: data.team2Id,
+        dataType: data.dataType,
         searchDate: (new Date).toISOString()
     })
     .then(created => {

@@ -9,9 +9,10 @@ const PlayerQuery = db.define('player_queries', {
         autoIncrement: true
     },
 
-    user_id: {
+    userId: {
         type: Sequelize.DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        field: 'user_id'
     },
 
     url: {
@@ -19,12 +20,14 @@ const PlayerQuery = db.define('player_queries', {
         allowNull: false
     },
 
-    player_id: {
-        type: Sequelize.DataTypes.INTEGER
+    player1Id: {
+        type: Sequelize.DataTypes.INTEGER,
+        field: 'player1_id'
     },
 
-    player2_id: {
-        type: Sequelize.DataTypes.INTEGER
+    player2Id: {
+        type: Sequelize.DataTypes.INTEGER,
+        field: 'player2_id'
     },
 
     command: {
@@ -46,10 +49,21 @@ module.exports = Object.assign(PlayerQuery, {
     upsertSearch
 });
 
-function upsertSearch(user_id, url) {
+function upsertSearch(user_id, url, command, data) {
+    //Sanitize player1Id with valid value if not supplied
+    if (!data.player1Id) {
+        data.player1Id = null;
+    }
+    //Sanitize player2Id with valid value if not supplied
+    if (!data.player2Id) {
+        data.player2Id = null;
+    }
     return PlayerQuery.upsert({
         user_id,
         url,
+        command,
+        player1Id: data.player1Id,
+        player2Id: data.player2Id,
         searchDate: (new Date).toISOString()
     })
     .then(created => {

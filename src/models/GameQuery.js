@@ -9,9 +9,10 @@ const GameQuery = db.define('game_queries', {
         autoIncrement: true
     },
 
-    user_id: {
+    userId: {
         type: Sequelize.DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        field: 'user_id'
     },
 
     url: {
@@ -19,16 +20,32 @@ const GameQuery = db.define('game_queries', {
         allowNull: false
     },
 
-    game_id: {
+    team1Id: {
+        type: Sequelize.DataTypes.STRING,
+        field: 'team1_id'
+    },
+
+    team2Id: {
+        type: Sequelize.DataTypes.STRING,
+        field: 'team2_id'
+    },
+
+    team3Id: {
+        type: Sequelize.DataTypes.STRING,
+        field: 'team3_id'
+    },
+
+    year1: {
         type: Sequelize.DataTypes.INTEGER
     },
 
-    game2_id: {
+    year2: {
         type: Sequelize.DataTypes.INTEGER
     },
 
     command: {
-        type: Sequelize.DataTypes.STRING
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false
     },
     
     searchDate: {
@@ -52,10 +69,37 @@ module.exports = Object.assign(GameQuery, {
     upsertSearch
 });
 
-function upsertSearch(user_id, url) {
+function upsertSearch(user_id, url, command, data) {
+    //sanitize team1Id with valid value if not supplied
+    if (!data.team1Id) {
+        data.team1Id = null;
+    }
+    //sanitize team2Id with valid value if not supplied
+    if (!data.team2Id) {
+        data.team2Id = null;
+    }
+    //sanitize team3Id with valid value if not supplied
+    if (!data.team3Id) {
+        data.team3Id = null;
+    }
+    //sanitize year1 with valid value if not supplied
+    if (!data.year1) {
+        data.year1 = null;
+    }
+    //sanitize year2 with valid value if not supplied
+    if (!data.year2) {
+        data.year2 = null;
+    }
+
     return GameQuery.upsert({
         user_id,
         url,
+        command,
+        team1Id: data.team1Id,
+        team2Id: data.team2Id,
+        team3Id: data.team3Id,
+        year1: data.year1,
+        year2: data.year2,
         searchDate: (new Date).toISOString()
     })
     .then(created => {
