@@ -61,14 +61,14 @@ class Game:
 
         self.stats = dict()
         self.stats['W/L'] = self.winlose_to_number()
-        self.stats['PLUS_MINUS'] = self.plusminus_avg()
-        self.stats['FG_PCT'] = 0
-        self.stats['FG3_PCT'] = 0
-        self.stats['FT_PCT'] = 0
-        self.stats['AST'] = 0
-        self.stats['BLK'] = 0
-        self.stats['REB'] = 0
-        self.stats['STL'] = 0
+        self.stats['PLUS_MINUS'] = self.calculate_avg('PLUS_MINUS')
+        self.stats['FG_PCT'] = self.calculate_avg('FG_PCT')
+        self.stats['FG3_PCT'] = self.calculate_avg('FG3_PCT')
+        self.stats['FT_PCT'] = self.calculate_avg('FT_PCT')
+        self.stats['AST'] = self.calculate_avg('AST')
+        self.stats['BLK'] = self.calculate_avg('BLK')
+        self.stats['REB'] = self.calculate_avg('REB')
+        self.stats['STL'] = self.calculate_avg('STL')
 
     # method to compare a team across two matchups
     def compare_games(self, game_two):
@@ -90,9 +90,9 @@ class Game:
             else:
 
                 # If the team won or lost both games pick the better team based on PLUS_MINUS
-                if self.plusminus_avg() > game_two.plusminus_avg():
+                if self.calculate_avg('PLUS_MINUS') > game_two.calculate_avg('PLUS_MINUS'):
                     better_matchup = self
-                elif self.plusminus_avg() < game_two.plusminus_avg():
+                elif self.calculate_avg('PLUS_MINUS') < game_two.calculate_avg('PLUS_MINUS'):
                     better_matchup = game_two
                 else:
                     better_matchup = self
@@ -113,17 +113,6 @@ class Game:
 
         return winlose_count / total_games
 
-    # calculates the average plus/minus for a matchup of two teams
-    def plusminus_avg(self):
-        plusminus_total = 0
-        total_games = len(self.games)
-
-        for x in range(0, total_games):
-            plusminus_total += self.games[x]["PLUS_MINUS"]
-
-        return plusminus_total / total_games
-
-
     def calculate_combined_shotPCT(self, game):
         shot_PCT_total = 0
         shot_types = 3
@@ -131,6 +120,14 @@ class Game:
         shot_PCT_total += self.games[game]["FG_PCT"]
         shot_PCT_total += self.games[game]["FG3_PCT"]
 
+    def calculate_avg(self, stat_type):
+        total = 0
+        total_games = len(self.games)
+
+        for x in range(0, total_games):
+            total += self.games[x][stat_type]
+
+        return total / total_games
 
 
 # for testing purposes
@@ -139,7 +136,7 @@ datgame = Game("Los Angeles Lakers", "Boston Celtics", "2016-17")
 datgame2 = Game("Los Angeles Lakers", "Minnesota Timberwolves", "2016-17")
 datgame3 = Game("Minnesota Timberwolves", "Los Angeles Lakers", "2016-17")
 datgame4 = Game("Los Angeles Lakers", "Golden State Warriors", "2016-17")
-#pp.pprint(datgame3.games)
+pp.pprint(datgame3.games)
 #pp.pprint(datgame4.games)
 #print datgame2.games
 print datgame.compare_games(datgame2)
