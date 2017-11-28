@@ -192,7 +192,7 @@ class Player:
         keys = [x.encode('UTF8') for x in keys]
         values = response.json()['resultSets'][1]['rowSet']
 
-        year_dict = dict()
+         year_dict = dict()
 
         for year in values:
             season = year[len(year) - 1]
@@ -378,8 +378,8 @@ jc = Player("LeBron James", "Base", "2016-17")
 jc.year_over_year('Base')
 
 #run main
-#if __name__ == '__main__':
-    #main()
+if __name__ == '__main__':
+    main()
 
 
 #get player by id --> traditional stats ["get", "id"]
