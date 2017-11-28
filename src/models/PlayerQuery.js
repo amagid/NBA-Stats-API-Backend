@@ -18,6 +18,18 @@ const PlayerQuery = db.define('player_queries', {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
+
+    player_id: {
+        type: Sequelize.DataTypes.INTEGER
+    },
+
+    player2_id: {
+        type: Sequelize.DataTypes.INTEGER
+    },
+
+    command: {
+        type: Sequelize.DataTypes.STRING
+    },
     
     searchDate: {
         type: Sequelize.DataTypes.DATE,

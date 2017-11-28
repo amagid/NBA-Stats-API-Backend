@@ -18,6 +18,18 @@ const GameQuery = db.define('game_queries', {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
+
+    game_id: {
+        type: Sequelize.DataTypes.INTEGER
+    },
+
+    game2_id: {
+        type: Sequelize.DataTypes.INTEGER
+    },
+
+    command: {
+        type: Sequelize.DataTypes.STRING
+    },
     
     searchDate: {
         type: Sequelize.DataTypes.DATE,

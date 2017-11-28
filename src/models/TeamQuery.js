@@ -18,6 +18,22 @@ const TeamQuery = db.define('team_queries', {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
+
+    team_id: {
+        type: Sequelize.DataTypes.INTEGER
+    },
+
+    team2_id: {
+        type: Sequelize.DataTypes.INTEGER
+    },
+
+    team3_id: {
+        type: Sequelize.DataTypes.INTEGER
+    },
+
+    command: {
+        type: Sequelize.DataTypes.STRING
+    },
     
     searchDate: {
         type: Sequelize.DataTypes.DATE,
