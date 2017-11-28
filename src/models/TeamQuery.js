@@ -14,20 +14,19 @@ const TeamQuery = db.define('team_queries', {
         allowNull: false
     },
 
-    team_id: {
-        type: Sequelize.DataTypes.INTEGER
+    url: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false
+    },
+    
+    searchDate: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: false
     },
 
-    team2_id: {
-        type: Sequelize.DataTypes.INTEGER
-    },
-
-    team3_id: {
-        type: Sequelize.DataTypes.INTEGER
-    },
-
-    command: {
-        type: Sequelize.DataTypes.STRING
+    category: {
+        type: Sequelize.DataTypes.ENUM('p', 't', 'g'),
+        allowNull: false
     }
 });
 

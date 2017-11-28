@@ -14,16 +14,19 @@ const GameQuery = db.define('game_queries', {
         allowNull: false
     },
 
-    game_id: {
-        type: Sequelize.DataTypes.INTEGER
+    url: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: false
+    },
+    
+    searchDate: {
+        type: Sequelize.DataTypes.DATE,
+        allowNull: false
     },
 
-    game2_id: {
-        type: Sequelize.DataTypes.INTEGER
-    },
-
-    command: {
-        type: Sequelize.DataTypes.STRING
+    category: {
+        type: Sequelize.DataTypes.ENUM('p', 't', 'g'),
+        allowNull: false
     }
 });
 
