@@ -207,7 +207,7 @@ class Player:
         # except Exception, e:
         #     sys.exit("404")
 
-        print json.dumps(sorted(year_dict.items()))
+        #print json.dumps(sorted(year_dict.items()))
 
     #puts more weight on assists
     def pg_score(self):
