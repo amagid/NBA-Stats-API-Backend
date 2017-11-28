@@ -22,11 +22,6 @@ const TeamQuery = db.define('team_queries', {
     searchDate: {
         type: Sequelize.DataTypes.DATE,
         allowNull: false
-    },
-
-    category: {
-        type: Sequelize.DataTypes.ENUM('p', 't', 'g'),
-        allowNull: false
     }
 });
 
@@ -36,5 +31,22 @@ User.hasMany(TeamQuery);
 
 //Additional methods
 module.exports = Object.assign(TeamQuery, {
-
+    upsertSearch
 });
+
+function upsertSearch(user_id, url) {
+    return TeamQuery.upsert({
+        user_id,
+        url,
+        searchDate: (new Date).toISOString()
+    })
+    .then(created => {
+        return {
+            rowCreated: !!created,
+            rowUpdated: !created
+        }
+    })
+    .catch(err => {
+        throw APIError(err.status || 500, err.message || 'Query Save Failed', err);
+    });
+}

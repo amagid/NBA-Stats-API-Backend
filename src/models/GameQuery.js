@@ -22,11 +22,12 @@ const GameQuery = db.define('game_queries', {
     searchDate: {
         type: Sequelize.DataTypes.DATE,
         allowNull: false
-    },
-
-    category: {
-        type: Sequelize.DataTypes.ENUM('p', 't', 'g'),
-        allowNull: false
+    }
+}, {
+    uniqueKeys: {
+        userUrls: {
+            fields: ['user_id', 'url']
+        }
     }
 });
 
@@ -36,5 +37,22 @@ User.hasMany(GameQuery);
 
 //Additional methods
 module.exports = Object.assign(GameQuery, {
-
+    upsertSearch
 });
+
+function upsertSearch(user_id, url) {
+    return GameQuery.upsert({
+        user_id,
+        url,
+        searchDate: (new Date).toISOString()
+    })
+    .then(created => {
+        return {
+            rowCreated: !!created,
+            rowUpdated: !created
+        }
+    })
+    .catch(err => {
+        throw APIError(err.status || 500, err.message || 'Query Save Failed', err);
+    });
+}
