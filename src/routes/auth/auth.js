@@ -62,7 +62,7 @@ function verifyEmail(token) {
             return User.update({ token: null, verified: true }, { where: { id: user.id } });
         })
         .then(() => {
-            return { message: 'Verification Complete'};
+            return { message: 'Verification Complete', redirectUrl: '/verified.html' };
         })
         .catch(err => {
             throw APIError(err.status || 500, err.message || 'User Find Failed', err);

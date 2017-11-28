@@ -1,3 +1,4 @@
+const baseUrl = require('../../config').get().urls.baseUrl;
 const Promise = require('bluebird');
 const logger = require('../services/logger');
 
@@ -7,7 +8,11 @@ function attachResponsePromise(req, res, next) {
     res.promise = response => {
         return Promise.resolve(response)
             .then(result => {
-                res.status(200).json(typeof result === 'string' ? { message: result } : result);
+                if (result && result.redirectUrl) {
+                    res.redirect(baseUrl + result.redirectUrl);
+                } else {
+                    res.status(200).json(typeof result === 'string' ? { message: result } : result);
+                }
             })
             .catch(error => {
                 logger.warn(error);
