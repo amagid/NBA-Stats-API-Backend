@@ -1,3 +1,7 @@
+const PlayerQueries = require('../models/PlayerQuery');
+const TeamQueries = require('../models/TeamQuery');
+const GameQueries = require('../models/GameQuery');
+
 const RouteHandlers = {
     players,
     teams,
