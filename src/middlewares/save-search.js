@@ -21,30 +21,36 @@ module.exports = function(req, res, next) {
 }
 
 function players(originalUrlParts, params) {
-    if (originalUrlParts.length === 3) {
+    if (originalUrlParts.length === 2) {
         //Players.getAll()
-    } else if (originalUrlParts[4] === 'compare') {
-        //Players.compare
+    } else if (originalUrlParts.length === 3 && params.player1Id) {
+        //Players.get()
+    } else if (originalUrlParts[3] === 'compare') {
+        //Players.compare()
     } else {
         logger.error(`ROUTE NOT FOUND: ${originalUrlParts.join('/')}`);
     }
 }
 
-function teams(baseUrlParts, params) {
-    if (originalUrlParts.length === 3) {
-        //Teams.getAll()
-    } else if (originalUrlParts[4] === 'compare') {
-        //Teams.compare
+function teams(originalUrlParts, params) {
+    if (originalUrlParts.length === 2) {
+        //teams.getAll()
+    } else if (originalUrlParts.length === 3 && params.team1Id) {
+        //teams.get()
+    } else if (originalUrlParts[3] === 'compare') {
+        //teams.compare()
     } else {
         logger.error(`ROUTE NOT FOUND: ${originalUrlParts.join('/')}`);
     }
 }
 
-function games(baseUrlParts, params) {
-    if (originalUrlParts.length === 3) {
-        //Games.getAll()
-    } else if (originalUrlParts[4] === 'compare') {
-        //Games.compare
+function games(originalUrlParts, params) {
+    if (originalUrlParts.length === 2) {
+        //games.getAll()
+    } else if (originalUrlParts.length === 3 && params.game1Id) {
+        //games.get()
+    } else if (originalUrlParts[3] === 'compare') {
+        //games.compare()
     } else {
         logger.error(`ROUTE NOT FOUND: ${originalUrlParts.join('/')}`);
     }
