@@ -42,12 +42,6 @@
               </td>
             </tr>
     <tr>
-      <td colspan="11" align="center">
-        <select  ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
-        </select>
-      </td>
-    </tr>
-    <tr>
       <td colspan="3" align="right">
         <md-content>
           <form ng-submit="$event.preventDefault()">
@@ -78,9 +72,9 @@
       <!--</form>-->
     </td>
     <td class="table-separator"></td>
-    <td colspan="3">
+    <td style="padding-top: 0px;" colspan="3">
       <md-content>
-        <form ng-submit="$event.preventDefault()">
+        <form style="padding-top: 0px;" ng-submit="$event.preventDefault()">
           <md-autocomplete  md-selected-item="player2selected"
           md-search-text-change="searchTextChange(searchText2)"
           md-search-text="searchText2"
@@ -99,11 +93,6 @@
           </md-not-found>
         </md-autocomplete>
 
-                  <br>
-                <span style='padding-left: 33%'>
-                  <select ng-model='year.team2' ng-options = 'x for x in years' align="center">
-                  </select>
-                </span>
       </form>
     </md-content>
   </td>
@@ -142,14 +131,9 @@
 <tr>
   <td class="imgContainer"> <img width="200" ng-src="{{lpImage}}"></td>
   <td  class="container" align="right">
-    <p>Points per game <br>
-      Rebounds per game <br>
-      Assists per game <br>
-      Blocks per game <br>
-      Steals per game <br>
-      Turnovers per game <br>
-      Three pointers per game <br>
-      Free throws made per game <br></p>
+    <p><div class='gamesCats' ng-repeat="item in gamesCats">
+        {{item}}
+        </div></p>
     </td>
     <td class="numContainer" align="center" border-right="1">
       <div class="container statNumber">
@@ -177,14 +161,9 @@
         </div>
       </td>
       <td style="text-align: center" class="container">
-        <p>Points per game <br>
-          Rebounds per game <br>
-          Assists per game <br>
-          Blocks per game <br>
-          Steals per game <br>
-          Turnovers per game <br>
-          Three pointers per game <br>
-          Free throws made per game <br></p>
+        <p><div class='gamesCats' ng-repeat="item in gamesCats">
+        {{item}}
+        </div></p>
         </td>
         <td>
           <div class="container statNumber">
@@ -212,14 +191,9 @@
           </div>
         </td>
         <td rsclass="container">
-          <p>Points per game <br>
-            Rebounds per game <br>
-            Assists per game <br>
-            Blocks per game <br>
-            Steals per game <br>
-            Turnovers per game <br>
-            Three pointers per game <br>
-            Free throws made per game <br></p>
+          <p><div class='gamesCats' ng-repeat="item in gamesCats">
+        {{item}}
+        </div></p>
           </td>
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
         </tr>

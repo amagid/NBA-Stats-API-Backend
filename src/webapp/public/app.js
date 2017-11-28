@@ -8,15 +8,18 @@ app.controller('myController', function($scope, $http) {
 
   $scope.teams = [];
 
-  $scope.modes = ['Overall', 'Offense', 'Defense'];
+  $scope.modes = ['Base', 'Advanced', 'Miscellaneous', 'Scoring', 'Opponent', 'Usage', 'Clutch'];
 
-  $scope.years = [2014, 2015, 2016, 2017];
+  $scope.years = ['2010-11', '2011-12', '2012-13', '2013-14', '2014-15', '2015-16', '2016-17'];
 
+  $scope.gamesCats = ['Ave Win/Loss', 'Ave Plus/Minus', 'Ave FG %', 'Ave 3-Point %', 'Ave Free Throw %', 'Ave Assists', 'Ave Blocks', 'Ave Rebounds', 'Ave Steals'];
+  
   // On app start, grab all the players for the autofill lists
   $http.get('/api/players').
   then(function(response) {
     //$scope.player1data = response.data
     $scope.players = response['data'];
+	console.log($scope.players);
     // this callback will be called asynchronously
     // when the response is available
   }, function(response) {
@@ -112,7 +115,7 @@ $scope.getPlayerStats = function(id, whichSide){
 // This is a sort of dao function
 $scope.getTeamStats = function(id, whichSide){
  console.log($scope.player1)
- $http.get('/api/teams/' + id).
+ $http.get('/api/teams/' + id + "/" + $scope.modeSelect.toLowerCase()).
  then(function(response) {
    //$scope.player1data = response.data
    console.log(response);
@@ -143,7 +146,8 @@ $scope.selectedItemChange = function(item, whichInput) {
 
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)
-  var headshotQuery = 'https://nba-players.herokuapp.com/players/' + item.name.replace(" ", "_");
+  var nameAsArray = item.name.split(" ");
+  var headshotQuery = 'https://nba-players.herokuapp.com/players/' + nameAsArray[nameAsArray.length - 1];
 
   // lmao actually you dont have to do a real ajax call
   // you can just set the var to the URL hahahahahahhahaha
@@ -194,7 +198,7 @@ $scope.createFilterFor = function(query) {
 
   return function filterFn(currentValue) {
     //return (state.value.indexOf(lowercaseQuery) === 0);
-    return (currentValue.value.includes(lowercaseQuery));
+    return (currentValue.name.toLowerCase().includes(lowercaseQuery));
   }
 }
 
@@ -207,19 +211,6 @@ $scope.comparePlayers = function() {
       console.log(response['data']);
 	  $scope.betterPlayer = response['data'];
 
-      $scope.leftBar.width = response['data'].player1 + "%";
-	  $scope.rightBar.width = response['data'].player2 + "%";
-
-	  if (response['data'].player1 > response['data'].player2 ) {
-		  $scope.leftBar.backgroundColor = "LightGreen";
-		  $scope.rightBar.backgroundColor = "LightPink";
-	  } else if (response['data'].player1 < response['data'].player2 ) {
-		  $scope.leftBar.backgroundColor = "LightPink";
-		  $scope.rightBar.backgroundColor = "LightGreen";
-	  } else {
-		  $scope.leftBar.backgroundColor = "LightGreen";
-		  $scope.rightBar.backgroundColor = "LightGreen";
-	  }
 
     }, function(response) {
 		// temp comment this error handling to test
@@ -227,32 +218,15 @@ $scope.comparePlayers = function() {
       //console.log(response.data);
 	  console.log(response['data']);
 
-	  response.data = {
-		  player1:76,
-		  player2:30
-	  }
 
-
-    $scope.leftBar.width = response['data'].player1 + "%";
-	  $scope.rightBar.width = response['data'].player2 + "%";
-
-	  if (response['data'].player1 > response['data'].player2 ) {
-		  $scope.leftBar.backgroundColor = "LightGreen";
-		  $scope.rightBar.backgroundColor = "LightPink";
-	  } else if (response['data'].player1 < response['data'].player2 ) {
-		  $scope.leftBar.backgroundColor = "LightPink";
-		  $scope.rightBar.backgroundColor = "LightGreen";
-	  } else {
-		  $scope.leftBar.backgroundColor = "LightGreen";
-		  $scope.rightBar.backgroundColor = "LightGreen";
-	  }
     });
   }
 }
 
 $scope.compareTeams = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
-    $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2).
+	  console.log($scope.modeSelect);
+    $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2 + "/" + $scope.modeSelect.toLowerCase()).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
@@ -261,16 +235,6 @@ $scope.compareTeams = function() {
     $scope.leftBar.width = response['data'].player1 + "%";
 	  $scope.rightBar.width = response['data'].player2 + "%";
 
-	  if (response['data'].player1 > response['data'].player2 ) {
-		  $scope.leftBar.backgroundColor = "LightGreen";
-		  $scope.rightBar.backgroundColor = "LightPink";
-	  } else if (response['data'].player1 < response['data'].player2 ) {
-		  $scope.leftBar.backgroundColor = "LightPink";
-		  $scope.rightBar.backgroundColor = "LightGreen";
-	  } else {
-		  $scope.leftBar.backgroundColor = "LightGreen";
-		  $scope.rightBar.backgroundColor = "LightGreen";
-	  }
 
     }, function(response) {
 		// temp comment this error handling to test
@@ -278,19 +242,6 @@ $scope.compareTeams = function() {
       //console.log(response.data);
 	  console.log(response['data']);
 
-    $scope.leftBar.width = response['data'].player1 + "%";
-	  $scope.rightBar.width = response['data'].player2 + "%";
-
-	  if (response['data'].player1 > response['data'].player2 ) {
-		  $scope.leftBar.backgroundColor = "LightGreen";
-		  $scope.rightBar.backgroundColor = "LightPink";
-	  } else if (response['data'].player1 < response['data'].player2 ) {
-		  $scope.leftBar.backgroundColor = "LightPink";
-		  $scope.rightBar.backgroundColor = "LightGreen";
-	  } else {
-		  $scope.leftBar.backgroundColor = "LightGreen";
-		  $scope.rightBar.backgroundColor = "LightGreen";
-	  }
     });
   }
 }

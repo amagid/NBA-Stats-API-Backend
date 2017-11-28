@@ -104,3 +104,8 @@ p {
 .formItem {
   padding-bottom: 10px;
 }
+
+.gamesCats {
+	font-family: 'Anton', sans-serif;
+	font-size: 14px;
+}
