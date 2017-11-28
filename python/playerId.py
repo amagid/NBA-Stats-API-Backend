@@ -15,6 +15,7 @@ playerID = list()
 #do in curly brace form
 for player in players:
     name = player['firstName'] + ' ' + player['lastName']
+    name = name.rstrip()
     player_information[name] = player
     player_dict = dict()
     player_dict['name'] = name

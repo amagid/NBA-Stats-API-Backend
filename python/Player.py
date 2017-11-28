@@ -19,10 +19,26 @@ playerID = dict()
 
 for player in players:
     name = player['firstName'] + ' ' + player['lastName']
+    name = name.rstrip()
     player_information[name] = player
     playerID[name] = player_information[name]['personId']
+#print player_information['Jordan Clarkson']
+positions = list()
+positions2 = list()
+#G, C, F, F-C, F-G, G-F, C-F player_information[player]['pos']
+#group together C and C-F as centers
+#G-F will be shooting guards, G and above 6'5
+#F-G will be treated like small forwards --> factor in assists
+#F will be treated like small forwards unless weight is bigger than 230
+#F-C will be power forward
 
-
+for player in player_information:
+    pos = player_information[player]['pos']
+    pos2 = player_information[player]['posExpanded']
+    if pos not in positions:
+        positions.append(pos)
+    if pos2 not in positions2:
+        positions2.append(pos2)
 
 class Player:
 
@@ -68,7 +84,7 @@ class Player:
         stats_link_param = stats_link[0] + 'Base' + stats_link[1] + self.id + stats_link[2] + self.year + stats_link[
             3]
 
-
+        #print stats_link_param
         response = requests.get(stats_link_param, headers=head)
 
         keys = response.json()['resultSets'][0]['headers']
@@ -110,6 +126,33 @@ class Player:
         dateTo = dateTo[0] + '%2F' + dateTo[1] + '%2F' + dateTo[2]
 
     def player_score(self):
+        position = player_information[self.name]['pos']
+        heightFeet = float(player_information[name]['heightFeet'])
+        heightInches = float(player_information[name]['heightInches'])
+        weight = float(player_information[self.name]['weightPounds'])
+        truePos = ''
+        if position == 'C-F' or position == 'F':
+            truePos = 'C'
+        elif position == 'F-C':
+            truePos = 'PF'
+        elif position == 'F':
+            if weight > 230:
+                truePos = 'PF'
+            else:
+                truePos = 'SF'
+        elif position == 'F-G':
+            truePos = 'SF'
+        elif position == 'G-F':
+            truePos = 'SG'
+        elif position == 'G':
+            if heightFeet < 6:
+                truePos = 'PG'
+            else:
+                if heightInches < 4:
+                    truePos = 'PG'
+                else:
+                    truePos = 'SG'
+        #print truePos
         type = self.pg_type()
         #print type
 
@@ -138,7 +181,7 @@ class Player:
     #puts more weight on assists
     def pg_score(self):
         type = self.pg_type()
-        if type is 'superstar':
+        if type is 'superstar': #weigh wins into the calculation
             x = 2
         elif type is 'pass-first':
             x = 2
@@ -151,8 +194,8 @@ class Player:
 
     #puts more weight on shooting and defense
     def sg_score(self):
-        type = self.pg_type()
-        if type is 'superstar':
+        type = self.sg_type()
+        if type is 'superstar': #weigh wins into the calculation
             x = 2
         elif type is 'pass-first':
             x = 2
@@ -165,8 +208,8 @@ class Player:
 
     #puts all-around weight
     def sf_score(self):
-        type = self.pg_type()
-        if type is 'superstar':
+        type = self.sf_type()
+        if type is 'superstar': #weigh wins into the calculation
             x = 2
         elif type is 'pass-first':
             x = 2
@@ -179,8 +222,8 @@ class Player:
 
     #puts weight on shooting (modern NBA) and inside game (rebounding)
     def pf_score(self):
-        type = self.pg_type()
-        if type is 'superstar':
+        type = self.pf_type()
+        if type is 'superstar': #weigh wins into the calculation
             x = 2
         elif type is 'pass-first':
             x = 2
@@ -193,8 +236,8 @@ class Player:
 
     #puts weight on rebounding and blocks
     def c_score(self):
-        type = self.pg_type()
-        if type is 'superstar':
+        type = self.c_type()
+        if type is 'superstar': #weigh wins into the calculation
             x = 2
         elif type is 'pass-first':
             x = 2
@@ -221,7 +264,7 @@ class Player:
                 return "around"
             else:
                 return "pass-first"
-        elif stats['STL'] > 1.5:
+        elif stats['MIN'] / stats['STL'] >= 24:
             return "defensive"
         elif stats['PTS']/stats['AST'] < 2.5:
             return "pass-first"
@@ -234,8 +277,32 @@ class Player:
 
     #shooting, all-around scorer, defensive, shooting, all-around, superstar
     def sg_type(self):
-        x = 2
-        #check for superstar status
+        if stats['PTS'] > 24:
+            if stats['AST'] > 4.5:
+                return "superstar"
+            else:
+                return "scoring"
+        elif stats['AST'] > 6:
+            if stats['PTS'] > 19:
+                return "superstar"
+            elif stats['PTS'] > 15:
+                return "around"
+            else:
+                return "pass-first"
+        elif stats['FG3_PCT'] > .375:
+            if stats['PTS'] > 15:
+                return "scoring"
+            else:
+                return "shooter"
+        elif stats['MIN']/stats['STL'] >= 24:
+            return "defensive"
+        elif stats['PTS']/stats['AST'] < 2.5:
+            return "around"
+        elif stats['PTS']/stats['AST'] > 2.5:
+            return "scoring"
+        else:
+            return "around"
+
 
     #slasher, defender, scorer, all-around, superstar
     def sf_type(self):
@@ -278,7 +345,7 @@ def main():
 
         print json.dumps(player1.compare_player(player2))
 
-jc = Player("Jordan Clarkson", "Base", "2016-17")
+jc = Player("Nene", "Base", "2016-17")
 jc.player_score()
 
 #run main
