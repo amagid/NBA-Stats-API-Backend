@@ -5,10 +5,19 @@ const RouteHandlers = {
 };
 
 module.exports = function(req, res, next) {
+    //Extract url info from req
     const { originalUrl, params } = req;
+    //Split url into components for analysis
     const originalUrlParts = originalUrl.split('/');
+    //Remove empty parts of url 
+    for (let i = 0; i < originalUrlParts.length; i++) {
+        if (!originalUrlParts[i]) {
+            originalUrlParts.splice(i, 1);
+            i--;
+        }
+    }
     //Isolate command based on baseUrl and params
-    RouteHandlers[originalUrlParts[2]](originalUrlParts, params);
+    RouteHandlers[originalUrlParts[1]](originalUrlParts, params);
 }
 
 function players(originalUrlParts, params) {
