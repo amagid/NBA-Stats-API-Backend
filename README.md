@@ -5,7 +5,7 @@ An interface for working with the NBA Stats API.
 There are a few files that are not included in the repo that this application needs in order to run. These files are excluded for a variety of reasons, including security and to make things easier for the dev team.
 
 1) Make sure Python is installed.
-2) Navigate to the directory where Python is installed and install the dependencies: "requests" and "json".
+2) Navigate to the directory where Python is installed and install the dependencies: "requests","json" and "pandas".
 3) Copy the path to the Python.exe executable and paste it into config/development.json under Python.pythonPath.
 4) Make sure MySQL is installed.
 5) Import the "database.sql" file into your MySQL installation.
