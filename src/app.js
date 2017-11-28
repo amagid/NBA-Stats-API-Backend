@@ -10,6 +10,7 @@ const logger = require('./services/logger');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 const responsePromise = require('./middlewares/response-promise');
+const decodeJWT = require('./middlewares/decode-jwt');
 const morgan = require('morgan');
 const cors = require('cors');
 const DBSync = require('./models/sync');
@@ -28,6 +29,7 @@ function setUpAPI() {
         extended: false
     }));
     app.use(responsePromise);
+    app.use(decodeJWT);
     //Mount routes
     const router = express.Router();
     routes(router);

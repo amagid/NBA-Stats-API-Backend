@@ -1,27 +1,26 @@
 const jwt = require('../services/jwt');
 const publicKey = require('../../config').getKeys().publicKey;
+const User = require('../models/User');
 
 module.exports = requireAuthentication;
 
 
 function requireAuthentication(req, res, next) {
-    let token;
-    //Try to extract JWT from header
-    try {
-        token = req.headers.authorization.split(' ')[1];
-    } catch (e) {
-        //Respond with error state if the JWT wasn't valid
+    if (!req.user) {
         return res.status(400).json({message: 'Invalid or No JWT Supplied'});
+    } else if (!req.user.user_id) {
+        return res.status(400).json({message: 'Bad User Data'});
     }
-    //Decode token
-    return jwt.decode(token)
-        .then(data => {
-            //Attach payload to req.user for future use
-            req.user = data;
-            next();
+
+    return User.validateUser(req.user.user_id)
+        .then(result => {
+            if (result.userValid) {
+                return next();
+            } else {
+                throw APIError(404, 'Invalid User');
+            }
         })
         .catch(err => {
-            //If there is an error decoding the JWT, send appropriate error status
-            res.status(err.status || 500).json(err);
+            return res.status(err.status || 500).json({ message: err.message || 'User Validation Failed', additionalData: err });
         });
 }
