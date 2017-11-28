@@ -192,6 +192,7 @@ class Player:
         keys = [x.encode('UTF8') for x in keys]
         values = response.json()['resultSets'][1]['rowSet']
 
+        year_dict = dict()
 
         for year in values:
             season = year[len(year) - 1]
