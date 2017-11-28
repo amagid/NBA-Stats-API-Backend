@@ -5,6 +5,10 @@ const RouteHandlers = {
 };
 
 module.exports = function(req, res, next) {
+    //If no user id, user is not logged in, so we should not save the query
+    if (!req.user.user_id) {
+        return next();
+    }
     //Extract url info from req
     const { originalUrl, params } = req;
     //Split url into components for analysis
