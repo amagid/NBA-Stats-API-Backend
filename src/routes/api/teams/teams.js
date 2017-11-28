@@ -31,3 +31,16 @@ function get(teamId, dataType) {
             throw APIError(err.status || 500, err.message || 'Error retrieving Team', err);
         });
 }
+
+function compare(team1Id, team2Id, dataType) {
+    return Python.run('Team.py', ['compare', team1Id, team2Id, dataType])
+        .then(comparison => {
+            if (!comparison) {
+                throw APIError(400, 'Bad Data');
+            }
+            return comparison;
+        })
+        .catch(err => {
+            throw APIError(err.status || 500, err.message || 'Error Comparing Teams', err);
+        });
+}
