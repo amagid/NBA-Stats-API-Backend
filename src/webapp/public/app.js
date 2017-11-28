@@ -15,6 +15,341 @@ app.controller('myController', function($scope, $http) {
 
   $scope.gamesCats = ['Ave Win/Loss', 'Ave Plus/Minus', 'Ave FG %', 'Ave 3-Point %', 'Ave Free Throw %', 'Ave Assists', 'Ave Blocks', 'Ave Rebounds', 'Ave Steals'];
 
+  $scope.dataModels = [
+    {
+      'type': 'opponent',
+      'fields': [
+        {
+          'att': "W_PCT",
+          'name': "Win %"
+        },
+        {
+          'att': 'OPP_FGM',
+          'name': 'FG'
+        },
+        {
+          'att': 'OPP_FG_PCT',
+          'name': 'FG %'
+        },
+        {
+          'att': 'OPP_FG3M',
+          'name': 'Three Pointers'
+        },
+        {
+          'att': 'OPP_FG3_PCT',
+          'name': 'Three Pointer %'
+        },
+        {
+          'att': 'OPP_FTM',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_FTA',
+          'name': 'FT Attempt Rate'
+        },
+        {
+          'att': 'OPP_FT_PCT',
+          'name': 'FT %'
+        },
+        {
+          'att': 'OPP_OREB',
+          'name': 'Offensive Rebounds'
+        },
+        {
+          'att': 'OPP_DREB',
+          'name': 'Defensive Rebounds'
+        },
+        {
+          'att': 'OPP_REB',
+          'name': 'Rebounds'
+        },
+        {
+          'att': 'OPP_AST',
+          'name': 'Assists'
+        },
+        {
+          'att': 'OPP_TOV',
+          'name': 'Turnovers'
+        },
+        {
+          'att': 'OPP_STL',
+          'name': 'Steals'
+        },
+        {
+          'att': 'OPP_BLK',
+          'name': 'Blocks'
+        }
+      ]
+    },
+    {
+      'type': 'scoring',
+      'fields': [
+        {
+          'att': 'W_PCT',
+          'name': 'Win %'
+        },
+        {
+          'att': 'PCT_FGA_2PT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_FGA_3PT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_2PT',
+          'name': 'Two Pointers'
+        },
+        {
+          'att': 'PCT_PTS_2PT_MR',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_MidRange',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_3PT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_FB',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_FT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_OFF_TOV',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_PAINT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_AST_2PM',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_AST_3PM',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_AST_FGM',
+          'name': 'TODO'
+        }
+      ]
+    },
+    {
+      'type': 'miscellaneous',
+      'fields': [
+        {
+          'att': 'W_PCT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PTS_OFF_TOV',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PTS_2ND_CHANCE',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PTS_FB',
+          'name': 'Fast Break Points'
+        },
+        {
+          'att': 'PTS_PAINT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_PTS_OFF_TOV',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_PTS_2ND_CHANCE',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_PTS_FB',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_PTS_PAINT',
+          'name': 'TODO'
+        }
+      ]
+    },
+    {
+      'type': 'four factors',
+      'fields': [
+        {
+          'att': 'W_PCT',
+          'name': 'Win %'
+        },
+        {
+          'att': 'EFG_PCT',
+          'name': 'Effective FG %'
+        },
+        {
+          'att': 'FTA_RATE',
+          'name': 'FT Attempt Rate'
+        },
+        {
+          'att': 'TM_TOV_PCT',
+          'name': 'Turnover %'
+        },
+        {
+          'att': 'OREB_PCT',
+          'name': 'OREB %'
+        },
+        {
+          'att': 'OPP_EFG_PCT',
+          'name': 'Effective FG %'
+        },
+        {
+          'att': 'OPP_FTA_RATE',
+          'name': 'FT Rate'
+        },
+        {
+          'att': 'OPP_TOV_PCT',
+          'name': 'TO %'
+        },
+        {
+          'att': 'OPP_OREB_PCT',
+          'name': 'OREB %'
+        }
+      ]
+    },
+      {
+        'type': 'advanced',
+        'fields': [
+          {
+            'att': 'W_PCT',
+            'name': 'Win %'
+          },
+          {
+            'att': 'OFF_RATING',
+            'name': 'TODO'
+          },
+          {
+            'att': 'DEF_RATING',
+            'name': 'TODO'
+          },
+          {
+            'att': 'NET_RATING',
+            'name': 'TODO'
+          },
+          {
+            'att': 'AST_PCT',
+            'name': 'Assist %'
+          },
+          {
+            'att': 'AST_TO',
+            'name': 'TODO'
+          },
+          {
+            'att': 'AST_RATIO',
+            'name': 'TODO'
+          },
+          {
+            'att': 'OREB_PCT',
+            'name': 'OREB %'
+          },
+          {
+            'att': 'DREB_PCT',
+            'name': 'DREB %'
+          },
+          {
+            'att': 'REB_PCT',
+            'name': 'Rebound %'
+          },
+          {
+            'att': 'TM_TOV_PCT',
+            'name': 'Turnover %'
+          },
+          {
+            'att': 'EFG_PCT',
+            'name': 'Effective FG %'
+          },
+          {
+            'att': 'TS_PCT',
+            'name': 'True Shooting'
+          },
+          {
+            'att': 'PACE',
+            'name': 'Pace'
+          },
+          {
+            'att': 'PIE',
+            'name': 'Player Impact Estimate'
+          }
+        ]
+      },
+      {
+        'type': 'traditional',
+        'fields': [
+          {
+            'att': 'W',
+            'name': 'Wins'
+          },
+          {
+            'att': 'L',
+            'name': 'Losses'
+          },
+          {
+            'att': 'FG_PCT',
+            'name': 'FG %'
+          },
+          {
+            'att': 'FG3M',
+            'name': '3 PT'
+          },
+          {
+            'att': 'FG3_PCT',
+            'name': '3 PT %'
+          },
+          {
+            'att': 'FT_PCT',
+            'name': 'Free Throw %'
+          },
+          {
+            'att': 'REB',
+            'name': 'Rebounds'
+          },
+          {
+            'att': 'OREB',
+            'name': 'Offensive Rebounds'
+          },
+          {
+            'att': 'AST',
+            'name': 'Assists'
+          },
+          {
+            'att': 'TOV',
+            'name': 'Turnovers'
+          },
+          {
+            'att': 'BLK',
+            'name': 'Blocks'
+          },
+          {
+            'att': 'STL',
+            'name': 'Steals'
+          },
+          {
+            'att': 'PLUS_MINUS',
+            'name': '+/-'
+          }
+        ]
+      }
+  ];
+
+  console.log($scope.dataModels);
+
   $scope.gamesLSide = [
     {
       'item': 1

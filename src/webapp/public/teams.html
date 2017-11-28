@@ -43,7 +43,7 @@
             </tr>
     <tr>
       <td colspan="7" align="center">
-        <select  ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
+        <select ng-change='changeModel(modeSelect)' ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
         </select>
       </td>
     </tr>
