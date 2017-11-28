@@ -5,6 +5,7 @@ import requests
 #import itertools
 import sys
 import json
+import pandas as pd
 
 players_link = 'http://www.nba.com/players/active_players.json'
 head = {"USER-AGENT":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"}
@@ -100,7 +101,7 @@ class Player:
             #print stat
 
         self.stats['Base'] = self.player_dict
-
+        self.player_dict['picture'] = "http://stats.nba.com/media/players/230x185/201935.png"
 
 
     def get_stats(self, statType):
@@ -177,6 +178,36 @@ class Player:
 
     def compare_stat(self, otherPlayer, statType):
         x = 2
+
+    def year_over_year(self, statType):
+        year_link = ['https://stats.nba.com/stats/playerdashboardbyyearoveryear?DateFrom=&DateTo=&GameSegment=&LastNGames=0' \
+                    '&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=' \
+                    'PerGame&Period=0&PlayerID=', '&PlusMinus=N&Rank=N&Season=2017-18&SeasonSegment=&SeasonType=Regular+Season&' \
+                    'ShotClockRange=&Split=yoy&VsConference=&VsDivision=']
+        year_link = year_link[0] + self.id + year_link[1]
+
+        #print stats_link_param
+        response = requests.get(year_link, headers=head)
+
+        keys = response.json()['resultSets'][1]['headers']
+        keys = [x.encode('UTF8') for x in keys]
+        values = response.json()['resultSets'][1]['rowSet']
+
+        year_df = pd.DataFrame()
+        year_dict = dict()
+
+        for year in values:
+            season = year[len(year) - 1]
+            season_dict = dict(zip(keys, year))
+            year_dict[season] = season_dict
+
+
+        # try:
+        #     year_dict = dict(zip(keys, values))
+        # except Exception, e:
+        #     sys.exit("404")
+
+        #print json.dumps(sorted(year_dict.items()))
 
     #puts more weight on assists
     def pg_score(self):
@@ -277,6 +308,7 @@ class Player:
 
     #shooting, all-around scorer, defensive, shooting, all-around, superstar
     def sg_type(self):
+        min = stats['MIN']
         if stats['PTS'] > 24:
             if stats['AST'] > 4.5:
                 return "superstar"
@@ -289,11 +321,10 @@ class Player:
                 return "around"
             else:
                 return "pass-first"
+        elif (stats['PTS']/min) * 36 > 19:
+            return "scoring"
         elif stats['FG3_PCT'] > .375:
-            if stats['PTS'] > 15:
-                return "scoring"
-            else:
-                return "shooter"
+            return "shooter"
         elif stats['MIN']/stats['STL'] >= 24:
             return "defensive"
         elif stats['PTS']/stats['AST'] < 2.5:
@@ -345,8 +376,8 @@ def main():
 
         print json.dumps(player1.compare_player(player2))
 
-jc = Player("Nene", "Base", "2016-17")
-jc.player_score()
+jc = Player("LeBron James", "Base", "2016-17")
+jc.year_over_year('Base')
 
 #run main
 #if __name__ == '__main__':
