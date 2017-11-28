@@ -25,41 +25,74 @@ module.exports = function(req, res, next) {
         }
     }
     //Isolate command based on baseUrl and params
-    RouteHandlers[originalUrlParts[1]](req.user.user_id, originalUrlParts, params);
+    return RouteHandlers[originalUrlParts[1]](req.user.user_id, originalUrlParts, params);
 }
 
-function players(user_id, originalUrlParts, params) {
+function players(userId, originalUrlParts, params) {
+    //Figure out which command we need
+    let command = null;
     if (originalUrlParts.length === 2) {
         //Players.getAll()
+        command = 'get_all';
     } else if (originalUrlParts.length === 3 && params.player1Id) {
         //Players.get()
+        command = 'get';
     } else if (originalUrlParts[3] === 'compare') {
         //Players.compare()
+        command = 'compare';
     } else {
         logger.error(`ROUTE NOT FOUND: ${originalUrlParts.join('/')}`);
     }
+
+    //Do the upsert
+    return PlayerQueries.upsertSearch(userId, originalUrlParts.join('/'), params)
+        .catch(err => {
+            logger.error(JSON.stringify(err));
+        });
 }
 
 function teams(user_id, originalUrlParts, params) {
+    //Figure out which command we need
+    let command = null;
     if (originalUrlParts.length === 2) {
         //teams.getAll()
+        command = 'get_all';
     } else if (originalUrlParts.length === 3 && params.team1Id) {
         //teams.get()
+        command = 'get';
     } else if (originalUrlParts[3] === 'compare') {
         //teams.compare()
+        command = 'compare';
     } else {
         logger.error(`ROUTE NOT FOUND: ${originalUrlParts.join('/')}`);
     }
+
+    //Do the upsert
+    return TeamQueries.upsertSearch(userId, originalUrlParts.join('/'), params)
+        .catch(err => {
+            logger.error(JSON.stringify(err));
+        });
 }
 
 function games(user_id, originalUrlParts, params) {
+    //Figure out which command we need
+    let command = null;
     if (originalUrlParts.length === 2) {
         //games.getAll()
+        command = 'get_all';
     } else if (originalUrlParts.length === 3 && params.game1Id) {
         //games.get()
+        command = 'get';
     } else if (originalUrlParts[3] === 'compare') {
         //games.compare()
+        command = 'compare';
     } else {
         logger.error(`ROUTE NOT FOUND: ${originalUrlParts.join('/')}`);
     }
+
+    //Do the upsert
+    return GameQueries.upsertSearch(userId, originalUrlParts.join('/'), params)
+        .catch(err => {
+            logger.error(JSON.stringify(err));
+        });
 }
