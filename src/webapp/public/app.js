@@ -9,11 +9,354 @@ app.controller('myController', function($scope, $http) {
   $scope.teams = [];
 
   $scope.modes = ['Base', 'Advanced', 'Miscellaneous', 'Scoring', 'Opponent', 'Usage', 'Clutch'];
+  $scope.modeSelect = $scope.modes[0];
 
   $scope.years = ['2010-11', '2011-12', '2012-13', '2013-14', '2014-15', '2015-16', '2016-17'];
 
   $scope.gamesCats = ['Ave Win/Loss', 'Ave Plus/Minus', 'Ave FG %', 'Ave 3-Point %', 'Ave Free Throw %', 'Ave Assists', 'Ave Blocks', 'Ave Rebounds', 'Ave Steals'];
-  
+
+  $scope.dataModels = [
+    {
+      'type': 'opponent',
+      'fields': [
+        {
+          'att': "W_PCT",
+          'name': "Win %"
+        },
+        {
+          'att': 'OPP_FGM',
+          'name': 'FG'
+        },
+        {
+          'att': 'OPP_FG_PCT',
+          'name': 'FG %'
+        },
+        {
+          'att': 'OPP_FG3M',
+          'name': 'Three Pointers'
+        },
+        {
+          'att': 'OPP_FG3_PCT',
+          'name': 'Three Pointer %'
+        },
+        {
+          'att': 'OPP_FTM',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_FTA',
+          'name': 'FT Attempt Rate'
+        },
+        {
+          'att': 'OPP_FT_PCT',
+          'name': 'FT %'
+        },
+        {
+          'att': 'OPP_OREB',
+          'name': 'Offensive Rebounds'
+        },
+        {
+          'att': 'OPP_DREB',
+          'name': 'Defensive Rebounds'
+        },
+        {
+          'att': 'OPP_REB',
+          'name': 'Rebounds'
+        },
+        {
+          'att': 'OPP_AST',
+          'name': 'Assists'
+        },
+        {
+          'att': 'OPP_TOV',
+          'name': 'Turnovers'
+        },
+        {
+          'att': 'OPP_STL',
+          'name': 'Steals'
+        },
+        {
+          'att': 'OPP_BLK',
+          'name': 'Blocks'
+        }
+      ]
+    },
+    {
+      'type': 'scoring',
+      'fields': [
+        {
+          'att': 'W_PCT',
+          'name': 'Win %'
+        },
+        {
+          'att': 'PCT_FGA_2PT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_FGA_3PT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_2PT',
+          'name': 'Two Pointers'
+        },
+        {
+          'att': 'PCT_PTS_2PT_MR',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_MidRange',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_3PT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_FB',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_FT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_OFF_TOV',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_PTS_PAINT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_AST_2PM',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_AST_3PM',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PCT_AST_FGM',
+          'name': 'TODO'
+        }
+      ]
+    },
+    {
+      'type': 'miscellaneous',
+      'fields': [
+        {
+          'att': 'W_PCT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PTS_OFF_TOV',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PTS_2ND_CHANCE',
+          'name': 'TODO'
+        },
+        {
+          'att': 'PTS_FB',
+          'name': 'Fast Break Points'
+        },
+        {
+          'att': 'PTS_PAINT',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_PTS_OFF_TOV',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_PTS_2ND_CHANCE',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_PTS_FB',
+          'name': 'TODO'
+        },
+        {
+          'att': 'OPP_PTS_PAINT',
+          'name': 'TODO'
+        }
+      ]
+    },
+    {
+      'type': 'four factors',
+      'fields': [
+        {
+          'att': 'W_PCT',
+          'name': 'Win %'
+        },
+        {
+          'att': 'EFG_PCT',
+          'name': 'Effective FG %'
+        },
+        {
+          'att': 'FTA_RATE',
+          'name': 'FT Attempt Rate'
+        },
+        {
+          'att': 'TM_TOV_PCT',
+          'name': 'Turnover %'
+        },
+        {
+          'att': 'OREB_PCT',
+          'name': 'OREB %'
+        },
+        {
+          'att': 'OPP_EFG_PCT',
+          'name': 'Effective FG %'
+        },
+        {
+          'att': 'OPP_FTA_RATE',
+          'name': 'FT Rate'
+        },
+        {
+          'att': 'OPP_TOV_PCT',
+          'name': 'TO %'
+        },
+        {
+          'att': 'OPP_OREB_PCT',
+          'name': 'OREB %'
+        }
+      ]
+    },
+      {
+        'type': 'advanced',
+        'fields': [
+          {
+            'att': 'W_PCT',
+            'name': 'Win %'
+          },
+          {
+            'att': 'OFF_RATING',
+            'name': 'TODO'
+          },
+          {
+            'att': 'DEF_RATING',
+            'name': 'TODO'
+          },
+          {
+            'att': 'NET_RATING',
+            'name': 'TODO'
+          },
+          {
+            'att': 'AST_PCT',
+            'name': 'Assist %'
+          },
+          {
+            'att': 'AST_TO',
+            'name': 'TODO'
+          },
+          {
+            'att': 'AST_RATIO',
+            'name': 'TODO'
+          },
+          {
+            'att': 'OREB_PCT',
+            'name': 'OREB %'
+          },
+          {
+            'att': 'DREB_PCT',
+            'name': 'DREB %'
+          },
+          {
+            'att': 'REB_PCT',
+            'name': 'Rebound %'
+          },
+          {
+            'att': 'TM_TOV_PCT',
+            'name': 'Turnover %'
+          },
+          {
+            'att': 'EFG_PCT',
+            'name': 'Effective FG %'
+          },
+          {
+            'att': 'TS_PCT',
+            'name': 'True Shooting'
+          },
+          {
+            'att': 'PACE',
+            'name': 'Pace'
+          },
+          {
+            'att': 'PIE',
+            'name': 'Player Impact Estimate'
+          }
+        ]
+      },
+      {
+        'type': 'traditional',
+        'fields': [
+          {
+            'att': 'W',
+            'name': 'Wins'
+          },
+          {
+            'att': 'L',
+            'name': 'Losses'
+          },
+          {
+            'att': 'FG_PCT',
+            'name': 'FG %'
+          },
+          {
+            'att': 'FG3M',
+            'name': '3 PT'
+          },
+          {
+            'att': 'FG3_PCT',
+            'name': '3 PT %'
+          },
+          {
+            'att': 'FT_PCT',
+            'name': 'Free Throw %'
+          },
+          {
+            'att': 'REB',
+            'name': 'Rebounds'
+          },
+          {
+            'att': 'OREB',
+            'name': 'Offensive Rebounds'
+          },
+          {
+            'att': 'AST',
+            'name': 'Assists'
+          },
+          {
+            'att': 'TOV',
+            'name': 'Turnovers'
+          },
+          {
+            'att': 'BLK',
+            'name': 'Blocks'
+          },
+          {
+            'att': 'STL',
+            'name': 'Steals'
+          },
+          {
+            'att': 'PLUS_MINUS',
+            'name': '+/-'
+          }
+        ]
+      }
+  ];
+
+  console.log($scope.dataModels);
+
+  $scope.gamesLSide = [
+    {
+      'item': 1
+    }
+  ]
+  $scope.gamesRSide = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  $scope.gamesMid = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   // On app start, grab all the players for the autofill lists
   $http.get('/api/players').
   then(function(response) {
@@ -31,8 +374,11 @@ app.controller('myController', function($scope, $http) {
 
   $http.get('/api/teams').
   then(function(response) {
-    //$scope.player1data = response.data
-    $scope.teams = response['data'];
+    // this comes in as a json. needs to be array so it matches players response
+    //$scope.teams = response['data'];
+    angular.forEach(response['data'], function(value, key) {
+      $scope.teams.push({'id': value, 'name': key});
+    });
     console.log($scope.teams);
     // this callback will be called asynchronously
     // when the response is available
@@ -114,7 +460,7 @@ $scope.getPlayerStats = function(id, whichSide){
 
 // This is a sort of dao function
 $scope.getTeamStats = function(id, whichSide){
- console.log($scope.player1)
+ console.log($scope.modeSelect);
  $http.get('/api/teams/' + id + "/" + $scope.modeSelect.toLowerCase()).
  then(function(response) {
    //$scope.player1data = response.data
@@ -179,15 +525,42 @@ $scope.selectedItemChangeTeam = function(item, whichInput) {
   }
 }
 
+// When user clicks item but on the games screen
+$scope.selectedItemChangeGames = function(item, whichInput) {
+  // Get the info; the id is {{item.id}}
+  // Should come in correct format so hopefully no
+  // json manipulation needed
+  console.log(item.name);
+  //$scope.getTeamStats(item.name, whichInput);
+
+  // Also try using the nba headshot api?
+  // First we need to format for search (wants underscores)
+  //var headshotQuery = 'https://nba-players.herokuapp.com/players/' + item.name.replace(" ", "_");
+
+  // lmao actually you dont have to do a real ajax call
+  // you can just set the var to the URL hahahahahahhahaha
+  if (whichInput === 0) {
+    //$scope.lpImage = headshotQuery;
+  } else {
+    //$scope.rpImage = headshotQuery;
+  }
+}
+
 // function that md-autocomplete calls to search the array
 $scope.querySearch = function(query) {
-  if (!query) return [];
+  if (!query) return $scope.players;
   return $scope.players.filter($scope.createFilterFor(query));
 }
 
 // autocomplete for teams
 $scope.querySearchTeam = function(query) {
-  if (!query) return [];
+  if (!query) return $scope.teams;
+  return $scope.teams.filter($scope.createFilterFor(query));
+}
+
+// autocomplete for games
+$scope.querySearchGames = function(query) {
+  if (!query) return $scope.teams;
   return $scope.teams.filter($scope.createFilterFor(query));
 }
 
@@ -211,7 +584,6 @@ $scope.comparePlayers = function() {
       console.log(response['data']);
 	  $scope.betterPlayer = response['data'];
 
-
     }, function(response) {
 		// temp comment this error handling to test
       //console.log("Error getting player comparison result!");
@@ -224,6 +596,26 @@ $scope.comparePlayers = function() {
 }
 
 $scope.compareTeams = function() {
+  if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
+	  console.log($scope.modeSelect);
+    $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2 + "/" + $scope.modeSelect.toLowerCase()).
+    then(function(response) {
+      //$scope.player1data = response.data
+      console.log(response['data']);
+	  $scope.betterTeam = response['data'];
+
+    }, function(response) {
+		// temp comment this error handling to test
+      //console.log("Error getting player comparison result!");
+      //console.log(response.data);
+	  console.log(response['data']);
+
+    });
+  }
+}
+
+// Function called when clicking compare on games screen
+$scope.compareGames = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
 	  console.log($scope.modeSelect);
     $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2 + "/" + $scope.modeSelect.toLowerCase()).

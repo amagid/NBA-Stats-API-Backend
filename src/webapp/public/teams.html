@@ -43,7 +43,7 @@
             </tr>
     <tr>
       <td colspan="7" align="center">
-        <select  ng-model='modeSelect' ng-init="modes[0]" ng-options = 'x for x in modes' align="center">
+        <select ng-change='changeModel(modeSelect)' ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
         </select>
       </td>
     </tr>
@@ -57,7 +57,7 @@
             md-selected-item-change="selectedItemChangeTeam(item, 0)"
             md-items = "item in querySearchTeam(searchText1)"
             md-item-text="item.name"
-            md-min-length="1"
+            md-min-length="0"
             placeholder="Search for a team">
 
             <md-item-template>
@@ -65,7 +65,7 @@
             </md-item-template>
 
             <md-not-found>
-              No teams matching "{{searchText1}}" were found.
+              <span>No teams matching "{{searchText1}}" were found.</span>
             </md-not-found>
           </md-autocomplete>
 
@@ -84,7 +84,7 @@
           md-selected-item-change="selectedItemChangeTeam(item, 1)"
           md-items = "item in querySearchTeam(searchText2)"
           md-item-text="item.name"
-          md-min-length="1"
+          md-min-length="0"
           placeholder="Search for a team">
 
           <md-item-template>

@@ -33,7 +33,7 @@
           <md-button class="menuBarButton" href="/account.html">My Account</md-button>
         </div>
 
-        <md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button></td>
+        <md-button class="compareButton" ng-click="compareGames()">Compare</md-button></td>
         <table style="width: 100%; max-width: 1000px;" align="center" cellpadding = "2">
           <tbody>
             <tr>
@@ -48,10 +48,10 @@
             <md-autocomplete  md-selected-item="player1selected"
             md-search-text-change="searchTextChange(searchText1)"
             md-search-text="searchText1"
-            md-selected-item-change="selectedItemChange(item, 0)"
-            md-items = "item in querySearch(searchText1)"
+            md-selected-item-change="selectedItemChangeGames(item, 0)"
+            md-items = "item in querySearchGames(searchText1)"
             md-item-text="item.name"
-            md-min-length="1"
+            md-min-length="0"
             placeholder="Search for a team">
 
             <md-item-template>
@@ -78,10 +78,10 @@
           <md-autocomplete  md-selected-item="player2selected"
           md-search-text-change="searchTextChange(searchText2)"
           md-search-text="searchText2"
-          md-selected-item-change="selectedItemChange(item, 1)"
-          md-items = "item in querySearch(searchText2)"
+          md-selected-item-change="selectedItemChangeGames(item, 1)"
+          md-items = "item in querySearchGames(searchText2)"
           md-item-text="item.name"
-          md-min-length="1"
+          md-min-length="0"
           placeholder="Search for a team">
 
           <md-item-template>
@@ -100,13 +100,13 @@
   <td colspan="3">
     <md-content>
       <form ng-submit="$event.preventDefault()">
-        <md-autocomplete  md-selected-item="player2selected"
-        md-search-text-change="searchTextChange(searchText2)"
-        md-search-text="searchText2"
-        md-selected-item-change="selectedItemChange(item, 1)"
-        md-items = "item in querySearch(searchText2)"
+        <md-autocomplete  md-selected-item="player3selected"
+        md-search-text-change="searchTextChange(searchText3)"
+        md-search-text="searchText3"
+        md-selected-item-change="selectedItemChangeGames(item, 2)"
+        md-items = "item in querySearchGames(searchText3)"
         md-item-text="item.name"
-        md-min-length="1"
+        md-min-length="0"
         placeholder="Search for a team">
 
         <md-item-template>
@@ -137,14 +137,11 @@
     </td>
     <td class="numContainer" align="center" border-right="1">
       <div class="container statNumber">
-        <p>{{lpStats.points}} <br>
-          {{lpStats.rebounds}} <br>
-          {{lpStats.assists}} <br>
-          {{lpStats.blocks}} <br>
-          {{lpStats.steals}} <br>
-          {{lpStats.turnovers}} <br>
-          {{lpStats.three}} <br>
-          {{lpStats.free}} <br></p>
+
+          <p><div ng-repeat="item in gamesLSide">
+            {{item}}
+          </div></p>
+
         </div>
       </td>
       <td class="table-separator"></td>
