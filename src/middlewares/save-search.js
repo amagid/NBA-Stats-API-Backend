@@ -17,10 +17,10 @@ module.exports = function(req, res, next) {
         }
     }
     //Isolate command based on baseUrl and params
-    RouteHandlers[originalUrlParts[1]](originalUrlParts, params);
+    RouteHandlers[originalUrlParts[1]](req.user.user_id, originalUrlParts, params);
 }
 
-function players(originalUrlParts, params) {
+function players(user_id, originalUrlParts, params) {
     if (originalUrlParts.length === 2) {
         //Players.getAll()
     } else if (originalUrlParts.length === 3 && params.player1Id) {
@@ -32,7 +32,7 @@ function players(originalUrlParts, params) {
     }
 }
 
-function teams(originalUrlParts, params) {
+function teams(user_id, originalUrlParts, params) {
     if (originalUrlParts.length === 2) {
         //teams.getAll()
     } else if (originalUrlParts.length === 3 && params.team1Id) {
@@ -44,7 +44,7 @@ function teams(originalUrlParts, params) {
     }
 }
 
-function games(originalUrlParts, params) {
+function games(user_id, originalUrlParts, params) {
     if (originalUrlParts.length === 2) {
         //games.getAll()
     } else if (originalUrlParts.length === 3 && params.game1Id) {
