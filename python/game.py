@@ -12,7 +12,7 @@ teams_link = 'https://stats.nba.com/stats/leaguedashteamstats?' \
              'Conference=&DateFrom=&DateTo=&Division=&GameScope=&GameSegment=' \
              '&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=' \
              '0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerExperience=' \
-             '&PlayerPosition=&PlusMinus=N&Rank=N&Season=2017-18&SeasonSegment=&SeasonType=' \
+             '&PlayerPosition=&PlusMinus=N&Rank=N&Season=2016-17&SeasonSegment=&SeasonType=' \
              'Regular+Season&ShotClockRange=&StarterBench=&TeamID=0&VsConference=&VsDivision='
 
 response = requests.get(teams_link, headers=head)
@@ -23,8 +23,6 @@ team_id=dict()
 keys = teams["resultSets"][0]['headers']
 stats = teams["resultSets"][0]["rowSet"]
 keys = [x.encode('UTF8') for x in keys]
-
-
 
 for team in stats:
     team_id[team[1]] = team[0]
@@ -73,30 +71,41 @@ class Game:
     # method to compare a team across two matchups
     def compare_games(self, game_two):
         better_matchup = self
+        self_WL = self.winlose_to_number()
+        self_PLUSMINUS = self.calculate_avg('PLUS_MINUS')
+        self_combined_shot = self.calculate_combined_shotPCT()
+        game_two_WL = game_two.winlose_to_number()
+        game_two_PLUSMINUS = game_two.calculate_avg('PLUS_MINUS')
+        game_two_combined_shot = game_two.calculate_combined_shotPCT()
+
 
         # check to see if we are comparing two valid teams
         if self.teams[0] != game_two.teams[0]:
             print "teams for comparison don't match"
             sys.exit("400")
         else:
-            selfWL = self.winlose_to_number()
-            game_twoWL = game_two.winlose_to_number()
 
             # If the team for comparison won either game return that game
-            if selfWL > game_twoWL:
+            if self_WL > game_two_WL:
                 better_matchup = self
-            elif game_twoWL > selfWL:
+            elif self_WL < game_two_WL:
                 better_matchup = game_two
             else:
 
                 # If the team won or lost both games pick the better team based on PLUS_MINUS
-                if self.calculate_avg('PLUS_MINUS') > game_two.calculate_avg('PLUS_MINUS'):
+                if self_PLUSMINUS > game_two_PLUSMINUS:
                     better_matchup = self
-                elif self.calculate_avg('PLUS_MINUS') < game_two.calculate_avg('PLUS_MINUS'):
+                elif self_PLUSMINUS < game_two_PLUSMINUS:
                     better_matchup = game_two
                 else:
-                    better_matchup = self
-                    # If
+
+                    #if the teams have equal PLUS_MINUS calculate based on combined shooting percentage
+                    if self_combined_shot > game_two_combined_shot:
+                        better_matchup = self
+                    elif self_combined_shot < game_two_combined_shot:
+                        better_matchup = game_two
+                    else:
+                        return self.teams[0] + " " + "equally against " + self.teams[1] + " and " + game_two.teams[1]
 
         return self.teams[0] + " " + "performed better against the " + better_matchup.teams[1]
 
@@ -113,12 +122,15 @@ class Game:
 
         return winlose_count / total_games
 
-    def calculate_combined_shotPCT(self, game):
+    def calculate_combined_shotPCT(self):
         shot_PCT_total = 0
         shot_types = 3
 
-        shot_PCT_total += self.games[game]["FG_PCT"]
-        shot_PCT_total += self.games[game]["FG3_PCT"]
+        shot_PCT_total += self.calculate_avg("FG_PCT")
+        shot_PCT_total += self.calculate_avg("FG3_PCT")
+        shot_PCT_total += self.calculate_avg("FT_PCT")
+
+        return shot_PCT_total / shot_types
 
     def calculate_avg(self, stat_type):
         total = 0
@@ -127,7 +139,7 @@ class Game:
         for x in range(0, total_games):
             total += self.games[x][stat_type]
 
-        return total / total_games
+        return round(total / total_games, 2)
 
 
 def main():
