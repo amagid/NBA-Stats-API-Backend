@@ -151,3 +151,8 @@ def main():
         game2 = Game(data[5],data[6],data[7])
 
         print json.dumps(game1.compare_games(game2))
+
+
+#run main
+if __name__ == '__main__':
+    main()
