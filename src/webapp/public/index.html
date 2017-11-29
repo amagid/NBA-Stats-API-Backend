@@ -53,7 +53,7 @@
     </tr>
     <tr>
       <td colspan="7" align="center">
-        <select ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
+        <select ng-model='modeSelect' ng-change='changeMode(modeSelect)' ng-options = 'x for x in modes' align="center">
         </select>
       </td>
     </tr>
@@ -113,50 +113,51 @@
 <tr>
   <td class="imgContainer"> <img width="200" ng-src="{{lpImage}}"></td>
   <td  class="container" align="right">
-    <p>Points per game <br>
+    <!--<p>Points per game <br>
       Rebounds per game <br>
       Assists per game <br>
       Blocks per game <br>
       Steals per game <br>
       Turnovers per game <br>
       Three pointers per game <br>
-      Free throws made per game <br></p>
+      Free throws made per game <br></p>-->
+      <div ng-repeat='item in currentModel.fields'>
+        <p style="margin: 0;">{{item.name}}</p>
+      </div>
     </td>
     <td class="numContainer" align="center" border-right="1">
       <div class="container statNumber">
-        <p>{{lpStats.points}} <br>
+        <!--<p>{{lpStats.points}} <br>
           {{lpStats.rebounds}} <br>
           {{lpStats.assists}} <br>
           {{lpStats.blocks}} <br>
           {{lpStats.steals}} <br>
           {{lpStats.turnovers}} <br>
           {{lpStats.three}} <br>
-          {{lpStats.free}} <br></p>
+          {{lpStats.free}} <br></p>-->
+          <!--<div ng-repeat='item in lpStats track by $index'>
+            <p>{{item[currentModel.fields[$index].att]}}</p>
+            {{item}}
+            <!--<p> item: {{item}} <br> $Index {{$index}}</p> <br> currentModel[index] {{currentModel.fields['' + $index].att}}
+          </div>-->
+
+          <div ng-repeat='item in currentModel.fields'>
+            <p style="margin: 0;">{{lpStats[item.att]}}</p>
+          </div>
         </div>
       </td>
       <td class="table-separator"></td>
       <td class="numContainer" align="center">
         <div class="container statNumber">
-          <p> {{rpStats.points}} <br>
-            {{rpStats.rebounds}} <br>
-            {{rpStats.assists}} <br>
-            {{rpStats.blocks}} <br>
-            {{rpStats.steals}} <br>
-            {{rpStats.turnovers}} <br>
-            {{rpStats.three}} <br>
-            {{rpStats.free}} <br></p>
+          <div ng-repeat='item in currentModel.fields'>
+            <p style="margin: 0;">{{rpStats[item.att]}}</p>
+          </div>
           </div>
         </td>
         <td rsclass="container">
-          <p>Points per game <br>
-            Rebounds per game <br>
-            Assists per game <br>
-            Blocks per game <br>
-            Steals per game <br>
-            Turnovers per game <br>
-            Three pointers per game <br>
-            Free throws made per game <br></p>
-          </td>
+          <div ng-repeat='item in currentModel.fields'>
+            <p style="margin: 0;">{{item.name}}</p>
+          </div>
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
         </tr>
         <tr class="chartRow">

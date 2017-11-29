@@ -8,6 +8,8 @@ app.controller('myController', function($scope, $http) {
   $scope.year = {};
   $scope.teams = [];
 
+  $scope.currentModel = [];
+
   $scope.modes = ['Base', 'Advanced', 'Miscellaneous', 'Scoring', 'Opponent', 'Usage', 'Clutch'];
   $scope.modeSelect = $scope.modes[0];
 
@@ -387,7 +389,14 @@ app.controller('myController', function($scope, $http) {
 
   console.log($scope.dataModels);
 
-
+  $scope.changeMode = function(newMode) {
+    angular.forEach($scope.dataModels, function(mode, key) {
+      if (mode.type === newMode.toLowerCase()) {
+        $scope.currentModel = mode;
+        console.log($scope.currentModel);
+      }
+    })
+  };
 
 
   $scope.gamesLSide = [
@@ -431,14 +440,7 @@ app.controller('myController', function($scope, $http) {
 
 	// Init data for left player
   $scope.lpStats = {
-    "points":0,
-    "rebounds":0,
-    "assists":0,
-    "blocks":0,
-    "steals":0,
-    "turnovers":0,
-    "three":0,
-    "free":0
+
   }
 
   // Init slot for player's image URL
@@ -446,14 +448,7 @@ app.controller('myController', function($scope, $http) {
 
   // Init data for right player
   $scope.rpStats = {
-    "points":0,
-    "rebounds":0,
-    "assists":0,
-    "blocks":0,
-    "steals":0,
-    "turnovers":0,
-    "three":0,
-    "free":0
+
   };
 
   $scope.rpImage = "";
@@ -516,6 +511,24 @@ $scope.getTeamStats = function(id, whichSide){
  });
 };
 
+// This is a sort of dao function
+$scope.getMatchupStats = function(id, whichSide){
+ console.log($scope.modeSelect);
+ $http.get('/api/teams/' + id + "/" + $scope.modeSelect.toLowerCase()).
+ then(function(response) {
+   //$scope.player1data = response.data
+   console.log(response);
+   if (whichSide === 0) {
+     $scope.lpStats = response['data'];
+   } else {
+     $scope.rpStats = response['data'];
+   }
+ }, function(response) {
+   console.log("Error getting player data!");
+   console.log(response.data);
+ });
+};
+
 $scope.searchTextChange - function(text) {
   // If we want to do something every time
   // the user types, do something here
@@ -554,7 +567,7 @@ $scope.selectedItemChangeTeam = function(item, whichInput) {
 
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)
-  var headshotQuery = 'https://nba-players.herokuapp.com/players/' + item.name.replace(" ", "_");
+  var headshotQuery = item.id;
 
   // lmao actually you dont have to do a real ajax call
   // you can just set the var to the URL hahahahahahhahaha
