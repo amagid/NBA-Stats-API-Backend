@@ -19,8 +19,9 @@ for player in players:
     player_information[name] = player
     player_dict = dict()
     player_dict['name'] = name
-    player_dict['id'] = player_information[name]['personId']
+    player_dict['picture'] = "http://stats.nba.com/media/players/230x185/" + player_information[name]['personId'] + ".png"
     playerID.append(player_dict)
 
 print json.dumps(playerID)
 #changes
+#new changes

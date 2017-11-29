@@ -100,7 +100,6 @@ class Player:
             #print stat
 
         self.stats['Base'] = self.player_dict
-        self.player_dict['picture'] = "http://stats.nba.com/media/players/230x185/201935.png"
 
 
     def get_stats(self, statType):
@@ -373,8 +372,9 @@ def main():
 
         print json.dumps(player1.compare_player(player2))
 
-jc = Player("LeBron James", "Base", "2016-17")
-jc.year_over_year('Base')
+jb = Player("Jimmy Butler", "Base", "2017-18")
+jb.year_over_year('Base')
+print jb.player_dict
 
 #run main
 if __name__ == '__main__':
