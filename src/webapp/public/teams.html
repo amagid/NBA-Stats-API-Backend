@@ -114,27 +114,15 @@
     </td>
     <td class="numContainer" align="center" border-right="1">
       <div class="container statNumber">
-        <p>{{lpStats.points}} <br>
-          {{lpStats.rebounds}} <br>
-          {{lpStats.assists}} <br>
-          {{lpStats.blocks}} <br>
-          {{lpStats.steals}} <br>
-          {{lpStats.turnovers}} <br>
-          {{lpStats.three}} <br>
-          {{lpStats.free}} <br></p>
+        <div ng-repeat='item in currentModel.fields'>
+          <p style="margin: 0;">{{lpStats[item.att]}}</p>
         </div>
       </td>
       <td class="table-separator"></td>
       <td class="numContainer" align="center">
         <div class="container statNumber">
-          <p> {{rpStats.points}} <br>
-            {{rpStats.rebounds}} <br>
-            {{rpStats.assists}} <br>
-            {{rpStats.blocks}} <br>
-            {{rpStats.steals}} <br>
-            {{rpStats.turnovers}} <br>
-            {{rpStats.three}} <br>
-            {{rpStats.free}} <br></p>
+          <div ng-repeat='item in currentModel.fields'>
+            <p style="margin: 0;">{{rpStats[item.att]}}</p>
           </div>
         </td>
         <td rsclass="container">
