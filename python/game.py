@@ -152,8 +152,8 @@ def main():
         game1 = Game(data[2],data[3],data[4])
         print json.dumps(game1.stats)
     if data[1] == 'compare':
-        game1 = Game(data[2],data[3],data[4])
-        game2 = Game(data[5],data[6],data[7])
+        game1 = Game(data[2],data[3],data[5])
+        game2 = Game(data[2],data[4],data[6])
         print json.dumps(game1.compare_games(game2))
 
 
