@@ -200,8 +200,11 @@ def main():
 		#print json.dumps(team1.search_team_utility(**args_dict))
 		team1 = Team(data[2], "hello", "Base")
 		print json.dumps(team1.team_dict)
-	#team2 = Team("New York Knicks","hello","Base")
-	#team1.search_team_utility( Measure_type = "Defense",)
+
+	if data[1] =='compare':
+		team2 = Team(data[2],"hello","Base")
+		team1 = Team(data[3],"hello","Base")
+		print json.dumps(team1.compare_team(team2))
 	#team1.year_over_year()
 
 
