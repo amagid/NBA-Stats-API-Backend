@@ -3,9 +3,9 @@ var app = angular.module('nbaApp', ['ngMaterial'])
   $mdThemingProvider.disableTheming();
 });
 app.controller('myController', function($scope, $http) {
-
+  $scope.betterPlayer = {};
   $scope.players = [];
-
+  $scope.year = {};
   $scope.teams = [];
 
   $scope.modes = ['Base', 'Advanced', 'Miscellaneous', 'Scoring', 'Opponent', 'Usage', 'Clutch'];
@@ -16,6 +16,43 @@ app.controller('myController', function($scope, $http) {
   $scope.gamesCats = ['Ave Win/Loss', 'Ave Plus/Minus', 'Ave FG %', 'Ave 3-Point %', 'Ave Free Throw %', 'Ave Assists', 'Ave Blocks', 'Ave Rebounds', 'Ave Steals'];
 
   $scope.dataModels = [
+    {
+      'type': 'base',
+      'fields': [
+        {
+          'att': 'PTS',
+          'name': 'Points / Game'
+        },
+        {
+          'att': 'REB',
+          'name': 'Rebounds / Game'
+        },
+        {
+          'att': 'AST',
+          'name': 'Assists / Game'
+        },
+        {
+          'att': 'BLK',
+          'name': 'Blocks / Game'
+        },
+        {
+          'att': 'STL',
+          'name': 'Steals / Game'
+        },
+        {
+          'att': 'TOV',
+          'name': 'Turnovers / Game'
+        },
+        {
+          'att': 'FG3M',
+          'name': 'Three Pointers / Game'
+        },
+        {
+          'att': 'FTM',
+          'name': 'Free Throws / Game'
+        }
+      ]
+    },
     {
       'type': 'opponent',
       'fields': [
@@ -350,6 +387,9 @@ app.controller('myController', function($scope, $http) {
 
   console.log($scope.dataModels);
 
+
+
+
   $scope.gamesLSide = [
     {
       'item': 1
@@ -493,7 +533,7 @@ $scope.selectedItemChange = function(item, whichInput) {
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)
   var nameAsArray = item.name.split(" ");
-  var headshotQuery = 'https://nba-players.herokuapp.com/players/' + nameAsArray[nameAsArray.length - 1];
+  var headshotQuery = item.picture;
 
   // lmao actually you dont have to do a real ajax call
   // you can just set the var to the URL hahahahahahhahaha
@@ -618,7 +658,7 @@ $scope.compareTeams = function() {
 $scope.compareGames = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
 	  console.log($scope.modeSelect);
-    $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2 + "/" + $scope.modeSelect.toLowerCase()).
+    $http.get('/api/games/compare/' + $scope.searchText2 + "/" + $scope.searchText1 + "/" + $scope.year.team1 + "/" + $scope.searchText3 + "/" + $scope.year.team3).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);

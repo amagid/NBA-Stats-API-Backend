@@ -13,16 +13,15 @@ class TestGame(TestCase):
     datgame2 = Game("Los Angeles Lakers", "Minnesota Timberwolves", "2008-09")
     datgame3 = Game("Minnesota Timberwolves", "Los Angeles Lakers", "2006-07")
     datgame4 = Game("Los Angeles Lakers", "Golden State Warriors", "2016-17")
+    datgame5 = Game("Golden State Warriors", "Los Angeles Lakers", "2016-17")
+    datgame6 = Game("Golden State Warriors", "Cleveland Cavaliers", "2016-17")
     pp.pprint(datgame3.games)
     # pp.pprint(datgame4.games)
     # print datgame2.games
-    print datgame.compare_games(datgame2)
-    print datgame.compare_games(datgame4)
-    print datgame.stats
-    print datgame2.stats
-    print datgame3.stats
-    print datgame4.stats
-    print datgame.calculate_combined_shotPCT()
-    print datgame4.calculate_combined_shotPCT()
+    print datgame5.compare_games(datgame6)
+    print datgame5.stats
+    print datgame6.stats
+    print datgame5.calculate_combined_shotPCT()
+    print datgame6.calculate_combined_shotPCT()
     # print datgame3.winlose_to_number()
     # print datgame.compare_games(datgame3)

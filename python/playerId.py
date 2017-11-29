@@ -23,5 +23,6 @@ for player in players:
     playerID.append(player_dict)
 
 print json.dumps(playerID)
+
 #changes
 #new changes

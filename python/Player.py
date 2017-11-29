@@ -374,7 +374,7 @@ def main():
 
 jb = Player("Jimmy Butler", "Base", "2017-18")
 jb.year_over_year('Base')
-print jb.player_dict
+#print jb.player_dict
 
 #run main
 if __name__ == '__main__':
