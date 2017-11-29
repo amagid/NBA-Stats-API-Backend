@@ -133,7 +133,6 @@ class Player:
         x = 2
 
 
-
 link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
        'DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=' \
        '&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=' \
@@ -158,9 +157,9 @@ def main():
 
         print json.dumps(player1.compare_player(player2))
 
-run main
-if __name__ == '__main__':
-    main()
+#run main
+#if __name__ == '__main__':
+    #main()
 
 
 #get player by id --> traditional stats ["get", "id"]
