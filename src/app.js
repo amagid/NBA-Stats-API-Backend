@@ -10,17 +10,16 @@ const logger = require('./services/logger');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
 const responsePromise = require('./middlewares/response-promise');
+const decodeJWT = require('./middlewares/decode-jwt');
 const morgan = require('morgan');
 const cors = require('cors');
+const DBSync = require('./models/sync');
+const db = require('./services/db');
 app.use(express.static(path.join(__dirname, '/webapp/public')));
 
 setUpAPI();
-
-const server = http.Server(app);
-
-server.listen(process.env.PORT || config.app.port);
-logger.info(`Server listening on port ${process.env.PORT || config.app.port}`);
-
+setUpDB()
+    .then(setUpServer);
 
 function setUpAPI() {
     //General middlewares
@@ -30,8 +29,28 @@ function setUpAPI() {
         extended: false
     }));
     app.use(responsePromise);
+    app.use(decodeJWT);
     //Mount routes
     const router = express.Router();
     routes(router);
     app.use('/', router);
+}
+
+function setUpDB() {
+    DBSync();
+    return db.testConnection()
+        .then(() => {
+            logger.info('DB Connection Established');
+        })
+        .catch((err) => {
+            logger.error(`DB Connection FAILED. Reason:\n\n${JSON.stringify(err, null, 4)}`);
+            process.exit(1);
+        });
+}
+
+function setUpServer() {
+    const server = http.Server(app);
+
+    server.listen(process.env.PORT || config.app.port);
+    logger.info(`Server listening on port ${process.env.PORT || config.app.port}`);
 }

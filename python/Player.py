@@ -6,7 +6,6 @@ import requests
 import sys
 import json
 
-
 players_link = 'http://www.nba.com/players/active_players.json'
 head = {"USER-AGENT":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"}
 response = requests.get(players_link, headers=head)
@@ -20,10 +19,26 @@ playerID = dict()
 
 for player in players:
     name = player['firstName'] + ' ' + player['lastName']
+    name = name.rstrip()
     player_information[name] = player
     playerID[name] = player_information[name]['personId']
+#print player_information['Jordan Clarkson']
+positions = list()
+positions2 = list()
+#G, C, F, F-C, F-G, G-F, C-F player_information[player]['pos']
+#group together C and C-F as centers
+#G-F will be shooting guards, G and above 6'5
+#F-G will be treated like small forwards --> factor in assists
+#F will be treated like small forwards unless weight is bigger than 230
+#F-C will be power forward
 
-
+for player in player_information:
+    pos = player_information[player]['pos']
+    pos2 = player_information[player]['posExpanded']
+    if pos not in positions:
+        positions.append(pos)
+    if pos2 not in positions2:
+        positions2.append(pos2)
 
 class Player:
 
@@ -42,7 +57,7 @@ class Player:
             self.id= player_information[name]['personId']
         except Exception, e:
             sys.exit("404")
-        print player_information[name]
+#        print player_information[name]
 
         self.stats = dict()
         self.stats['Base'] = 0
@@ -69,7 +84,7 @@ class Player:
         stats_link_param = stats_link[0] + 'Base' + stats_link[1] + self.id + stats_link[2] + self.year + stats_link[
             3]
 
-
+        #print stats_link_param
         response = requests.get(stats_link_param, headers=head)
 
         keys = response.json()['resultSets'][0]['headers']
@@ -81,8 +96,11 @@ class Player:
         except Exception, e:
             sys.exit("404")
 
-        self.stats['Base'] = self.player_dict
+        #for stat in self.player_dict:
+            #print stat
 
+        self.stats['Base'] = self.player_dict
+        self.player_dict['picture'] = "http://stats.nba.com/media/players/230x185/201935.png"
 
 
     def get_stats(self, statType):
@@ -107,8 +125,36 @@ class Player:
         dateTo = dateTo.split('/')
         dateTo = dateTo[0] + '%2F' + dateTo[1] + '%2F' + dateTo[2]
 
-    def select_score(self):
-        return self.player_dict['BLK'] * 2 + self.player_dict['REB'] + self.player_dict['AST'] + self.player_dict['PTS'] - self.player_dict['TOV']
+    def player_score(self):
+        position = player_information[self.name]['pos']
+        heightFeet = float(player_information[name]['heightFeet'])
+        heightInches = float(player_information[name]['heightInches'])
+        weight = float(player_information[self.name]['weightPounds'])
+        truePos = ''
+        if position == 'C-F' or position == 'F':
+            truePos = 'C'
+        elif position == 'F-C':
+            truePos = 'PF'
+        elif position == 'F':
+            if weight > 230:
+                truePos = 'PF'
+            else:
+                truePos = 'SF'
+        elif position == 'F-G':
+            truePos = 'SF'
+        elif position == 'G-F':
+            truePos = 'SG'
+        elif position == 'G':
+            if heightFeet < 6:
+                truePos = 'PG'
+            else:
+                if heightInches < 4:
+                    truePos = 'PG'
+                else:
+                    truePos = 'SG'
+        #print truePos
+        type = self.pg_type()
+        #print type
 
 
 
@@ -131,6 +177,176 @@ class Player:
 
     def compare_stat(self, otherPlayer, statType):
         x = 2
+
+    def year_over_year(self, statType):
+        year_link = ['https://stats.nba.com/stats/playerdashboardbyyearoveryear?DateFrom=&DateTo=&GameSegment=&LastNGames=0' \
+                    '&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=' \
+                    'PerGame&Period=0&PlayerID=', '&PlusMinus=N&Rank=N&Season=2017-18&SeasonSegment=&SeasonType=Regular+Season&' \
+                    'ShotClockRange=&Split=yoy&VsConference=&VsDivision=']
+        year_link = year_link[0] + self.id + year_link[1]
+
+        #print stats_link_param
+        response = requests.get(year_link, headers=head)
+
+        keys = response.json()['resultSets'][1]['headers']
+        keys = [x.encode('UTF8') for x in keys]
+        values = response.json()['resultSets'][1]['rowSet']
+
+        year_dict = dict()
+
+        for year in values:
+            season = year[len(year) - 1]
+            season_dict = dict(zip(keys, year))
+            year_dict[season] = season_dict
+
+
+        # try:
+        #     year_dict = dict(zip(keys, values))
+        # except Exception, e:
+        #     sys.exit("404")
+
+        #print json.dumps(sorted(year_dict.items()))
+
+    #puts more weight on assists
+    def pg_score(self):
+        type = self.pg_type()
+        if type is 'superstar': #weigh wins into the calculation
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else: #defensive
+            x = 2
+
+    #puts more weight on shooting and defense
+    def sg_score(self):
+        type = self.sg_type()
+        if type is 'superstar': #weigh wins into the calculation
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else:  # defensive
+            x = 2
+
+    #puts all-around weight
+    def sf_score(self):
+        type = self.sf_type()
+        if type is 'superstar': #weigh wins into the calculation
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else:  # defensive
+            x = 2
+
+    #puts weight on shooting (modern NBA) and inside game (rebounding)
+    def pf_score(self):
+        type = self.pf_type()
+        if type is 'superstar': #weigh wins into the calculation
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else:  # defensive
+            x = 2
+
+    #puts weight on rebounding and blocks
+    def c_score(self):
+        type = self.c_type()
+        if type is 'superstar': #weigh wins into the calculation
+            x = 2
+        elif type is 'pass-first':
+            x = 2
+        elif type is 'scoring':
+            x = 2
+        elif type is 'around':
+            x = 2
+        else:  # defensive
+            x = 2
+
+    #pass-first, scoring, defensive, scoring, all-around, superstar
+    def pg_type(self):
+        stats = self.player_dict
+        # check for superstar status
+        if stats['PTS'] > 23:
+            if stats['AST'] > 5.5:
+                return "superstar"
+            else:
+                return "scoring"
+        elif stats['AST'] > 9:
+            if stats['PTS'] > 19:
+                return "superstar"
+            elif stats['PTS'] > 15:
+                return "around"
+            else:
+                return "pass-first"
+        elif stats['MIN'] / stats['STL'] >= 24:
+            return "defensive"
+        elif stats['PTS']/stats['AST'] < 2.5:
+            return "pass-first"
+        elif stats['PTS']/stats['AST'] > 2.5:
+            return "scoring"
+        else:
+            return "around"
+
+
+
+    #shooting, all-around scorer, defensive, shooting, all-around, superstar
+    def sg_type(self):
+        min = stats['MIN']
+        if stats['PTS'] > 24:
+            if stats['AST'] > 4.5:
+                return "superstar"
+            else:
+                return "scoring"
+        elif stats['AST'] > 6:
+            if stats['PTS'] > 19:
+                return "superstar"
+            elif stats['PTS'] > 15:
+                return "around"
+            else:
+                return "pass-first"
+        elif (stats['PTS']/min) * 36 > 19:
+            return "scoring"
+        elif stats['FG3_PCT'] > .375:
+            return "shooter"
+        elif stats['MIN']/stats['STL'] >= 24:
+            return "defensive"
+        elif stats['PTS']/stats['AST'] < 2.5:
+            return "around"
+        elif stats['PTS']/stats['AST'] > 2.5:
+            return "scoring"
+        else:
+            return "around"
+
+
+    #slasher, defender, scorer, all-around, superstar
+    def sf_type(self):
+        x = 2
+        # check for superstar status
+
+    #labels as a stretch-4, defensive-minded player, scorer, all-around, superstar
+    def pf_type(self):
+        x = 2
+        # check for superstar status
+
+    #labels the center as a defensive player, scorer, all-around, or shooter
+    def c_type(self):
+        x = 2
+        # check for superstar status
 
 
 link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
@@ -157,9 +373,12 @@ def main():
 
         print json.dumps(player1.compare_player(player2))
 
+jc = Player("LeBron James", "Base", "2016-17")
+jc.year_over_year('Base')
+
 #run main
-#if __name__ == '__main__':
-    #main()
+if __name__ == '__main__':
+    main()
 
 
 #get player by id --> traditional stats ["get", "id"]

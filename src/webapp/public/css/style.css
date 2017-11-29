@@ -23,7 +23,19 @@ md-virtual-repeat-container {
 
 p {
 	font-family: 'Anton', sans-serif;
-	font-size: 18px;
+	font-size: 14px;
+}
+h1 {
+  font-family: 'Anton', sans-serif;
+}
+
+.menuBarContainer {
+  text-align: center;
+}
+
+.menuBarButton {
+    background-color: white !important;
+    border-color: black !important;
 }
 
 .compareContainer {
@@ -31,6 +43,7 @@ p {
   min-height: 75px;
   height: 75px;
   position: relative;
+  text-align: center;
 }
 
 .comparisonBar {
@@ -85,4 +98,18 @@ p {
 
 .chartRow {
   padding-top: 30px;
+}
+
+.formContainer {
+  text-align: center;
+  padding-top: 23%;
+}
+
+.formItem {
+  padding-bottom: 10px;
+}
+
+.gamesCats {
+	font-family: 'Anton', sans-serif;
+	font-size: 14px;
 }

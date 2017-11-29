@@ -9,4 +9,8 @@ module.exports = function (router) {
     router.get('/players', (req, res) => res.sendFile(basePath + '/index.html'));
 
     router.get('/games', (req, res) => res.sendFile(basePath + '/games.html'));
+
+    router.get('/register', (req, res) => res.sendFile(basePath + '/register.html'));
+
+    router.get('/login', (req, res) => res.sendFile(basePath + '/login.html'));
 };

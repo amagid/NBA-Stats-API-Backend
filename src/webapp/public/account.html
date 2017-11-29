@@ -1,0 +1,51 @@
+<html ng-app="nbaApp" class="background">
+  <head>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery/dist/jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-animate.min.js"></script>
+    <script src="js/angular-resource/angular-resource.js"></script>
+    <script src="js/angular-route/angular-route.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.11/angular-sanitize.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script> -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+    <script src="app.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Anton|Fjalla+One|Francois+One" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div align='center' class="container nbaApp">
+      <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
+      <br>
+      <div class="menuBarContainer">
+        <md-button class="menuBarButton" href="/">Players</md-button>
+        <md-button class="menuBarButton" href="/teams.html">Teams</md-button>
+        <md-button class="menuBarButton" href="/games.html">Games</md-button>
+        <md-button class="menuBarButton" href="/account.html">My Account</md-button>
+      </div>
+      <br>
+      <div ng-controller="myController as ctrl">
+
+      <h1>Hello, {{username}}</h1>
+      <br>
+      <h2>History</h2>
+      <ul class='historyList'>
+        <li class="historyListItem" ng-repeat='item in historyList'>
+          <table>
+            <td>Type: {{item.type}} |</td>
+            <td ng-if="item.type !== 'games'">{{item.item1}} vs. {{item.item2}}</td>
+            <td ng-if="item.type === 'games'">{{item.rootTeam}}: {{item.item1}} vs. {{item.item2}}</td>
+          </table>
+        </li>
+      </ul>
+    </div>
+    </div>
+  </body>
+
+</html>
