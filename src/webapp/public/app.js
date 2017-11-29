@@ -387,6 +387,7 @@ app.controller('myController', function($scope, $http) {
       }
   ];
 
+  $scope.currentModel = $scope.dataModels[0];
   console.log($scope.dataModels);
 
   $scope.changeMode = function(newMode) {
