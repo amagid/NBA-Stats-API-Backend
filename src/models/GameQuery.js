@@ -47,10 +47,11 @@ const GameQuery = db.define('game_queries', {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
     },
-    
+
     searchDate: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        field: 'search_date'
     }
 }, {
     uniqueKeys: {
@@ -69,7 +70,7 @@ module.exports = Object.assign(GameQuery, {
     upsertSearch
 });
 
-function upsertSearch(user_id, url, command, data) {
+function upsertSearch(userId, url, command, data) {
     //sanitize team1Id with valid value if not supplied
     if (!data.team1Id) {
         data.team1Id = null;
@@ -90,25 +91,43 @@ function upsertSearch(user_id, url, command, data) {
     if (!data.year2) {
         data.year2 = null;
     }
-
-    return GameQuery.upsert({
-        user_id,
-        url,
-        command,
-        team1Id: data.team1Id,
-        team2Id: data.team2Id,
-        team3Id: data.team3Id,
-        year1: data.year1,
-        year2: data.year2,
-        searchDate: (new Date).toISOString()
-    })
-    .then(created => {
-        return {
-            rowCreated: !!created,
-            rowUpdated: !created
-        }
-    })
-    .catch(err => {
-        throw APIError(err.status || 500, err.message || 'Query Save Failed', err);
-    });
+    return GameQuery.find({
+            where: {
+                userId,
+                url
+            }
+        })
+        .then(query => {
+            if (!query) {
+                return GameQuery.create({
+                    userId,
+                    url,
+                    command,
+                    team1Id: data.team1Id,
+                    team2Id: data.team2Id,
+                    team3Id: data.team3Id,
+                    year1: data.year1,
+                    year2: data.year2,
+                    searchDate: (new Date).toISOString()
+                });
+            } else {
+                return GameQuery.update({
+                    searchDate: (new Date).toISOString()
+                }, {
+                    where: {
+                        userId,
+                        url
+                    }
+                });
+            }
+        })
+        .then(created => {
+            return {
+                rowCreated: !!created,
+                rowUpdated: !created
+            }
+        })
+        .catch(err => {
+            throw APIError(err.status || 500, err.message || 'Query Save Failed', err);
+        });
 }

@@ -21,22 +21,23 @@ const PlayerQuery = db.define('player_queries', {
     },
 
     player1Id: {
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DataTypes.STRING,
         field: 'player1_id'
     },
 
     player2Id: {
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DataTypes.STRING,
         field: 'player2_id'
     },
 
     command: {
         type: Sequelize.DataTypes.STRING
     },
-    
+
     searchDate: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        field: 'search_date'
     }
 });
 
@@ -49,7 +50,7 @@ module.exports = Object.assign(PlayerQuery, {
     upsertSearch
 });
 
-function upsertSearch(user_id, url, command, data) {
+function upsertSearch(userId, url, command, data) {
     //Sanitize player1Id with valid value if not supplied
     if (!data.player1Id) {
         data.player1Id = null;
@@ -58,21 +59,40 @@ function upsertSearch(user_id, url, command, data) {
     if (!data.player2Id) {
         data.player2Id = null;
     }
-    return PlayerQuery.upsert({
-        user_id,
-        url,
-        command,
-        player1Id: data.player1Id,
-        player2Id: data.player2Id,
-        searchDate: (new Date).toISOString()
-    })
-    .then(created => {
-        return {
-            rowCreated: !!created,
-            rowUpdated: !created
-        }
-    })
-    .catch(err => {
-        throw APIError(err.status || 500, err.message || 'Query Save Failed', err);
-    });
+    return PlayerQuery.find({
+            where: {
+                userId,
+                url
+            }
+        })
+        .then(query => {
+            if (!query) {
+                return PlayerQuery.create({
+                    userId,
+                    url,
+                    command,
+                    player1Id: data.player1Id,
+                    player2Id: data.player2Id,
+                    searchDate: (new Date).toISOString()
+                });
+            } else {
+                return PlayerQuery.update({
+                    searchDate: (new Date).toISOString()
+                }, {
+                    where: {
+                        userId,
+                        url
+                    }
+                });
+            }
+        })
+        .then(created => {
+            return {
+                rowCreated: !!created,
+                rowUpdated: !created
+            }
+        })
+        .catch(err => {
+            throw APIError(err.status || 500, err.message || 'Query Save Failed', err);
+        });
 }

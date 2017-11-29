@@ -21,12 +21,12 @@ const TeamQuery = db.define('team_queries', {
     },
 
     team1Id: {
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DataTypes.STRING,
         field: 'team1_id'
     },
 
     team2Id: {
-        type: Sequelize.DataTypes.INTEGER,
+        type: Sequelize.DataTypes.STRING,
         field: 'team2_id'
     },
 
@@ -38,10 +38,11 @@ const TeamQuery = db.define('team_queries', {
     command: {
         type: Sequelize.DataTypes.STRING
     },
-    
+
     searchDate: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: false
+        allowNull: false,
+        field: 'search_date'
     }
 });
 
@@ -54,7 +55,7 @@ module.exports = Object.assign(TeamQuery, {
     upsertSearch
 });
 
-function upsertSearch(user_id, url, command, data) {
+function upsertSearch(userId, url, command, data) {
     //Sanitize team1Id with valid value if not supplied
     if (!data.team1Id) {
         data.team1Id = null;
@@ -67,22 +68,41 @@ function upsertSearch(user_id, url, command, data) {
     if (!data.dataType) {
         data.dataType = null;
     }
-    return TeamQuery.upsert({
-        user_id,
-        url,
-        command,
-        team1Id: data.team1Id,
-        team2Id: data.team2Id,
-        dataType: data.dataType,
-        searchDate: (new Date).toISOString()
-    })
-    .then(created => {
-        return {
-            rowCreated: !!created,
-            rowUpdated: !created
-        }
-    })
-    .catch(err => {
-        throw APIError(err.status || 500, err.message || 'Query Save Failed', err);
-    });
+    return TeamQuery.find({
+            where: {
+                userId,
+                url
+            }
+        })
+        .then(query => {
+            if (!query) {
+                return TeamQuery.create({
+                    userId,
+                    url,
+                    command,
+                    team1Id: data.team1Id,
+                    team2Id: data.team2Id,
+                    dataType: data.dataType,
+                    searchDate: (new Date).toISOString()
+                });
+            } else {
+                return TeamQuery.update({
+                    searchDate: (new Date).toISOString()
+                }, {
+                    where: {
+                        userId,
+                        url
+                    }
+                });
+            }
+        })
+        .then(created => {
+            return {
+                rowCreated: !!created,
+                rowUpdated: !created
+            }
+        })
+        .catch(err => {
+            throw APIError(err.status || 500, err.message || 'Query Save Failed', err);
+        });
 }
