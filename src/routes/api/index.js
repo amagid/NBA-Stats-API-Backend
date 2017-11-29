@@ -3,6 +3,7 @@ const mountGames = require('./games');
 const mountTeams = require('./teams');
 const mountPlayers = require('./players');
 const mountUsers = require('./users');
+const requireAuthorization = require('../../middlewares/require-auth');
 var router = express.Router();
 
 module.exports = addRoutes;

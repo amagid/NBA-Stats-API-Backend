@@ -36,7 +36,35 @@ function getGameQueries(userId) {
             }]
         })
         .then(user => {
-            console.log(user);
+            return user.dataValues.game_queries;
+        })
+        .catch(err => {
+            throw APIError(err.status || 500, err.message || 'Game Query Find Failed', err);
+        });
+}
+
+function getTeamQueries(userId) {
+    return Users.findById(userId, {
+            include: [{
+                model: TeamQuery
+            }]
+        })
+        .then(user => {
+            return user.dataValues.team_queries;
+        })
+        .catch(err => {
+            throw APIError(err.status || 500, err.message || 'Game Query Find Failed', err);
+        });
+}
+
+function getPlayerQueries(userId) {
+    return Users.findById(userId, {
+            include: [{
+                model: PlayerQuery
+            }]
+        })
+        .then(user => {
+            return user.dataValues.player_queries;
         })
         .catch(err => {
             throw APIError(err.status || 500, err.message || 'Game Query Find Failed', err);
