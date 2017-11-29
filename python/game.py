@@ -141,6 +141,11 @@ class Game:
         return round(total / total_games, 2)
 
 
+def read_in():
+    lines = sys.argv
+    # Since our input would only be having one line, parse our JSON data from that
+    return lines
+
 def main():
     data = read_in()
     if data[1] == 'get':
@@ -149,7 +154,6 @@ def main():
     if data[1] == 'compare':
         game1 = Game(data[2],data[3],data[4])
         game2 = Game(data[5],data[6],data[7])
-
         print json.dumps(game1.compare_games(game2))
 
 
