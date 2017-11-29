@@ -4,8 +4,8 @@ webapp/node_modules/**
 logs/*.log
 logs/exceptions/*.exceptions
 jsconfig.json
-# config/keys/jwt*
-# config/*.json
+config/keys/jwt*
+config/*.json
 EC2/**
 *.log
 .idea/vcs.xml
@@ -19,3 +19,4 @@ EC2/**
 .idea/workspace.xml
 webapp/package.json
 .nyc_output/**
+config/development.json

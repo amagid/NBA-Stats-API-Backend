@@ -51,7 +51,7 @@ function players(userId, originalUrlParts, params) {
         });
 }
 
-function teams(user_id, originalUrlParts, params) {
+function teams(userId, originalUrlParts, params) {
     //Figure out which command we need
     let command = null;
     if (originalUrlParts.length === 2) {
@@ -74,7 +74,7 @@ function teams(user_id, originalUrlParts, params) {
         });
 }
 
-function games(user_id, originalUrlParts, params) {
+function games(userId, originalUrlParts, params) {
     //Figure out which command we need
     let command = null;
     if (originalUrlParts.length === 2) {

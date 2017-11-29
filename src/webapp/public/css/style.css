@@ -25,6 +25,9 @@ p {
 	font-family: 'Anton', sans-serif;
 	font-size: 14px;
 }
+h1 {
+  font-family: 'Anton', sans-serif;
+}
 
 .menuBarContainer {
   text-align: center;
@@ -40,6 +43,7 @@ p {
   min-height: 75px;
   height: 75px;
   position: relative;
+  text-align: center;
 }
 
 .comparisonBar {

@@ -1,4 +1,4 @@
-import numpy
+
 import requests
 import pandas as pd
 import pickle
@@ -48,22 +48,20 @@ class Team:
 		'&VsConference=&VsDivision=']
 		self.head = {"USER-AGENT":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"}
 		self.stats_link = self.teams_link[0] + self.statType + self.teams_link[1] + str(self.Id) + self.teams_link[2]
-		#print self.stats_link
 		response = requests.get(self.stats_link, headers=self.head)
-		#print response.json()
 		keys = response.json()['resultSets'][0]['headers']
 		values = response.json()['resultSets'][0]['rowSet']
 		self.team_dict = dict(zip(keys,values[0]))
-		#print keys
+
 
 		
 
 	
 	def compare_team(self,team2):
 		if (self.team_dict["PLUS_MINUS"]> team2.team_dict["PLUS_MINUS"]):
-			print self.team_dict["TEAM_NAME"]
+			return self.team_dict["TEAM_NAME"]
 		else:
-			print team2.team_dict["TEAM_NAME"]
+			return team2.team_dict["TEAM_NAME"]
 
 
 
@@ -87,15 +85,6 @@ class Team:
 		team2 = opp.helper_find_winner(self.Id)
 
 
-
-	def search_team(self, stat_type,year):
-		if stat_type not in ['Base', 'Advanced', 'Misc', 'Four Factors', 'Scoring', 'Opponent','Usage']:
-			sys.exit("404")
-		if year == "":
-			sys.exit("404")
-
-		if stat_type == 'Base':
-			return self.team_dict
 
 	def helper_search_team(self,**kwargs):
 		list_of_params = ["Measure_type","Conference","Outcome","Season","TeamId","Season_type"]
@@ -182,11 +171,9 @@ class Team:
 
 
 
-
-
-
-
-
+def read_in():
+	lines = sys.argv
+	return lines
 
 
 
@@ -201,10 +188,24 @@ def main():
 	# for each in range(len(players)):
 	# 	 player_info[players[each][3]]= players[each][len(player_list["resultSets"][0]["headers"]) -1]
 	# print player_info
-	team1 = Team("Miami Heat","Hello","Base")
-	#team2 = Team("New York Knicks","hello","Base")
-	#team1.search_team_utility( Measure_type = "Defense",)
-	team1.year_over_year()
+	data = read_in()
+
+	if data[1] == 'search_team':
+
+		#args_dict = dict()
+		#for i in range(3,len(data),1):
+		#	args_dict.update(data[i])
+
+		# loop too take each item and make input dict
+		#print json.dumps(team1.search_team_utility(**args_dict))
+		team1 = Team(data[2], "hello", "Base")
+		print json.dumps(team1.team_dict)
+
+	if data[1] =='compare':
+		team2 = Team(data[2],"hello","Base")
+		team1 = Team(data[3],"hello","Base")
+		print json.dumps(team1.compare_team(team2))
+	#team1.year_over_year()
 
 
 

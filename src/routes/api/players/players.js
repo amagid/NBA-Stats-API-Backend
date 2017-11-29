@@ -22,16 +22,7 @@ function get(playerId) {
         return Promise.reject(APIError(400, "No Player Supplied"));
     }
     return Python.run('Player.py', ['get', playerId]).then(function(player) {
-        return {
-            assists: player.AST,
-            blocks: player.BLK,
-            rebounds: player.REB,
-            steals: player.STL,
-            turnovers: player.TOV,
-            points: player.PTS,
-            three: player.FG3_PCT,
-            free: player.FT_PCT
-        };
+        return player;
     })
     .catch(err => {
         if (err.message.indexOf("404") !== -1) {
