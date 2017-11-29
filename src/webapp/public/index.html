@@ -33,7 +33,7 @@
           <md-button class="menuBarButton" href="/account.html">My Account</md-button>
         </div>
 
-        <md-button class="compareButton" ng-click="comparePlayers()">Compare</md-button></td>
+        <md-button class="compareButton" ng-click="comparePlayers()">FIND THE WINNER</md-button></td>
         <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
           <tbody>
             <tr>
@@ -48,12 +48,12 @@
           <div ng-style="rightBar" class="comparisonBar right">
 
         </div>-->
-              <h1 style="padding-top: 20px;">{{betterPlayer.message}}</h1>
+              <span><h1 style="padding-top: 20px;">The winner is: {{betterPlayer.message}}</h1></span>
       </td>
     </tr>
     <tr>
       <td colspan="7" align="center">
-        <select  ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
+        <select ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
         </select>
       </td>
     </tr>

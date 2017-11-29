@@ -33,12 +33,12 @@
           <md-button class="menuBarButton" href="/account.html">My Account</md-button>
         </div>
 
-        <md-button class="compareButton" ng-click="compareTeams()">Compare</md-button></td>
+        <md-button class="compareButton" ng-click="compareTeams()">FIND THE WINNER</md-button></td>
         <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
           <tbody>
             <tr>
-              <td class="compareContainer" colspan="3">
-                {{betterTeam}}
+              <td class="compareContainer" colspan="7">
+                <h1>The winner is: {{betterTeam.message}}</h1>
               </td>
             </tr>
     <tr>
