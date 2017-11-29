@@ -349,7 +349,6 @@ class Player:
         # check for superstar status
 
 
-
 link = 'http://stats.nba.com/stats/playerdashboardbygeneralsplits?' \
        'DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=' \
        '&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=' \

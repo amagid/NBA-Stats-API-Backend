@@ -15,7 +15,7 @@
       <file leaf-file-name="Player.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Player.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
+            <state relative-caret-position="162">
               <caret line="359" column="0" lean-forward="false" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
               <folding />
             </state>
@@ -25,10 +25,10 @@
       <file leaf-file-name="Team.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Team.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="212" column="53" lean-forward="true" selection-start-line="212" selection-start-column="53" selection-end-line="212" selection-end-column="53" />
+            <state relative-caret-position="510">
+              <caret line="206" column="51" lean-forward="false" selection-start-line="206" selection-start-column="51" selection-end-line="206" selection-end-column="51" />
               <folding>
-                <element signature="e#0#12#0" expanded="true" />
+                <element signature="e#1#16#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -99,7 +99,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.teamId">
+  <component name="RunManager" selected="Python.Team">
     <configuration default="false" name="py.test in test_player.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -170,6 +170,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="Team" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="python" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Team.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -235,18 +253,20 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python tests.py.test in test_player.py" />
       <item index="1" class="java.lang.String" itemvalue="Python.Player" />
       <item index="2" class="java.lang.String" itemvalue="Python.teamId" />
       <item index="3" class="java.lang.String" itemvalue="Python.playerId" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Team" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.teamId" />
-        <item index="1" class="java.lang.String" itemvalue="Python.playerId" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.py.test in test_player.py" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Player" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.Team" />
+        <item index="1" class="java.lang.String" itemvalue="Python.teamId" />
+        <item index="2" class="java.lang.String" itemvalue="Python.playerId" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.py.test in test_player.py" />
+        <item index="4" class="java.lang.String" itemvalue="Python.Player" />
       </list>
     </recent_temporary>
   </component>
@@ -264,12 +284,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 09m 48s.xml">
-      <configuration name="py.test in test_player.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 13m 58s.xml">
-      <configuration name="py.test in test_player.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 17m 03s.xml">
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
@@ -292,6 +306,12 @@
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
     <history-entry file="py_test_in_test_player_py - 2017.11.15 at 06h 02m 01s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 11h 07m 41s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 11h 22m 24s.xml">
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -332,6 +352,26 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/playerId.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Team.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="61" column="34" lean-forward="true" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -392,7 +432,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Player.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
+        <state relative-caret-position="162">
           <caret line="359" column="0" lean-forward="false" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
           <folding />
         </state>
@@ -400,10 +440,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Team.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="212" column="53" lean-forward="true" selection-start-line="212" selection-start-column="53" selection-end-line="212" selection-end-column="53" />
+        <state relative-caret-position="510">
+          <caret line="206" column="51" lean-forward="false" selection-start-line="206" selection-start-column="51" selection-end-line="206" selection-end-column="51" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#1#16#0" expanded="true" />
           </folding>
         </state>
       </provider>
