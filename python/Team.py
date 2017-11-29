@@ -210,7 +210,7 @@ def main():
 		#	args_dict.update(data[i])
 
 		# loop too take each item and make input dict
-		print json.dumps(team1.search_team_utility(**args_dict))
+		#print json.dumps(team1.search_team_utility(**args_dict))
 	if data[1] == 'compare':
 		team1 = Team(data[2], "Base", "2016-17")
 		team2 = Team(data[3], "Base", "2016-17")
