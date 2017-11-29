@@ -5,7 +5,7 @@ var app = angular.module('nbaApp', ['ngMaterial'])
 app.controller('myController', function($scope, $http) {
   $scope.betterPlayer = {};
   $scope.players = [];
-
+  $scope.year = {};
   $scope.teams = [];
 
   $scope.modes = ['Base', 'Advanced', 'Miscellaneous', 'Scoring', 'Opponent', 'Usage', 'Clutch'];
@@ -658,7 +658,7 @@ $scope.compareTeams = function() {
 $scope.compareGames = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
 	  console.log($scope.modeSelect);
-    $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2 + "/" + $scope.modeSelect.toLowerCase()).
+    $http.get('/api/games/compare/' + $scope.searchText2 + "/" + $scope.searchText1 + "/" + $scope.year.team1 + "/" + $scope.searchText3 + "/" + $scope.year.team3).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
