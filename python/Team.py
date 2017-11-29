@@ -184,10 +184,10 @@ class Team:
 
 
 
-
-
-
-
+def read_in():
+    lines = sys.argv
+    # Since our input would only be having one line, parse our JSON data from that
+    return lines
 
 
 
@@ -201,10 +201,27 @@ def main():
 	# for each in range(len(players)):
 	# 	 player_info[players[each][3]]= players[each][len(player_list["resultSets"][0]["headers"]) -1]
 	# print player_info
-	team1 = Team("Miami Heat","Hello","Base")
+	data = read_in()
+	if data[1] == 'search_team':
+		team1 = Team(data[2], "Base", "2016-17")
+		print json.dumps(team1.team_dict)
+		#args_dict = dict()
+		#for i in range(3,len(data),1):
+		#	args_dict.update(data[i])
+
+		# loop too take each item and make input dict
+		#print json.dumps(team1.search_team_utility(**args_dict))
+	if data[1] == 'compare':
+		team1 = Team(data[2], "Base", "2016-17")
+		team2 = Team(data[3], "Base", "2016-17")
+		print json.dumps(team1.compare_team(team2))
+	if data[1] == 'find_winner':
+		team1 = Team(data[2],"Base","2016-17")
+		team2 = Team(data[3],"Base","2016-17")
+		print json.dumps(team1.f_winner(team2))
 	#team2 = Team("New York Knicks","hello","Base")
 	#team1.search_team_utility( Measure_type = "Defense",)
-	team1.year_over_year()
+	#team1.year_over_year()
 
 
 

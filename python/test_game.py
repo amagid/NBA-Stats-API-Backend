@@ -18,5 +18,5 @@ class TestGame(TestCase):
     # print datgame2.games
     print datgame.compare_games(datgame2)
     print datgame.compare_games(datgame4)
-    print datgame3.winlose_to_number()
+    # print datgame3.winlose_to_number()
     # print datgame.compare_games(datgame3)
