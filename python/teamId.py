@@ -31,4 +31,4 @@ for index, row in teams.iterrows():
 for each in range(len(stats)):
     team_id[stats[each][1]] = stats[each][0]
 
-print json.dumps(team_id)
+print json.dumps(pictures)
