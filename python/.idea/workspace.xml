@@ -284,12 +284,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 09m 48s.xml">
-      <configuration name="py.test in test_player.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 13m 58s.xml">
-      <configuration name="py.test in test_player.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="py_test_in_test_player_py - 2017.11.15 at 05h 17m 03s.xml">
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
@@ -312,6 +306,12 @@
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
     <history-entry file="py_test_in_test_player_py - 2017.11.15 at 06h 02m 01s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 11h 07m 41s.xml">
+      <configuration name="py.test in test_player.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_test_player_py - 2017.11.15 at 11h 22m 24s.xml">
       <configuration name="py.test in test_player.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -352,6 +352,26 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/playerId.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Team.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="61" column="34" lean-forward="true" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
