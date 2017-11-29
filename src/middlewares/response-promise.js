@@ -1,6 +1,7 @@
 const baseUrl = require('../../config').get().urls.baseUrl;
 const Promise = require('bluebird');
 const logger = require('../services/logger');
+const doSearchSave = require('./do-search-save');
 
 module.exports = attachResponsePromise;
 
@@ -21,6 +22,9 @@ function attachResponsePromise(req, res, next) {
             .catch(error => {
                 logger.error(error);
                 res.status(500).json({ message: 'Unknown Error', error });
+            })
+            .then(() => {
+                doSearchSave(req, res);
             });
     };
     next();
