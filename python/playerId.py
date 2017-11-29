@@ -22,6 +22,8 @@ for player in players:
     player_dict['picture'] = "http://stats.nba.com/media/players/230x185/" + player_information[name]['personId'] + ".png"
     playerID.append(player_dict)
 
+print playerInformation['Alex Abrines']
 print json.dumps(playerID)
+
 #changes
 #new changes
