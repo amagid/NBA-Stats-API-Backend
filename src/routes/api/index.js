@@ -26,6 +26,6 @@ function addRoutes(router) {
     router.use('/players', players);
 
     //Require authorization for all /users routes
-    router.use('/users', requireAuthorization);
-    router.use('/users', users);
+    router.use('/user', requireAuthorization);
+    router.use('/user', users);
 };
