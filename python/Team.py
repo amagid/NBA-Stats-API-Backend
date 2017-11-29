@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import pickle
 import itertools
-#import sys
+import sys
 import json
 
 
@@ -171,8 +171,9 @@ class Team:
 
 
 
-
-
+def read_in():
+	lines = sys.argv
+	return lines
 
 
 
@@ -187,9 +188,9 @@ def main():
 	# for each in range(len(players)):
 	# 	 player_info[players[each][3]]= players[each][len(player_list["resultSets"][0]["headers"]) -1]
 	# print player_info
-	#data = read_in()
+	data = read_in()
 
-	#if data[1] == 'search_team':
+	if data[1] == 'search_team':
 
 		#args_dict = dict()
 		#for i in range(3,len(data),1):
@@ -197,8 +198,8 @@ def main():
 
 		# loop too take each item and make input dict
 		#print json.dumps(team1.search_team_utility(**args_dict))
-	team1 = Team("Boston Celtics", "hello", "Base")
-	print json.dumps(team1.team_dict)
+		team1 = Team(data[2], "hello", "Base")
+		print json.dumps(team1.team_dict)
 	#team2 = Team("New York Knicks","hello","Base")
 	#team1.search_team_utility( Measure_type = "Defense",)
 	#team1.year_over_year()
