@@ -114,14 +114,14 @@
     </td>
     <td class="numContainer" align="center" border-right="1">
       <div class="container statNumber">
-        <div ng-repeat='item in currentModel.fields'>
+        <div ng-repeat='item in currentModel.fields track by $index'>
           <p style="margin: 0;">{{lpStats[item.att]}}</p>
         </div>
       </td>
       <td class="table-separator"></td>
       <td class="numContainer" align="center">
         <div class="container statNumber">
-          <div ng-repeat='item in currentModel.fields'>
+          <div ng-repeat='item in currentModel.fields track by $index'>
             <p style="margin: 0;">{{rpStats[item.att]}}</p>
           </div>
         </td>

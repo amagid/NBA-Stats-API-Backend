@@ -13,6 +13,10 @@ button {
 background-color: white !important;
 }*/
 
+.removeMargin {
+  margin: 0;
+}
+
 md-autocomplete-wrap {
   background-color: white !important;
 }

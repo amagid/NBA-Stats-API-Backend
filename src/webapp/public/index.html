@@ -121,7 +121,7 @@
       Turnovers per game <br>
       Three pointers per game <br>
       Free throws made per game <br></p>-->
-      <div ng-repeat='item in currentModel.fields'>
+      <div ng-repeat='item in currentModel.fields track by $index'>
         <p style="margin: 0;">{{item.name}}</p>
       </div>
     </td>
@@ -141,7 +141,7 @@
             <!--<p> item: {{item}} <br> $Index {{$index}}</p> <br> currentModel[index] {{currentModel.fields['' + $index].att}}
           </div>-->
 
-          <div ng-repeat='item in currentModel.fields'>
+          <div ng-repeat='item in currentModel.fields track by $index'>
             <p style="margin: 0;">{{lpStats[item.att]}}</p>
           </div>
         </div>
@@ -149,13 +149,13 @@
       <td class="table-separator"></td>
       <td class="numContainer" align="center">
         <div class="container statNumber">
-          <div ng-repeat='item in currentModel.fields'>
+          <div ng-repeat='item in currentModel.fields track by $index'>
             <p style="margin: 0;">{{rpStats[item.att]}}</p>
           </div>
           </div>
         </td>
         <td rsclass="container">
-          <div ng-repeat='item in currentModel.fields'>
+          <div ng-repeat='item in currentModel.fields track by $index'>
             <p style="margin: 0;">{{item.name}}</p>
           </div>
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>

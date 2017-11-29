@@ -14,6 +14,8 @@ app.controller('myController', function($scope, $http) {
   $scope.modeSelect = $scope.modes[0];
 
   $scope.years = ['2010-11', '2011-12', '2012-13', '2013-14', '2014-15', '2015-16', '2016-17'];
+  $scope.year.team1 = '2016-17';
+  $scope.year.team3 = '2016-17';
 
   $scope.gamesCats = ['Ave Win/Loss', 'Ave Plus/Minus', 'Ave FG %', 'Ave 3-Point %', 'Ave Free Throw %', 'Ave Assists', 'Ave Blocks', 'Ave Rebounds', 'Ave Steals'];
 
@@ -512,23 +514,10 @@ $scope.getTeamStats = function(id, whichSide){
  });
 };
 
-// This is a sort of dao function
-$scope.getMatchupStats = function(id, whichSide){
- console.log($scope.modeSelect);
- $http.get('/api/teams/' + id + "/" + $scope.modeSelect.toLowerCase()).
- then(function(response) {
-   //$scope.player1data = response.data
-   console.log(response);
-   if (whichSide === 0) {
-     $scope.lpStats = response['data'];
-   } else {
-     $scope.rpStats = response['data'];
-   }
- }, function(response) {
-   console.log("Error getting player data!");
-   console.log(response.data);
- });
-};
+$scope.leftMatchupData = [];
+$scope.rightMatchupData = [];
+
+
 
 $scope.searchTextChange - function(text) {
   // If we want to do something every time
@@ -579,13 +568,71 @@ $scope.selectedItemChangeTeam = function(item, whichInput) {
   }
 }
 
+// This is a sort of dao function
+$scope.getMatchupStats = function(team1, team2, year, whichSide){
+  console.log("whichside was " + whichSide);
+ $http.get('/api/games/' + team1 + "/" + team2 + "/" + year).
+ then(function(response) {
+   //$scope.player1data = response.data
+   if (whichSide === 0) {
+     $scope.leftMatchupData[0] = response['data']['W/L'];
+     $scope.leftMatchupData[1] = response['data'].PLUS_MINUS;
+     $scope.leftMatchupData[2] = response['data'].FG_PCT;
+     $scope.leftMatchupData[3] = response['data'].FG3_PCT;
+     $scope.leftMatchupData[4] = response['data'].FT_PCT;
+     $scope.leftMatchupData[5] = response['data'].AST;
+     $scope.leftMatchupData[6] = response['data'].BLK;
+     $scope.leftMatchupData[7] = response['data'].REB;
+     $scope.leftMatchupData[8] = response['data'].STL;
+     console.log($scope.leftMatchupData)
+   } else {
+     $scope.rightMatchupData[0] = response['data']['W/L'];
+     $scope.rightMatchupData[1] = response['data'].PLUS_MINUS;
+     $scope.rightMatchupData[2] = response['data'].FG_PCT;
+     $scope.rightMatchupData[3] = response['data'].FG3_PCT;
+     $scope.rightMatchupData[4] = response['data'].FT_PCT;
+     $scope.rightMatchupData[5] = response['data'].AST;
+     $scope.rightMatchupData[6] = response['data'].BLK;
+     $scope.rightMatchupData[7] = response['data'].REB;
+     $scope.rightMatchupData[8] = response['data'].STL;
+     console.log($scope.rightMatchupData);
+   }
+ }, function(response) {
+   console.log("Error getting player data!");
+   console.log(response.data);
+ });
+};
+
 // When user clicks item but on the games screen
 $scope.selectedItemChangeGames = function(item, whichInput) {
   // Get the info; the id is {{item.id}}
   // Should come in correct format so hopefully no
   // json manipulation needed
   console.log(item.name);
-  //$scope.getTeamStats(item.name, whichInput);
+  if (whichInput === 0 || whichInput === 2) {
+    if (typeof $scope.player2selected !== 'undefined' && $scope.player2selected != null) {
+      if ($scope.player2selected.name != null && $scope.player2selected.name !== ''){
+      var whichYear = "";
+      if (whichInput === 0) {
+        whichYear = $scope.year.team1;
+      } else if (whichInput === 2) {
+        whichYear = $scope.year.team3;
+      }
+      $scope.getMatchupStats($scope.player2selected.name, item.name, whichYear, whichInput)
+    }
+    }
+  } else {
+    if (typeof $scope.player1selected !== 'undefined' && $scope.player1selected != null) {
+      if ($scope.player1selected.name != null && $scope.player1selected.name !== '') {
+      $scope.getMatchupStats(item.name, $scope.player1selected.name, $scope.year.team1, 0);
+      }
+    }
+    if (typeof $scope.player3selected !== 'undefined' && $scope.player3selected != null) {
+      if ($scope.player3selected.name != null && $scope.player3selected.name !== '') {
+      $scope.getMatchupStats(item.name, $scope.player3selected.name, $scope.year.team3, 2);
+    }
+    }
+  }
 
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)

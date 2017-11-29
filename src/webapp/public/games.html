@@ -34,7 +34,7 @@
         </div>
 
         <md-button class="compareButton" ng-click="compareGames()">Compare</md-button></td>
-        <table style="width: 100%; max-width: 1000px;" align="center" cellpadding = "2">
+        <table style="width: 100%; max-width: 700px;" align="center" cellpadding = "2">
           <tbody>
             <tr>
               <td class="compareContainer" colspan="11">
@@ -72,7 +72,7 @@
       <!--</form>-->
     </td>
     <td class="table-separator"></td>
-    <td style="padding-top: 0px;" colspan="3">
+    <td style="padding-top: 0px" colspan="3">
       <md-content>
         <form style="padding-top: 0px;" ng-submit="$event.preventDefault()">
           <md-autocomplete  md-selected-item="player2selected"
@@ -92,13 +92,14 @@
             No players matching "{{searchText2}}" were found.
           </md-not-found>
         </md-autocomplete>
-
+        <br>
+        <select style="display:none"></select><select style="display:none"></select>
       </form>
     </md-content>
   </td>
   <td class="table-separator"></td>
   <td colspan="3">
-    <md-content>
+    <md-content style="padding: 0; margin: 0;">
       <form ng-submit="$event.preventDefault()">
         <md-autocomplete  md-selected-item="player3selected"
         md-search-text-change="searchTextChange(searchText3)"
@@ -132,14 +133,14 @@
   <td class="imgContainer"> <img width="200" ng-src="{{lpImage}}"></td>
   <td  class="container" align="right">
     <p><div class='gamesCats' ng-repeat="item in gamesCats">
-        {{item}}
+        <!--{{item}}-->
         </div></p>
     </td>
     <td class="numContainer" align="center" border-right="1">
       <div class="container statNumber">
 
           <p><div ng-repeat="item in gamesLSide">
-            {{item}}
+            <!--{{item}}-->
           </div></p>
 
         </div>
@@ -147,14 +148,9 @@
       <td class="table-separator"></td>
       <td>
         <div class="container statNumber">
-          <p> {{rpStats.points}} <br>
-          {{rpStats.rebounds}} <br>
-          {{rpStats.assists}} <br>
-          {{rpStats.blocks}} <br>
-          {{rpStats.steals}} <br>
-          {{rpStats.turnovers}} <br>
-          {{rpStats.three}} <br>
-          {{rpStats.free}} <br></p>
+          <p><div class="gamesCats" ng-repeat='item in leftMatchupData track by $index'>
+            {{item}}
+          </div></p>
         </div>
       </td>
       <td style="text-align: center" class="container">
@@ -164,32 +160,27 @@
         </td>
         <td>
           <div class="container statNumber">
-            <p> {{rpStats.points}} <br>
-            {{rpStats.rebounds}} <br>
-            {{rpStats.assists}} <br>
-            {{rpStats.blocks}} <br>
-            {{rpStats.steals}} <br>
-            {{rpStats.turnovers}} <br>
-            {{rpStats.three}} <br>
-            {{rpStats.free}} <br></p>
+            <p><div class="gamesCats" ng-repeat='item in rightMatchupData track by $index'>
+              {{item}}
+            </div></p>
           </div>
         </td>
         <td class="table-separator"</td>
       <td class="numContainer" align="center">
         <div class="container statNumber">
-          <p> {{rpStats.points}} <br>
+          <!--<p> {{rpStats.points}} <br>
             {{rpStats.rebounds}} <br>
             {{rpStats.assists}} <br>
             {{rpStats.blocks}} <br>
             {{rpStats.steals}} <br>
             {{rpStats.turnovers}} <br>
             {{rpStats.three}} <br>
-            {{rpStats.free}} <br></p>
+            {{rpStats.free}} <br></p>-->
           </div>
         </td>
         <td rsclass="container">
           <p><div class='gamesCats' ng-repeat="item in gamesCats">
-        {{item}}
+        <!--{{item}}-->
         </div></p>
           </td>
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
