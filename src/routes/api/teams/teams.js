@@ -21,7 +21,7 @@ function getAll() {
 }
 
 function get(teamId, dataType) {
-    return Python.run('Team.py', ['get', teamId, dataType])
+    return Python.run('Team.py', ['search_team', teamId, dataType])
         .then(team => {
             if (!team) {
                 throw APIError(404, 'Team Not Found');

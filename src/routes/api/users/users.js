@@ -36,7 +36,15 @@ function getGameQueries(userId) {
             }]
         })
         .then(user => {
-            return user.dataValues.game_queries;
+            const gameQueries = [];
+            for (let i = 0; i < user.dataValues.game_queries.length; i++) {
+                gameQueries.push({
+                    url: user.dataValues.game_queries[i].url,
+                    searchDate: user.dataValues.game_queries[i].searchDate,
+                    command: _formatCommand(user.dataValues.game_queries[i].command)
+                });
+            }
+            return gameQueries;
         })
         .catch(err => {
             throw APIError(err.status || 500, err.message || 'Game Query Find Failed', err);
@@ -50,7 +58,15 @@ function getTeamQueries(userId) {
             }]
         })
         .then(user => {
-            return user.dataValues.team_queries;
+            const teamQueries = [];
+            for (let i = 0; i < user.dataValues.team_queries.length; i++) {
+                teamQueries.push({
+                    url: user.dataValues.team_queries[i].url,
+                    searchDate: user.dataValues.team_queries[i].searchDate,
+                    command: _formatCommand(user.dataValues.team_queries[i].command)
+                });
+            }
+            return teamQueries;
         })
         .catch(err => {
             throw APIError(err.status || 500, err.message || 'Game Query Find Failed', err);
@@ -64,9 +80,23 @@ function getPlayerQueries(userId) {
             }]
         })
         .then(user => {
-            return user.dataValues.player_queries;
+            const playerQueries = [];
+            for (let i = 0; i < user.dataValues.player_queries.length; i++) {
+                playerQueries.push({
+                    url: user.dataValues.player_queries[i].url,
+                    searchDate: user.dataValues.player_queries[i].searchDate,
+                    command: _formatCommand(user.dataValues.player_queries[i].command)
+                });
+            }
+            return playerQueries;
         })
         .catch(err => {
             throw APIError(err.status || 500, err.message || 'Game Query Find Failed', err);
         });
+}
+
+function _formatCommand(str) {
+    return str.toLowerCase().replace(/_/g, ' ').replace(/(^| )(\w)/g, function (x) {
+        return x.toUpperCase();
+    });
 }
