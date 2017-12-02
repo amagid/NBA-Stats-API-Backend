@@ -7,6 +7,9 @@ module.exports = function (req, res, next) {
     //Try to extract JWT from header
     try {
         token = req.headers.authorization.split(' ')[1];
+        if (!token) {
+            throw 'No JWT Supplied';
+        }
     } catch (e) {
         //Ignore if no token found
         return next();
