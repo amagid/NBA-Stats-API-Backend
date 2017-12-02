@@ -9,6 +9,7 @@ const keys = require('./keys');
  * @return {Object} The current configuration.
  */
 function get() {
+    //Check environment label
     if (process.env.type === 'development') {
         return dev;
     } else if (process.env.type === 'production') {

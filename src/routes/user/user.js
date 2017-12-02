@@ -1,8 +1,8 @@
-const APIError = require('../../../APIError');
-const Users = require('../../../models/User');
-const GameQuery = require('../../../models/GameQuery');
-const TeamQuery = require('../../../models/TeamQuery');
-const PlayerQuery = require('../../../models/PlayerQuery');
+const APIError = require('../../APIError');
+const Users = require('../../models/User');
+const GameQuery = require('../../models/GameQuery');
+const TeamQuery = require('../../models/TeamQuery');
+const PlayerQuery = require('../../models/PlayerQuery');
 
 module.exports = {
     get,
