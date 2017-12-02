@@ -25,7 +25,7 @@ app.controller('myController', function($scope, $http) {
   }
 
   $scope.loginFn = function() {
-    $http.post('/auth/login', {data: {email: $scope.login.username, password: $scope.login.password}}).
+    $http.post('/auth/login', {email: $scope.login.username, password: $scope.login.password}).
     then(function(response) {
       //$scope.player1data = response.data
       $scope.players = response['data'];
