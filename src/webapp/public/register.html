@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <div class="nbaApp">
+    <div class="nbaApp" ng-controller="myController as ctrl">
     <form class="formContainer">
       <div class="formItem">
         <label for='username'>Username</label>
@@ -30,7 +30,7 @@
         <input type='password' name='password' id='password' ng-model='register.password' required />
       </div>
       <div class="formItem">
-        <button type='submit' ng-disabled='form.$invalid'>Register</button>
+        <md-button class="compareButton" ng-click="registerFn()">Register</md-button>
       </div>
       <a href="/login.html">Already have an account? Login here.</a>
     </form>

@@ -3,6 +3,43 @@ var app = angular.module('nbaApp', ['ngMaterial'])
   $mdThemingProvider.disableTheming();
 });
 app.controller('myController', function($scope, $http) {
+  $scope.myJWT = window.localStorage.getItem("NBA-JWT");
+  console.log($scope.myJWT);
+  $scope.registerFn = function() {    //TODO update firstname and lastname
+    console.log("Registering")
+    console.log({email: $scope.register.username, password: $scope.register.password, fname: 'FirstName', lname: 'LastName'})
+    $http.post('/auth/signup', {email: $scope.register.username, password: $scope.register.password, fname: 'FirstName', lname: 'LastName'}).
+    then(function(response) {
+      //$scope.player1data = response.data
+      console.log(response['data']);
+      // TODO tell user if the verification email was successfully sent -- might have to base on error code number
+
+      // this callback will be called asynchronously
+      // when the response is available
+    }, function(response) {
+      console.log("There was an error getting init data!");
+      console.log(response.data);
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
+  }
+
+  $scope.loginFn = function() {
+    $http.post('/auth/login', {data: {email: $scope.login.username, password: $scope.login.password}}).
+    then(function(response) {
+      //$scope.player1data = response.data
+      $scope.players = response['data'];
+      window.localStorage.setItem("NBA-JWT", response.data.token);
+      // this callback will be called asynchronously
+      // when the response is available
+    }, function(response) {
+      console.log("There was an error getting init data!");
+      console.log(response.data);
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });
+  }
+
   $scope.betterPlayer = {};
   $scope.players = [];
   $scope.year = {};
@@ -410,7 +447,7 @@ app.controller('myController', function($scope, $http) {
   $scope.gamesRSide = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   $scope.gamesMid = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   // On app start, grab all the players for the autofill lists
-  $http.get('/api/players').
+  $http.get('/api/players', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
   then(function(response) {
     //$scope.player1data = response.data
     $scope.players = response['data'];
