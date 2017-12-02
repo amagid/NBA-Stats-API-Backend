@@ -35,9 +35,10 @@ function attachResponsePromise(req, res, next) {
                 res.status(500).json({ message: 'Unknown Error', error });
             })
             .then(() => {
-                //Now that the result has been successfully dealt with, save the search
-                //TODO: Only save if the response was 200 status
-                doSearchSave(req, res);
+                //If the request was successful (200 status code), save the search
+                if (res.statusCode === 200) {
+                    doSearchSave(req, res);
+                }
             });
     };
     next();
