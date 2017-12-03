@@ -107,10 +107,13 @@ h1 {
 .formContainer {
   text-align: center;
   padding-top: 23%;
+  max-width: 500px;
+  display: inline-block
 }
 
 .formItem {
   padding-bottom: 10px;
+  text-align: right;
 }
 
 .gamesCats {

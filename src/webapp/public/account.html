@@ -21,17 +21,18 @@
   <body>
 
     <div align='center' class="container nbaApp">
-      <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
-      <br>
-      <div class="menuBarContainer">
-        <md-button class="menuBarButton" href="/">Players</md-button>
-        <md-button class="menuBarButton" href="/teams.html">Teams</md-button>
-        <md-button class="menuBarButton" href="/games.html">Games</md-button>
-        <md-button class="menuBarButton" href="/account.html">My Account</md-button>
-      </div>
-      <br>
-      <div ng-controller="myController as ctrl">
 
+      <div ng-controller="myController as ctrl">
+        <img src="img/badlogo.jpg" style="margin: auto; display: block" width="400">
+        <br>
+        <div class="menuBarContainer">
+          <md-button class="menuBarButton" href="/">Players</md-button>
+          <md-button class="menuBarButton" href="/teams.html">Teams</md-button>
+          <md-button class="menuBarButton" href="/games.html">Games</md-button>
+          <md-button class="menuBarButton" href="/account.html">My Account</md-button>
+          <md-button class="menuBarButton" ng-click="logout()">Log Out</md-button>
+        </div>
+        <br>
       <h1>Hello, {{username}}</h1>
       <br>
       <h2>History</h2>

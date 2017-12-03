@@ -30,7 +30,9 @@
           <md-button class="menuBarButton" href="/index.html">Players</md-button>
           <md-button class="menuBarButton" href="/teams.html">Teams</md-button>
           <md-button class="menuBarButton" href="/">Games</md-button>
-          <md-button class="menuBarButton" href="/account.html">My Account</md-button>
+          <md-button class="menuBarButton" href="/account.html" ng-show="myJWT != null" >My Account</md-button>
+          <md-button class="menuBarButton" ng-click="logout()" ng-show="myJWT != null">Log Out</md-button>
+          <md-button class="menuBarButton" href="/register.html" ng-show="myJWT == null">Register</md-button>
         </div>
 
         <md-button class="compareButton" ng-click="compareGames()">Compare</md-button></td>

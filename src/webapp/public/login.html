@@ -18,20 +18,21 @@
     <link href="https://fonts.googleapis.com/css?family=Anton|Fjalla+One|Francois+One" rel="stylesheet">
   </head>
 
-  <body>
-    <form class="formContainer" ng-controller="myController as ctrl">
+  <body style="text-align: center">
+    <form align="center" name="loginForm" class="formContainer" ng-controller="myController as ctrl">
+      <div class="formItem"><p>{{authError}}</p></div>
       <div class="formItem">
-        <label for='username'>Username</label>
-        <input type='text' name='username' id='username' ng-model='login.username' required />
+        <label for='username'>Email</label>
+        <input type='email' name='username' id='username' ng-model='login.username' required />
       </div>
       <div class="formItem">
         <label for='password'>Password</label>
         <input type='password' name='password' id='password' ng-model='login.password' required />
       </div>
       <div class="formItem">
-        <button ng-click="loginFn()" type='submit' ng-disabled='form.$invalid'>Login</button>
+        <md-button class="compareButton" ng-click="loginFn()" type='submit' >Login</md-button>
       </div>
-      <a href="/register.html">New here? Make an account.</a>
+      <a href="/register.html" class="formItem">New here? Make an account.</a>
     </form>
   </body>
 </html>

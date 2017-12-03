@@ -4,40 +4,73 @@ var app = angular.module('nbaApp', ['ngMaterial'])
 });
 app.controller('myController', function($scope, $http) {
   $scope.myJWT = window.localStorage.getItem("NBA-JWT");
+  if ((window.location.pathname === '/login.html' || window.location.pathname === '/register.html') && $scope.myJWT && $scope.myJWT !== "" ) {
+    location.href="/index.html";
+    console.log("already logged in");
+  }
+
+  $scope.logout = function() {
+    console.log("Logging off");
+    $scope.myJWT = "";
+    window.localStorage.removeItem("NBA-JWT");
+    window.location.href = "/login.html";
+  }
+
+
+
+  $scope.authError = "";
   console.log($scope.myJWT);
   $scope.registerFn = function() {    //TODO update firstname and lastname
+    if (!$scope.loginForm.$invalid){
     console.log("Registering")
     console.log({email: $scope.register.username, password: $scope.register.password, fname: 'FirstName', lname: 'LastName'})
     $http.post('/auth/signup', {email: $scope.register.username, password: $scope.register.password, fname: 'FirstName', lname: 'LastName'}).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
+      $scope.authError = "Check your email to verify account!";
       // TODO tell user if the verification email was successfully sent -- might have to base on error code number
 
       // this callback will be called asynchronously
       // when the response is available
     }, function(response) {
       console.log("There was an error getting init data!");
-      console.log(response.data);
+      console.log(response);
+      //$scope.authError = "Unable to make account with this information. Is your data valid? Do you already have an account?";
+      if (response.data.message === "Email Already In Use") {
+        $scope.authError = "Email already in use!";
+      } else {
+        $scope.authError = "Unable to create account."
+      }
       // called asynchronously if an error occurs
       // or server returns response with an error status.
     });
   }
+  }
+
 
   $scope.loginFn = function() {
+    if (!$scope.loginForm.$invalid){
     $http.post('/auth/login', {email: $scope.login.username, password: $scope.login.password}).
     then(function(response) {
       //$scope.player1data = response.data
-      $scope.players = response['data'];
-      window.localStorage.setItem("NBA-JWT", response.data.token);
+      console.log(response['data']);
+      if (typeof response['data'].token !== 'undefined') {
+        window.localStorage.setItem("NBA-JWT", response.data.token);
+        location.href="/index.html";
+      } else {
+        $scope.authError = "Could not log in with that info. Please check your info and try again.";
+      }
       // this callback will be called asynchronously
       // when the response is available
     }, function(response) {
-      console.log("There was an error getting init data!");
+      console.log("There was an error logging in!");
       console.log(response.data);
+      $scope.authError = "Could not log in with that info. Please check your info and try again.";
       // called asynchronously if an error occurs
       // or server returns response with an error status.
     });
+  }
   }
 
   $scope.betterPlayer = {};
