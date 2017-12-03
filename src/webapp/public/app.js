@@ -4,9 +4,12 @@ var app = angular.module('nbaApp', ['ngMaterial'])
 });
 app.controller('myController', function($scope, $http) {
   $scope.myJWT = window.localStorage.getItem("NBA-JWT");
-  if ((window.location.pathname === '/login.html' || window.location.pathname === '/register.html') && $scope.myJWT && $scope.myJWT !== "" ) {
+  var thisPath = window.location.pathname;
+  if ((thisPath === '/login.html' || thisPath === '/register.html' || thisPath === 'login' || thisPath === 'register') && $scope.myJWT && $scope.myJWT !== "" ) {
     location.href="/index.html";
     console.log("already logged in");
+  } else if ((thisPath === '/account.html' || thisPath === '/account') && (!$scope.myJWT || $scope.myJWT == "" )) {
+    location.href ="/login.html";
   }
 
   $scope.logout = function() {
@@ -16,15 +19,11 @@ app.controller('myController', function($scope, $http) {
     window.location.href = "/login.html";
   }
 
-
-
   $scope.authError = "";
   console.log($scope.myJWT);
   $scope.registerFn = function() {    //TODO update firstname and lastname
     if (!$scope.loginForm.$invalid){
-    console.log("Registering")
-    console.log({email: $scope.register.username, password: $scope.register.password, fname: 'FirstName', lname: 'LastName'})
-    $http.post('/auth/signup', {email: $scope.register.username, password: $scope.register.password, fname: 'FirstName', lname: 'LastName'}).
+    $http.post('/auth/signup', {email: $scope.register.username, password: $scope.register.password, fname: $scope.register.fname, lname: $scope.register.lname}).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
@@ -47,7 +46,6 @@ app.controller('myController', function($scope, $http) {
     });
   }
   }
-
 
   $scope.loginFn = function() {
     if (!$scope.loginForm.$invalid){
@@ -480,7 +478,8 @@ app.controller('myController', function($scope, $http) {
   $scope.gamesRSide = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   $scope.gamesMid = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   // On app start, grab all the players for the autofill lists
-  $http.get('/api/players', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
+  if (thisPath === '/players' || thisPath === '/players.html'){
+  $http.get('/api/players').
   then(function(response) {
     //$scope.player1data = response.data
     $scope.players = response['data'];
@@ -493,7 +492,74 @@ app.controller('myController', function($scope, $http) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
+}
 
+  // Get account info
+  $scope.userInfo = {};
+  $scope.gameQueries = {};
+  $scope.teamQueries = {};
+  $scope.playerQueries = {};
+
+  if (thisPath === '/account' || thisPath === '/account.html') {
+    $http.get('/user/info', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
+    then(function(response) {
+      //$scope.player1data = response.data
+      $scope.userInfo = response['data'];
+  	   console.log($scope.userInfo);
+      // this callback will be called asynchronously
+      // when the response is available
+    }, function(response) {
+      console.log("There was an error getting user info data!");
+      console.log(response.data);
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    });// END INFO
+
+    $http.get('/user/game-queries', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
+    then(function(response) {
+      //$scope.player1data = response.data
+      $scope.gameQueries = response['data'];
+  	   console.log($scope.gameQueries);
+      // this callback will be called asynchronously
+      // when the response is available
+    }, function(response) {
+      console.log("There was an error getting user game query data!");
+      console.log(response.data);
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    }); // END GAME QUERIES
+
+    $http.get('/user/team-queries', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
+    then(function(response) {
+      //$scope.player1data = response.data
+      $scope.teamQueries = response['data'];
+  	   console.log($scope.teamQueries);
+      // this callback will be called asynchronously
+      // when the response is available
+    }, function(response) {
+      console.log("There was an error getting user team query data!");
+      console.log(response.data);
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    }); // END TEAM QUERIES
+
+    $http.get('/user/player-queries', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
+    then(function(response) {
+      //$scope.player1data = response.data
+      $scope.playerQueries = response['data'];
+  	   console.log($scope.playerQueries);
+      // this callback will be called asynchronously
+      // when the response is available
+    }, function(response) {
+      console.log("There was an error getting user player query data!");
+      console.log(response.data);
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+    }); // END PLAYER QUERIES
+  }
+
+
+  if (thisPath === '/teams' || thisPath === '/teams.html' || thisPath === '/games' || thisPath === '/games.html'){
   $http.get('/api/teams').
   then(function(response) {
     // this comes in as a json. needs to be array so it matches players response
@@ -510,19 +576,16 @@ app.controller('myController', function($scope, $http) {
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
+}
 
 	// Init data for left player
-  $scope.lpStats = {
-
-  }
+  $scope.lpStats = {}
 
   // Init slot for player's image URL
   $scope.lpImage = ""
 
   // Init data for right player
-  $scope.rpStats = {
-
-  };
+  $scope.rpStats = {};
 
   $scope.rpImage = "";
 
@@ -749,7 +812,7 @@ $scope.createFilterFor = function(query) {
 // Function that gets called when user clicks 'compare'
 $scope.comparePlayers = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
-    $http.get('/api/players/' + $scope.searchText1 + '/compare/' + $scope.searchText2).
+    $http.get('/api/players/' + $scope.searchText1 + '/compare/' + $scope.searchText2, {headers: {Authorization: "Bearer " + $scope.myJWT}}).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
@@ -769,7 +832,7 @@ $scope.comparePlayers = function() {
 $scope.compareTeams = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
 	  console.log($scope.modeSelect);
-    $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2 + "/" + $scope.modeSelect.toLowerCase()).
+    $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2 + "/" + $scope.modeSelect.toLowerCase(), {headers: {Authorization: "Bearer " + $scope.myJWT}}).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
@@ -789,7 +852,7 @@ $scope.compareTeams = function() {
 $scope.compareGames = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
 	  console.log($scope.modeSelect);
-    $http.get('/api/games/compare/' + $scope.searchText2 + "/" + $scope.searchText1 + "/" + $scope.year.team1 + "/" + $scope.searchText3 + "/" + $scope.year.team3).
+    $http.get('/api/games/compare/' + $scope.searchText2 + "/" + $scope.searchText1 + "/" + $scope.year.team1 + "/" + $scope.searchText3 + "/" + $scope.year.team3, {headers: {Authorization: "Bearer " + $scope.myJWT}}).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
