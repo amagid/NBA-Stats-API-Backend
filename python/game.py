@@ -49,10 +49,15 @@ class Game:
 
         try:
             team_one_id = team_id[team1]
+        except:
+            print team1 + " do not exist"
+            sys.exit("404")
+
+        try:
             team_two_id = team_id[team2]
         except:
-            print "Teams do no exist"
-            sys.exit("400")
+            print team2 + " do not exist"
+            sys.exit("404")
 
         request_link = game_link[0] + year + game_link[1] + str(team_one_id) + game_link[2] + str(team_two_id)
         #print request_link
@@ -68,7 +73,7 @@ class Game:
 
         if len(self.games) == 0:
             print "No Games exist between " + team1 + " and " + team2 + " in " + year
-            sys.exit("400")
+            sys.exit("404")
 
         self.stats = dict()
         self.stats['W/L'] = self.winlose_to_number()
@@ -118,7 +123,7 @@ class Game:
                     elif self_combined_shot < game_two_combined_shot:
                         better_matchup = game_two
                     else:
-                        return self.teams[0] + " played equally against " + self.teams[1] + " and " + game_two.teams[1]
+                        return self.teams[0] + " played equally against the " + self.teams[1] + " and the " + game_two.teams[1]
 
         return self.teams[0] + " performed better against the " + better_matchup.teams[1]
 
