@@ -26,6 +26,8 @@ keys = [x.encode('UTF8') for x in keys]
 for team in stats:
     team_id[team[1]] = team[0]
 
+print team_id
+
 #set up game link
 game_link = ['https://stats.nba.com/stats/leaguegamefinder?Conference=&DateFrom=&DateTo=' \
             '&Division=&DraftNumber=&DraftRound=&DraftYear=&GB=N&LeagueID=00&Location=&Outcome=' \
