@@ -26,8 +26,6 @@ keys = [x.encode('UTF8') for x in keys]
 for team in stats:
     team_id[team[1]] = team[0]
 
-print team_id
-
 #set up game link
 game_link = ['https://stats.nba.com/stats/leaguegamefinder?Conference=&DateFrom=&DateTo=' \
             '&Division=&DraftNumber=&DraftRound=&DraftYear=&GB=N&LeagueID=00&Location=&Outcome=' \
@@ -36,18 +34,25 @@ game_link = ['https://stats.nba.com/stats/leaguegamefinder?Conference=&DateFrom=
 class Game:
 
     def __init__(self, team1, team2, year):
+
         if (team1 == "" or team2 == ""):
+            print "Missing a valid team"
             sys.exit("400")
 
         if(team1 == team2):
+            print "Games between the same team don't exist"
             sys.exit("400")
 
         self.teams = (team1, team2)
         self.year = year
         self.games = list()
 
-        team_one_id = team_id[team1]
-        team_two_id = team_id[team2]
+        try:
+            team_one_id = team_id[team1]
+            team_two_id = team_id[team2]
+        except:
+            print "Teams do no exist"
+            sys.exit("400")
 
         request_link = game_link[0] + year + game_link[1] + str(team_one_id) + game_link[2] + str(team_two_id)
         #print request_link
@@ -60,6 +65,10 @@ class Game:
         games = all_games["resultSets"][0]["rowSet"]
         for game in games:
             self.games.append(dict(zip(keys, game)))
+
+        if len(self.games) == 0:
+            print "No Games exist between " + team1 + " and " + team2 + " in " + year
+            sys.exit("400")
 
         self.stats = dict()
         self.stats['W/L'] = self.winlose_to_number()
@@ -109,9 +118,9 @@ class Game:
                     elif self_combined_shot < game_two_combined_shot:
                         better_matchup = game_two
                     else:
-                        return self.teams[0] + " " + "equally against " + self.teams[1] + " and " + game_two.teams[1]
+                        return self.teams[0] + " played equally against " + self.teams[1] + " and " + game_two.teams[1]
 
-        return self.teams[0] + " " + "performed better against the " + better_matchup.teams[1]
+        return self.teams[0] + " performed better against the " + better_matchup.teams[1]
 
     # calculates the average winlose rate for a matchup of two teams
     def winlose_to_number(self):
@@ -144,7 +153,6 @@ class Game:
             total += self.games[x][stat_type]
 
         return round(total / total_games, 2)
-
 
 def read_in():
     lines = sys.argv

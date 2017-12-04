@@ -3,27 +3,46 @@ from game import Game
 import pprint
 
 class TestGame(TestCase):
-    # tests creating a valid player
-    def test_create_validGame(self):
-        x = 1
 
-    # for testing purposes
-    pp = pprint.PrettyPrinter(indent=4)
-    datgame = Game("Los Angeles Lakers", "Boston Celtics", "2016-17")
-    datgame2 = Game("Los Angeles Lakers", "Minnesota Timberwolves", "2008-09")
-    datgame3 = Game("Minnesota Timberwolves", "Los Angeles Lakers", "2006-07")
-    datgame4 = Game("Los Angeles Lakers", "Golden State Warriors", "2016-17")
-    datgame5 = Game("Golden State Warriors", "Los Angeles Lakers", "2016-17")
-    datgame6 = Game("Golden State Warriors", "Cleveland Cavaliers", "2016-17")
-    datgame7 = Game("Cleveland Cavaliers", "Golden State Warriors", "2016-17")
-    datgame8 = Game("Los Angeles Clippers", "Boston Celtics", "2016-17")
-    pp.pprint(datgame3.games)
-    # pp.pprint(datgame4.games)
-    # print datgame2.games
-    #print datgame5.compare_games(datgame6)
-    print datgame7.stats
-    #print datgame6.stats
-    #print datgame5.calculate_combined_shotPCT()
-   # print datgame6.calculate_combined_shotPCT()
-    # print datgame3.winlose_to_number()
-    # print datgame.compare_games(datgame3)
+    # tests creating a valid game
+    def test_create_validGame(self):
+        game1 = Game("Minnesota Timberwolves", "Los Angeles Lakers", "2016-17")
+
+        self.assertEquals(game1.teams[0], "Minnesota Timberwolves")
+        self.assertEquals(game1.teams[1], "Los Angeles Lakers")
+
+    # tests creating a game with the same team as both teams
+    def test_create_sameTeamGame(self):
+        with self.assertRaises(SystemExit) as cm:
+            Game("Minnesota Timberwolves", "Minnesota Timberwolves", "2016-17")
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "400")
+
+    # tests creating a game with null as both teams
+    def test_create_invalidGame(self):
+        with self.assertRaises(SystemExit) as cm:
+            Game("", "", "2016-17")
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "400")
+
+    # tests creating a game with fake teams
+    def test_create_fakeGame(self):
+        with self.assertRaises(SystemExit) as cm:
+            Game("New York Fakes", "Minnesota NotRealTeam", "2016-17")
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "400")
+
+    # tests creating a game with invalid year
+    def test_create_invalidYearGame(self):
+        with self.assertRaises(SystemExit) as cm:
+            Game("Minnesota Timberwolves", "Los Angeles Lakers", "2018-19")
+        the_exception = cm.exception
+        self.assertEqual(the_exception.code, "400")
+
+
+    # tests a valid comparison
+    def test_create_validComparison(self):
+        game1 = Game("Minnesota Timberwolves", "Los Angeles Lakers", "2016-17")
+        game2 = Game("Minnesota Timberwolves", "Golden State Warriors", "2016-17")
+
+        self.assertEquals(game1.compare_games(game2), "Minnesota Timberwolves performed better against the Los Angeles Lakers")
