@@ -39,6 +39,9 @@ class Game:
         if (team1 == "" or team2 == ""):
             sys.exit("400")
 
+        if(team1 == team2):
+            sys.exit("400")
+
         self.teams = (team1, team2)
         self.year = year
         self.games = list()
