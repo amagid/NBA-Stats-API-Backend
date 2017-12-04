@@ -57,16 +57,16 @@ class TestGame(TestCase):
         game8 = Game("Cleveland Cavaliers", "Golden State Warriors", "2016-17")
         game9 = Game("Cleveland Cavaliers", "LA Clippers", "2016-17")
 
-        self.assertEquals(game1.compare_games(game2), "Minnesota Timberwolves performed better against the Los Angeles Lakers")
-        self.assertEquals(game2.compare_games(game1), "Minnesota Timberwolves performed better against the Los Angeles Lakers")
-        self.assertEquals(game3.compare_games(game4), "Los Angeles Lakers played equally against the Boston Celtics and the Golden State Warriors")
-        self.assertEquals(game4.compare_games(game3), "Los Angeles Lakers played equally against the Boston Celtics and the Golden State Warriors")
-        self.assertEquals(game5.compare_games(game4), "Los Angeles Lakers performed better against the Minnesota Timberwolves")
-        self.assertEquals(game4.compare_games(game5), "Los Angeles Lakers performed better against the Minnesota Timberwolves")
-        self.assertEquals(game6.compare_games(game7), "Golden State Warriors performed better against the Los Angeles Lakers")
-        self.assertEquals(game7.compare_games(game6), "Golden State Warriors performed better against the Los Angeles Lakers")
-        self.assertEquals(game8.compare_games(game9), "Cleveland Cavaliers performed better against the Golden State Warriors")
-        self.assertEquals(game9.compare_games(game8), "Cleveland Cavaliers performed better against the Golden State Warriors")
+        self.assertEquals(game1.compare_games(game2), "Minnesota Timberwolves performed better against the 2016-17 Los Angeles Lakers")
+        self.assertEquals(game2.compare_games(game1), "Minnesota Timberwolves performed better against the 2016-17 Los Angeles Lakers")
+        self.assertEquals(game3.compare_games(game4), "Los Angeles Lakers played equally against the 2016-17 Boston Celtics and the 2016-17 Golden State Warriors")
+        self.assertEquals(game4.compare_games(game3), "Los Angeles Lakers played equally against the 2016-17 Golden State Warriors and the 2016-17 Boston Celtics")
+        self.assertEquals(game5.compare_games(game4), "Los Angeles Lakers performed better against the 2008-09 Minnesota Timberwolves")
+        self.assertEquals(game4.compare_games(game5), "Los Angeles Lakers performed better against the 2008-09 Minnesota Timberwolves")
+        self.assertEquals(game6.compare_games(game7), "Golden State Warriors performed better against the 2016-17 Los Angeles Lakers")
+        self.assertEquals(game7.compare_games(game6), "Golden State Warriors performed better against the 2016-17 Los Angeles Lakers")
+        self.assertEquals(game8.compare_games(game9), "Cleveland Cavaliers performed better against the 2016-17 Golden State Warriors")
+        self.assertEquals(game9.compare_games(game8), "Cleveland Cavaliers performed better against the 2016-17 Golden State Warriors")
 
 
     # tests creating an invalid comparison

@@ -123,9 +123,9 @@ class Game:
                     elif self_combined_shot < game_two_combined_shot:
                         better_matchup = game_two
                     else:
-                        return self.teams[0] + " played equally against the " + self.teams[1] + " and the " + game_two.teams[1]
+                        return self.teams[0] + " played equally against the " + self.year + " " + self.teams[1] + " and the " + game_two.year + " " + game_two.teams[1]
 
-        return self.teams[0] + " performed better against the " + better_matchup.teams[1]
+        return self.teams[0] + " performed better against the " + better_matchup.year + " "+ better_matchup.teams[1]
 
     # calculates the average winlose rate for a matchup of two teams
     def winlose_to_number(self):
