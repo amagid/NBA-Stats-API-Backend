@@ -500,20 +500,22 @@ app.controller('myController', function($scope, $http) {
   $scope.teamQueries = {};
   $scope.playerQueries = {};
 
+  $http.get('/user/info', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
+  then(function(response) {
+    //$scope.player1data = response.data
+    $scope.userInfo = response['data'];
+     console.log($scope.userInfo);
+    // this callback will be called asynchronously
+    // when the response is available
+  }, function(response) {
+    console.log("There was an error getting user info data!");
+    console.log(response.data);
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });// END INFO
+
   if (thisPath === '/account' || thisPath === '/account.html') {
-    $http.get('/user/info', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
-    then(function(response) {
-      //$scope.player1data = response.data
-      $scope.userInfo = response['data'];
-  	   console.log($scope.userInfo);
-      // this callback will be called asynchronously
-      // when the response is available
-    }, function(response) {
-      console.log("There was an error getting user info data!");
-      console.log(response.data);
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
-    });// END INFO
+
 
     $http.get('/user/game-queries', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
     then(function(response) {
