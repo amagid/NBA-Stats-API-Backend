@@ -5,6 +5,7 @@ var app = angular.module('nbaApp', ['ngMaterial'])
 app.controller('myController', function($scope, $http) {
   $scope.myJWT = window.localStorage.getItem("NBA-JWT");
   var thisPath = window.location.pathname;
+  console.log(thisPath);
   if ((thisPath === '/login.html' || thisPath === '/register.html' || thisPath === 'login' || thisPath === 'register') && $scope.myJWT && $scope.myJWT !== "" ) {
     location.href="/index.html";
     console.log("already logged in");
@@ -478,7 +479,8 @@ app.controller('myController', function($scope, $http) {
   $scope.gamesRSide = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   $scope.gamesMid = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   // On app start, grab all the players for the autofill lists
-  if (thisPath === '/players' || thisPath === '/players.html'){
+  if (thisPath === '/players' || thisPath === '/players.html' || thisPath === '/'){
+    console.log("getting players init data");
   $http.get('/api/players').
   then(function(response) {
     //$scope.player1data = response.data
