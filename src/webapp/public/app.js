@@ -674,6 +674,11 @@ $scope.getPlayerStats = function(id, whichSide){
     } else {
       $scope.rpStats = response['data'];
     }
+
+    
+
+
+
   }, function(response) {
     console.log("Error getting player data!");
     console.log(response.data);
@@ -729,6 +734,7 @@ $scope.selectedItemChange = function(item, whichInput) {
   } else {
     $scope.rpImage = headshotQuery;
   }
+  $scope.myChart.update();
 }
 
 // When user clicks item but on the team screen
@@ -930,30 +936,53 @@ $scope.myChart = new Chart($scope.ctx, {
   backgroundColor: 'rgba(255, 255, 255, 1);',
   data: {
       //labels: "label",
-
+      labels: ["one", "two", "three", "four"],
       datasets: [{
-        label: "Points",
+        label: "Score",
         backgroundColor: '#ed174b',
         data:[
           {
-            x: 10,
+            x: 1,
             y: 20
-          },
-          {
-            x: 20,
-            y: 30
-          },
-          {
-            x: 22,
-            y: 12
+          }, {
+            x: 3,
+            y: 43
+          }, {
+            x: 5,
+            y: 33
           }
-        ]
+        ],
+        fill: false
         }
       ]
   },
   options: {
+    responsive: true,
+    title: {
+      display: true,
+      text: 'Overall Score Over Time'
+    },
+    tooltips: {
+      mode: 'nearest',
 
+    },
+    scales: {
+                    xAxes: [{
+                        display: false,
+                        scaleLabel: {
+                            display: false,
+                            labelString: 'Date'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
   }
-})
+});
 
-})
+});
