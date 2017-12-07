@@ -15,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
     <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Anton|Fjalla+One|Francois+One" rel="stylesheet">
   </head>
 
@@ -37,13 +38,17 @@
       <br>
       <h2>History</h2>
       <ul class='historyList'>
-        <li class="historyListItem" ng-repeat='item in historyList'>
-          <table>
-            <td>Type: {{item.type}} |</td>
-            <td ng-if="item.type !== 'games'">{{item.item1}} vs. {{item.item2}}</td>
-            <td ng-if="item.type === 'games'">{{item.rootTeam}}: {{item.item1}} vs. {{item.item2}}</td>
-          </table>
-        </li>
+        <table>
+
+        <tr class="historyListItem" ng-repeat='item in historyParsed'>
+
+            <td><p>{{item.type}}</p></td>
+            <td ng-if="item.type === 'Game Compare ||'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
+            <td ng-if="item.type === 'Player Compare ||'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
+            <td ng-if="item.type === 'Team Compare ||'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
+            <td><p>|| {{item.timestamp}}</p></td>
+        </tr>
+        </table>
       </ul>
     </div>
     </div>

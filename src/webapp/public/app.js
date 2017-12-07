@@ -515,7 +515,7 @@ app.controller('myController', function($scope, $http) {
   });// END INFO
 
       $scope.historyParsed = [];
-      
+
   if (thisPath === '/account' || thisPath === '/account.html') {
 
 
@@ -544,12 +544,14 @@ app.controller('myController', function($scope, $http) {
            console.log(value.url);
            if (value.url.includes("compare")) {
              var tokenList = value.url.split("/");
+             var firstNewVal = tokenList[2].replace(/%20/g, " ");
+             var secondNewVal = tokenList[4].replace(/%20/g, " ");
              var newVal =
              {
-               type: 'player',
+               type: 'Team Compare ||',
                timestamp: value.searchDate,
-               val1: tokenList[2],
-               val2: tokenList[4]
+               val1: firstNewVal,
+               val2: secondNewVal
              }
              $scope.historyParsed.push(newVal);
              console.log($scope.historyParsed);
@@ -578,12 +580,14 @@ app.controller('myController', function($scope, $http) {
            console.log(value.url);
            if (value.url.includes("compare")) {
              var tokenList = value.url.split("/");
+             var firstNewVal = tokenList[2].replace("%20", " ");
+             var secondNewVal = tokenList[4].replace("%20", " ");
              var newVal =
              {
-               type: 'player',
+               type: 'Player Compare ||',
                timestamp: value.searchDate,
-               val1: tokenList[2],
-               val2: tokenList[4]
+               val1: firstNewVal,
+               val2: secondNewVal
              }
              $scope.historyParsed.push(newVal);
              console.log($scope.historyParsed);
@@ -916,5 +920,38 @@ $scope.compareGames = function() {
     });
   }
 }
+
+$scope.ctx = document.getElementById("myChart").getContext('2d');
+
+$scope.myChart = new Chart($scope.ctx, {
+  type: 'line',
+  backgroundColor: 'rgba(255, 255, 255, 1);',
+  data: {
+      //labels: "label",
+
+      datasets: [{
+        label: "Points",
+        backgroundColor: '#ed174b',
+        data:[
+          {
+            x: 10,
+            y: 20
+          },
+          {
+            x: 20,
+            y: 30
+          },
+          {
+            x: 22,
+            y: 12
+          }
+        ]
+        }
+      ]
+  },
+  options: {
+
+  }
+})
 
 })
