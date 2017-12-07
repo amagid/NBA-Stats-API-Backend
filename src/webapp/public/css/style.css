@@ -17,6 +17,12 @@ background-color: white !important;
   margin: 0;
 }
 
+.aveTooltip {
+  background-color: white;
+  font-family: 'Antom', sans-serif;
+  font-size: 12px;
+}
+
 md-autocomplete-wrap {
   background-color: white !important;
 }

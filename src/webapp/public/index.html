@@ -144,7 +144,7 @@
           </div>-->
 
           <div ng-repeat='item in currentModel.fields track by $index'>
-            <p style="margin: 0;">{{lpStats[item.att]}}</p>
+            <p style="margin: 0;">{{lpStats[item.att]}} <md-tooltip class="aveTooltip">TEST TOOLTIP</md-tooltip></p>
           </div>
         </div>
       </td>
@@ -158,7 +158,7 @@
         </td>
         <td rsclass="container">
           <div ng-repeat='item in currentModel.fields track by $index'>
-            <p style="margin: 0;">{{item.name}}</p>
+            <p style="margin: 0;">{{item.name}} <md-tooltip class="aveTooltip">TEST TOOLTIP</md-tooltip></p>
           </div>
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
         </tr>
