@@ -929,6 +929,7 @@ $scope.compareGames = function() {
   }
 }
 
+if (thisPath === '/' || thisPath === '/index' || thisPath === '/index.html'){
 $scope.ctx = document.getElementById("myChart").getContext('2d');
 
 $scope.myChart = new Chart($scope.ctx, {
@@ -953,7 +954,7 @@ $scope.myChart = new Chart($scope.ctx, {
             y: 33
           }
         ],
-        fill: false
+        fill: true
         }
       ]
   },
@@ -973,9 +974,9 @@ $scope.myChart = new Chart($scope.ctx, {
     },
     scales: {
                     xAxes: [{
-                        display: false,
+                        display: true,
                         scaleLabel: {
-                            display: false,
+                            display: true,
                             labelString: 'Date'
                         }
                     }],
@@ -989,5 +990,5 @@ $scope.myChart = new Chart($scope.ctx, {
                 }
   }
 });
-
+}
 });
