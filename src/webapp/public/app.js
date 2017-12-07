@@ -675,7 +675,7 @@ $scope.getPlayerStats = function(id, whichSide){
       $scope.rpStats = response['data'];
     }
 
-    
+
 
 
 
@@ -932,14 +932,15 @@ $scope.compareGames = function() {
 $scope.ctx = document.getElementById("myChart").getContext('2d');
 
 $scope.myChart = new Chart($scope.ctx, {
-  type: 'line',
+  type: 'scatter',
   backgroundColor: 'rgba(255, 255, 255, 1);',
   data: {
       //labels: "label",
-      labels: ["one", "two", "three", "four"],
+      //labels: ["one", "two", "three", "four"],
       datasets: [{
         label: "Score",
         backgroundColor: '#ed174b',
+        showLine: true,
         data:[
           {
             x: 1,
@@ -963,8 +964,12 @@ $scope.myChart = new Chart($scope.ctx, {
       text: 'Overall Score Over Time'
     },
     tooltips: {
+      mode: 'index',
+      intersect: false
+    },
+    hover: {
       mode: 'nearest',
-
+      intersect: true
     },
     scales: {
                     xAxes: [{

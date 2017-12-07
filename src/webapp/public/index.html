@@ -152,13 +152,13 @@
       <td class="numContainer" align="center">
         <div class="container statNumber">
           <div ng-repeat='item in currentModel.fields track by $index'>
-            <p style="margin: 0;">{{rpStats[item.att]}}</p>
+            <p style="margin: 0;">{{rpStats[item.att]}} <md-tooltip class="aveTooltip">TEST TOOLTIP</md-tooltip></p>
           </div>
           </div>
         </td>
         <td rsclass="container">
           <div ng-repeat='item in currentModel.fields track by $index'>
-            <p style="margin: 0;">{{item.name}} <md-tooltip class="aveTooltip">TEST TOOLTIP</md-tooltip></p>
+            <p style="margin: 0;">{{item.name}} </p>
           </div>
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
         </tr>
