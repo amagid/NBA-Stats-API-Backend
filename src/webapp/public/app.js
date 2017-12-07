@@ -514,6 +514,8 @@ app.controller('myController', function($scope, $http) {
     // or server returns response with an error status.
   });// END INFO
 
+      $scope.historyParsed = [];
+      
   if (thisPath === '/account' || thisPath === '/account.html') {
 
 
@@ -536,6 +538,24 @@ app.controller('myController', function($scope, $http) {
       //$scope.player1data = response.data
       $scope.teamQueries = response['data'];
   	   console.log($scope.teamQueries);
+       if ($scope.teamQueries) {
+         console.log("entered if");
+         angular.forEach($scope.teamQueries, function(value, key) {
+           console.log(value.url);
+           if (value.url.includes("compare")) {
+             var tokenList = value.url.split("/");
+             var newVal =
+             {
+               type: 'player',
+               timestamp: value.searchDate,
+               val1: tokenList[2],
+               val2: tokenList[4]
+             }
+             $scope.historyParsed.push(newVal);
+             console.log($scope.historyParsed);
+           }
+         });
+       }
       // this callback will be called asynchronously
       // when the response is available
     }, function(response) {
@@ -545,11 +565,31 @@ app.controller('myController', function($scope, $http) {
       // or server returns response with an error status.
     }); // END TEAM QUERIES
 
+
     $http.get('/user/player-queries', {headers: {Authorization: "Bearer " + $scope.myJWT}}).
     then(function(response) {
       //$scope.player1data = response.data
       $scope.playerQueries = response['data'];
   	   console.log($scope.playerQueries);
+
+       if ($scope.playerQueries) {
+         console.log("entered if");
+         angular.forEach($scope.playerQueries, function(value, key) {
+           console.log(value.url);
+           if (value.url.includes("compare")) {
+             var tokenList = value.url.split("/");
+             var newVal =
+             {
+               type: 'player',
+               timestamp: value.searchDate,
+               val1: tokenList[2],
+               val2: tokenList[4]
+             }
+             $scope.historyParsed.push(newVal);
+             console.log($scope.historyParsed);
+           }
+         });
+       }
       // this callback will be called asynchronously
       // when the response is available
     }, function(response) {
@@ -559,6 +599,9 @@ app.controller('myController', function($scope, $http) {
       // or server returns response with an error status.
     }); // END PLAYER QUERIES
   }
+
+  // Rebuild the history responses to stuff we can actually display
+
 
 
   if (thisPath === '/teams' || thisPath === '/teams.html' || thisPath === '/games' || thisPath === '/games.html'){
