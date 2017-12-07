@@ -944,13 +944,13 @@ $scope.myChart = new Chart($scope.ctx, {
         showLine: true,
         data:[
           {
-            x: 1,
+            x: '2017-12-04T22:00:50.000Z',
             y: 20
           }, {
-            x: 3,
+            x: '2017-12-06T22:00:50.000Z',
             y: 43
           }, {
-            x: 5,
+            x: '2017-12-07T22:00:50.000Z',
             y: 33
           }
         ],
@@ -975,6 +975,10 @@ $scope.myChart = new Chart($scope.ctx, {
     scales: {
                     xAxes: [{
                         display: true,
+                        type: 'time',
+                        time: {
+                          unit: 'day'
+                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Date'
