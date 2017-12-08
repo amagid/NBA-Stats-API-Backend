@@ -711,11 +711,12 @@ $scope.getTeamStats = function(id, whichSide){
  $http.get('/api/teams/' + id + "/" + $scope.modeSelect.toLowerCase()).
  then(function(response) {
    //$scope.player1data = response.data
-   console.log(response);
+   console.log(JSON.parse(response.data.message));
+   var json = JSON.parse(response.data.message);
    if (whichSide === 0) {
-     $scope.lpStats = response['data'];
+     $scope.lpStats = json;
    } else {
-     $scope.rpStats = response['data'];
+     $scope.rpStats = json;
    }
    removeFromArray($scope.showSpinner, "getteamstats" + whichSide);
  }, function(response) {
