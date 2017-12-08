@@ -48,8 +48,8 @@
             </tr>
     <tr>
       <td colspan="7" align="center">
-        <select ng-change='changeModel(modeSelect)' ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
-        </select>
+        <!--<select ng-change='changeModel(modeSelect)' ng-model='modeSelect' ng-options = 'x for x in modes' align="center">
+        </select>-->
       </td>
     </tr>
     <tr>
@@ -120,14 +120,14 @@
     <td class="numContainer" align="center" border-right="1">
       <div class="container statNumber">
         <div ng-repeat='item in currentModel.fields track by $index'>
-          <p style="margin: 0;">{{lpStats[item.att]}}</p>
+          <p style="margin: 0;">{{lpStats[item.att]["2017-18"]}}</p>
         </div>
       </td>
       <td class="table-separator"></td>
       <td class="numContainer" align="center">
         <div class="container statNumber">
           <div ng-repeat='item in currentModel.fields track by $index'>
-            <p style="margin: 0;">{{rpStats[item.att]}}</p>
+            <p style="margin: 0;">{{rpStats[item.att]["2017-18"]}}</p>
           </div>
         </td>
         <td rsclass="container">
