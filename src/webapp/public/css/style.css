@@ -35,6 +35,13 @@ md-autocomplete-wrap {
   background-color: white !important;
 }
 
+.histChart {
+  width: 200px;
+  height: 150px;
+  margin-bottom: 75px;
+  margin-top: 18px;
+}
+
 md-virtual-repeat-container {
   background-color: white !important;
 }
