@@ -86,6 +86,7 @@ class Team:
 
 
 
+
 	def helper_search_team(self,**kwargs):
 		list_of_params = ["Measure_type","Conference","Outcome","Season","TeamId","Season_type"]
 		stats = dict()
@@ -125,6 +126,7 @@ class Team:
 
 
 	def year_over_year(self,**kwargs):
+		stats = dict()
 		params = ["year1","year2","Season_type","TeamID","Measure_type"]
 		stats["Measure_type"] = "None"
 		stats["year1"] = "2017-18"
@@ -148,8 +150,8 @@ class Team:
 		self.year_over_year_data = pd.DataFrame(values,columns=keys)
 		frame = self.year_over_year_data
 		frame1 = frame["GROUP_VALUE"]
-		frame = pd.DataFrame(values,columns=keys,index=frame1)
-		print frame.loc[stats["year1"]:stats["year2"]]
+		self.year_over_year_frame = pd.DataFrame(values,columns=keys,index=frame1)
+		return self.year_over_year_frame.to_json()
 
 
 
@@ -199,14 +201,13 @@ def main():
 		# loop too take each item and make input dict
 		#print json.dumps(team1.search_team_utility(**args_dict))
 		team1 = Team(data[2], "hello", "Base")
-		print json.dumps(team1.team_dict)
+		print json.dumps(team1.year_over_year())
 
 	if data[1] =='compare':
 		team2 = Team(data[2],"hello","Base")
 		team1 = Team(data[3],"hello","Base")
 		print json.dumps(team1.compare_team(team2))
 	#team1.year_over_year()
-
 
 
 

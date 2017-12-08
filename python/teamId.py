@@ -25,7 +25,7 @@ teams.drop(teams.index[0], inplace=True)
 for index, row in teams.iterrows():
     name = row['Name']
     if name == "Los Angeles Clippers":
-        name == "LA Clippers"
+        name = "LA Clippers"
     abbv = row['Abbv']
     pictures[name] = "http://stats.nba.com/media/img/teams/logos/season/2016-17/" + abbv + "_logo.svg"
 
