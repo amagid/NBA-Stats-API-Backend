@@ -37,8 +37,14 @@ for i in range(1985, 2016):
     season_string = str(i) + '-' + second_half
     seasons.append(season_string)
 
-stats_link = stats_link[0] + '2016-17' + stats_link[1]
-response = requests.get(players_link, headers=head)
+stats_link = stats_link[0] + "Season=" + '2016-17' + stats_link[1]
+response = requests.get(stats_link, headers=head)
+response = response.json()
+
+headers = response['resultSets']
+stats = response['rowSet']
+print headers
+print stats
 
 #Points
 #Rebounds

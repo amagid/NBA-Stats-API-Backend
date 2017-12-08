@@ -183,7 +183,7 @@ class Player:
                     'PerGame&Period=0&PlayerID=', '&PlusMinus=N&Rank=N&Season=2017-18&SeasonSegment=&SeasonType=Regular+Season&' \
                     'ShotClockRange=&Split=yoy&VsConference=&VsDivision=']
         year_link = year_link[0] + self.id + year_link[1]
-
+        print year_link
         #print stats_link_param
         response = requests.get(year_link, headers=head)
 
@@ -197,6 +197,25 @@ class Player:
             season = year[len(year) - 1]
             season_dict = dict(zip(keys, year))
             year_dict[season] = season_dict
+
+
+        # Points
+        # Rebounds
+        # Assists
+        # Blocks
+        # Steals
+        # Turnovers
+        # Three Pointers
+        # Free Throws
+
+        year_over_year = dict()
+        for key in keys:
+            stat_dict = dict()
+            for year in year_dict:
+                stat_dict[year] = year_dict[year][key]
+            stat_dict = sorted(stat_dict.items())
+            year_over_year[key] = stat_dict
+        return year_over_year
 
 
         # try:
@@ -365,7 +384,8 @@ def main():
     data = read_in()
     if data[1] == 'get':
         player1 = Player(data[2],"Base","2016-17")
-        print json.dumps(player1.player_dict)
+        y_over_y = player1.year_over_year("Base")
+        print json.dumps(y_over_y)
     if data[1] == 'compare':
         player1 = Player(data[2],"Base","2016-17")
         player2 = Player(data[3],"Base","2016-17")
