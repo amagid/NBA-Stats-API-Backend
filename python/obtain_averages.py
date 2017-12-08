@@ -41,10 +41,42 @@ stats_link = stats_link[0] + "Season=" + '2016-17' + stats_link[1]
 response = requests.get(stats_link, headers=head)
 response = response.json()
 
-headers = response['resultSets']
-stats = response['rowSet']
+headers = response['resultSets'][0]['headers']
+stats = response['resultSets'][0]['rowSet']
 print headers
 print stats
+
+player_count = len(stats)
+
+avg_dict = dict()
+avg_dict['Points'] = 0
+avg_dict['Rebounds'] = 0
+avg_dict['Assists'] = 0
+avg_dict['Blocks'] = 0
+avg_dict['Steals'] = 0
+avg_dict['Turnovers'] = 0
+avg_dict['Three Pointers'] = 0
+avg_dict['Free Throws'] = 0
+
+for player in stats:
+    avg_dict['Points'] = avg_dict['Points'] + player[29]
+    avg_dict['Rebounds'] = avg_dict['Rebounds'] + player[21]
+    avg_dict['Assists'] = avg_dict['Assists'] + player[22]
+    avg_dict['Blocks'] = avg_dict['Blocks'] + player[25]
+    avg_dict['Steals'] = avg_dict['Steals'] + player[24]
+    avg_dict['Turnovers'] = avg_dict['Turnovers'] + player[23]
+    avg_dict['Three Pointers'] = avg_dict['Three Pointers'] + player[15]
+    avg_dict['Free Throws'] = avg_dict['Free Throws'] = player[16]
+
+for stat in avg_dict:
+    avg_dict[stat] = avg_dict[stat]/player_count
+#print avg_dict
+
+with open('avg_player.txt', 'w') as file:
+    file.write(json.dumps(avg_dict))
+
+
+
 
 #Points
 #Rebounds

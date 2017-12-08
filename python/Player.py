@@ -382,17 +382,25 @@ def read_in():
 def main():
     data = read_in()
     if data[1] == 'get':
-        player1 = Player(data[2],"Base","2017-18")
-        y_over_y = player1.year_over_year("Base")
-        print json.dumps(y_over_y)
+        if data[2] == 'average':
+            datastore = ''
+            with open('avg_player.txt', 'r') as f:
+                datastore = json.load(f)
+            print datastore
+        else:
+            player1 = Player(data[2],"Base","2017-18")
+            y_over_y = player1.year_over_year("Base")
+            print json.dumps(y_over_y)
     if data[1] == 'compare':
+        if(data[2] == 'average' or data[3] == 'average'):
+            sys.exit('404')
         player1 = Player(data[2],"Base","2017-18")
         player2 = Player(data[3],"Base","2017-18")
 
         print json.dumps(player1.compare_player(player2))
 
-jb = Player("Jimmy Butler", "Base", "2017-18")
-jb.year_over_year('Base')
+#jb = Player("Jimmy Butler", "Base", "2017-18")
+#jb.year_over_year('Base')
 #print jb.player_dict
 
 #run main
