@@ -101,6 +101,7 @@ CREATE TABLE `team_queries` (
   `team3_id` varchar(64) DEFAULT NULL,
   `command` varchar(32) NOT NULL,
   `search_date` datetime NOT NULL,
+  `data_type` varchar(32),
   `createdAt` datetime,
   `updatedAt` datetime,
   PRIMARY KEY (`id`),
