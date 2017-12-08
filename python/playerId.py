@@ -22,6 +22,10 @@ for player in players:
     player_dict['picture'] = "http://stats.nba.com/media/players/230x185/" + player_information[name]['personId'] + ".png"
     playerID.append(player_dict)
 
+avg_dict = dict()
+avg_dict['name'] = 'average'
+avg_dict['picture'] = 'http://2.bp.blogspot.com/-gHY7dalS-XA/VUd45mIH8HI/AAAAAAAAHYM/wNeCRq5egZQ/s1600/Average.jpg'
+
 print json.dumps(playerID)
 
 #changes
