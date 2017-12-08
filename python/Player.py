@@ -183,7 +183,6 @@ class Player:
                     'PerGame&Period=0&PlayerID=', '&PlusMinus=N&Rank=N&Season=2017-18&SeasonSegment=&SeasonType=Regular+Season&' \
                     'ShotClockRange=&Split=yoy&VsConference=&VsDivision=']
         year_link = year_link[0] + self.id + year_link[1]
-        print year_link
         #print stats_link_param
         response = requests.get(year_link, headers=head)
 
