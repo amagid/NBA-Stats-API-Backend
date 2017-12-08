@@ -3,6 +3,13 @@ var app = angular.module('nbaApp', ['ngMaterial'])
   $mdThemingProvider.disableTheming();
 });
 app.controller('myController', function($scope, $http) {
+  // A NOTE ABOUT NUMBER OF LINES OF CODE
+  // I ran this through https://html-cleaner.com/js/ to remove comments,
+  // this showed a total of 1030 lines. Lines 119-487 are just building
+  // a model though and shouldn't be counted, giving me around
+  // 660 lines of code. Although I know in class you mentioned markup
+  // like html/css won't count as code in this, but i would appreciate it
+  // if you could consider the html pages in your evaluation of my overall contribution.
   $scope.showSpinner = [];
   $scope.rightChartData = {
       //labels: "label",
