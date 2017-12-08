@@ -59,12 +59,12 @@
 
 
 
-    <tr>
+    <!--<tr>
       <td colspan="7" align="center">
         <!--<select ng-model='modeSelect' ng-change='changeMode(modeSelect)' ng-options = 'x for x in modes' align="center">
-        </select>-->
+        </select>
       </td>
-    </tr>
+    </tr>-->
     <tr>
       <td colspan="3" align="right">
         <md-content>
@@ -121,36 +121,15 @@
 <tr>
   <td class="imgContainer"> <img width="200" ng-src="{{lpImage}}"></td>
   <td  class="container" align="right">
-    <!--<p>Points per game <br>
-      Rebounds per game <br>
-      Assists per game <br>
-      Blocks per game <br>
-      Steals per game <br>
-      Turnovers per game <br>
-      Three pointers per game <br>
-      Free throws made per game <br></p>-->
       <div ng-repeat='item in currentModel.fields track by $index'>
         <p style="margin: 0;">{{item.name}}</p>
       </div>
     </td>
     <td class="numContainer" align="center" border-right="1">
       <div class="container statNumber">
-        <!--<p>{{lpStats.points}} <br>
-          {{lpStats.rebounds}} <br>
-          {{lpStats.assists}} <br>
-          {{lpStats.blocks}} <br>
-          {{lpStats.steals}} <br>
-          {{lpStats.turnovers}} <br>
-          {{lpStats.three}} <br>
-          {{lpStats.free}} <br></p>-->
-          <!--<div ng-repeat='item in lpStats track by $index'>
-            <p>{{item[currentModel.fields[$index].att]}}</p>
-            {{item}}
-            <!--<p> item: {{item}} <br> $Index {{$index}}</p> <br> currentModel[index] {{currentModel.fields['' + $index].att}}
-          </div>-->
 
           <div ng-repeat='item in currentModel.fields track by $index'>
-            <p style="margin: 0;">{{lpStats[item.att]}} <md-tooltip class="aveTooltip">TEST TOOLTIP</md-tooltip></p>
+            <p style="margin: 0;">{{lpStats[item.att]["2017-18"]}}</p>
           </div>
         </div>
       </td>
@@ -158,21 +137,21 @@
       <td class="numContainer" align="center">
         <div class="container statNumber">
           <div ng-repeat='item in currentModel.fields track by $index'>
-            <p style="margin: 0;">{{rpStats[item.att]}} <md-tooltip class="aveTooltip">TEST TOOLTIP</md-tooltip></p>
+            <p style="margin: 0;">{{rpStats[item.att]["2017-18"]}} </p>
           </div>
           </div>
         </td>
-        <td rsclass="container">
+        <td class="container">
           <div ng-repeat='item in currentModel.fields track by $index'>
             <p style="margin: 0;">{{item.name}} </p>
           </div>
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
         </tr>
         <tr class="chartRow">
-        <td colspan="3"><!--<canvas style="background-color: white" id="myChart" width="300" height="200"></canvas>--></td>
+        <td colspan="3"><canvas style="background-color: white" id="myChart" class="histChart"></canvas></td>
           <td class="table-separator"></td>
-        <!--  <td colspan="3"><canvas style="background-color: white" id="myChart2" width="300" height="200"></canvas></td>-->
-        </tr>
+        <td colspan="3"><canvas style="background-color: white" id="myChart2" class="histChart"></canvas></td>
+      </tr>
       </tbody>
     </table>
   </div>

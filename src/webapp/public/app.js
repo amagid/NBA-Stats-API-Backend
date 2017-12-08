@@ -4,7 +4,30 @@ var app = angular.module('nbaApp', ['ngMaterial'])
 });
 app.controller('myController', function($scope, $http) {
   $scope.showSpinner = [];
-
+  $scope.rightChartData = {
+      //labels: "label",
+      labels: [],
+      datasets: [{
+        label: "Average Points / Game",
+        backgroundColor: '#ed174b',
+        showLine: true,
+        data:[],
+        fill: true
+        }
+      ]
+  };
+  $scope.leftChartData = {
+      //labels: "label",
+      labels: [],
+      datasets: [{
+        label: "Average Points / Game",
+        backgroundColor: '#ed174b',
+        showLine: true,
+        data:[],
+        fill: true
+        }
+      ]
+  };
   $scope.myJWT = window.localStorage.getItem("NBA-JWT");
   var thisPath = window.location.pathname;
   console.log(thisPath);
@@ -687,10 +710,67 @@ $scope.getPlayerStats = function(id, whichSide){
   then(function(response) {
     //$scope.player1data = response.data
     console.log(response);
+    var json = response.data;
+    angular.forEach(json, function(value, key) {
+        angular.forEach(value, function(value2, key2) {
+          if (value2[0] == "2017-18") {
+            var s = value2[0];
+            value[s] = value2[1];
+          }
+        });
+    });
+    console.log(json);
+
     if (whichSide === 0) {
-      $scope.lpStats = response['data'];
+      $scope.lpStats = json;
+      $scope.justpoints = json.PTS;
+      console.log($scope.justpoints);
+      var i = 0;
+      $scope.leftChartData.datasets[0].data = [];
+      $scope.leftChartData.labels = [];
+      var newlist = [];
+      angular.forEach($scope.justpoints, function(value, key) {
+        newlist.push({
+          time: value[0].substring(0, 4),
+          val: value[1]
+        });
+      });
+
+      newlist.sort(function(a, b) {
+         return parseInt(a.time) - parseInt(b.time);
+     });
+
+      angular.forEach(newlist, function(value, key) {
+        $scope.leftChartData.datasets[0].data.push(value.val);
+        $scope.leftChartData.labels.push(value.time);
+      });
+
+      $scope.myChart.update();
     } else {
-      $scope.rpStats = response['data'];
+      $scope.rpStats = json;
+      $scope.justpoints = json.PTS;
+      console.log($scope.justpoints);
+      var i = 0;
+      $scope.rightChartData.datasets[0].data = [];
+      $scope.rightChartData.labels = [];
+      var newlist = [];
+      angular.forEach($scope.justpoints, function(value, key) {
+        newlist.push({
+          time: value[0].substring(0, 4),
+          val: value[1]
+        });
+      });
+
+      newlist.sort(function(a, b) {
+         return parseInt(a.time) - parseInt(b.time);
+     });
+
+      angular.forEach(newlist, function(value, key) {
+        $scope.rightChartData.datasets[0].data.push(value.val);
+        $scope.rightChartData.labels.push(value.time);
+      });
+
+      $scope.myChart2.update();
     }
     removeFromArray($scope.showSpinner, "getplayerstats" + whichSide);
 
@@ -715,8 +795,54 @@ $scope.getTeamStats = function(id, whichSide){
    var json = JSON.parse(response.data.message);
    if (whichSide === 0) {
      $scope.lpStats = json;
+
+     $scope.justpoints = json.PTS;
+
+     var i = 0;
+     $scope.leftChartData.datasets[0].data = [];
+     $scope.leftChartData.labels = [];
+     var newlist = [];
+     angular.forEach($scope.justpoints, function(value, key) {
+       newlist.push({
+         time: key.substring(0, 4),
+         val: value
+       });
+     });
+
+     newlist.sort(function(a, b) {
+        return parseInt(a.time) - parseInt(b.time);
+    });
+
+     angular.forEach(newlist, function(value, key) {
+       $scope.leftChartData.datasets[0].data.push(value.val);
+       $scope.leftChartData.labels.push(value.time);
+     });
+
+     $scope.myChart.update();
    } else {
      $scope.rpStats = json;
+     $scope.justpoints = json.PTS;
+
+     var i = 0;
+     $scope.rightChartData.datasets[0].data = [];
+     $scope.rightChartData.labels = [];
+     var newlist = [];
+     angular.forEach($scope.justpoints, function(value, key) {
+       newlist.push({
+         time: key.substring(0, 4),
+         val: value
+       });
+     });
+
+     newlist.sort(function(a, b) {
+        return parseInt(a.time) - parseInt(b.time);
+    });
+
+     angular.forEach(newlist, function(value, key) {
+       $scope.rightChartData.datasets[0].data.push(value.val);
+       $scope.rightChartData.labels.push(value.time);
+     });
+     $scope.myChart2.update();
    }
    removeFromArray($scope.showSpinner, "getteamstats" + whichSide);
  }, function(response) {
@@ -964,40 +1090,21 @@ $scope.compareGames = function() {
   }
 }
 
-if (thisPath === '/teams' || thisPath === '/teams.html'){
+if (thisPath === '/teams' || thisPath === '/teams.html' || thisPath === '/' || thisPath === '/index' || thisPath === '/index.html'){
 $scope.ctx = document.getElementById("myChart").getContext('2d');
 
 $scope.myChart = new Chart($scope.ctx, {
-  type: 'scatter',
+  type: 'line',
   backgroundColor: 'rgba(255, 255, 255, 1);',
-  data: {
-      //labels: "label",
-      //labels: ["one", "two", "three", "four"],
-      datasets: [{
-        label: "Score",
-        backgroundColor: '#ed174b',
-        showLine: true,
-        data:[
-          {
-            x: '2017-12-04T22:00:50.000Z',
-            y: 20
-          }, {
-            x: '2017-12-06T22:00:50.000Z',
-            y: 43
-          }, {
-            x: '2017-12-07T22:00:50.000Z',
-            y: 33
-          }
-        ],
-        fill: true
-        }
-      ]
-  },
+  data: $scope.leftChartData,
   options: {
     responsive: true,
     title: {
       display: true,
-      text: 'Overall Score Over Time'
+      text: 'Average Points / Game'
+    },
+    legend: {
+      display: false
     },
     tooltips: {
       mode: 'index',
@@ -1010,13 +1117,6 @@ $scope.myChart = new Chart($scope.ctx, {
     scales: {
                     xAxes: [{
                         display: true,
-                        type: 'time',
-                        time: {
-                          unit: 'day',
-                          displayFormats: {
-                            day: 'MMM D'
-                          }
-                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Date'
@@ -1034,37 +1134,18 @@ $scope.myChart = new Chart($scope.ctx, {
 });
 $scope.ctx2 = document.getElementById("myChart2").getContext('2d');
 
-$scope.myChart = new Chart($scope.ctx2, {
-  type: 'scatter',
+$scope.myChart2 = new Chart($scope.ctx2, {
+  type: 'line',
   backgroundColor: 'rgba(255, 255, 255, 1);',
-  data: {
-      //labels: "label",
-      //labels: ["one", "two", "three", "four"],
-      datasets: [{
-        label: "Score",
-        backgroundColor: '#ed174b',
-        showLine: true,
-        data:[
-          {
-            x: '2017-12-04T22:00:50.000Z',
-            y: 20
-          }, {
-            x: '2017-12-06T22:00:50.000Z',
-            y: 43
-          }, {
-            x: '2017-12-07T22:00:50.000Z',
-            y: 33
-          }
-        ],
-        fill: true
-        }
-      ]
-  },
+  data: $scope.rightChartData,
   options: {
     responsive: true,
     title: {
       display: true,
-      text: 'Overall Score Over Time'
+      text: 'Average Points / Game'
+    },
+    legend: {
+      display: false
     },
     tooltips: {
       mode: 'index',
@@ -1077,13 +1158,6 @@ $scope.myChart = new Chart($scope.ctx2, {
     scales: {
                     xAxes: [{
                         display: true,
-                        type: 'time',
-                        time: {
-                          unit: 'day',
-                          displayFormats: {
-                            day: 'MMM D'
-                          }
-                        },
                         scaleLabel: {
                             display: true,
                             labelString: 'Date'
