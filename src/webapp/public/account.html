@@ -2,6 +2,7 @@
   <head>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery/dist/jquery.js"></script>
+    <script src="js/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular-animate.min.js"></script>
     <script src="js/angular-resource/angular-resource.js"></script>
@@ -42,11 +43,11 @@
 
         <tr class="historyListItem" ng-repeat='item in historyParsed'>
 
-            <td><p>{{item.type}}</p></td>
-            <td ng-if="item.type === 'Game Compare ||'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
-            <td ng-if="item.type === 'Player Compare ||'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
-            <td ng-if="item.type === 'Team Compare ||'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
-            <td><p>|| {{item.timestamp}}</p></td>
+            <td><h2 class="centerVert">{{item.type}}</h2></td>
+            <td ng-if="item.type === 'Game Compare'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
+            <td ng-if="item.type === 'Player Compare'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
+            <td ng-if="item.type === 'Team Compare'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
+            <td><p> on: {{item.timestamp.format('MMMM DD @ h:MM')}}</p></td>
         </tr>
         </table>
       </ul>

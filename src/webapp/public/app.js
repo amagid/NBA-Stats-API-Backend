@@ -550,7 +550,7 @@ app.controller('myController', function($scope, $http) {
              var secondNewVal = tokenList[4].replace(/%20/g, " ");
              var newVal =
              {
-               type: 'Team Compare ||',
+               type: 'Team Compare',
                timestamp: value.searchDate,
                val1: firstNewVal,
                val2: secondNewVal
@@ -586,8 +586,8 @@ app.controller('myController', function($scope, $http) {
              var secondNewVal = tokenList[4].replace("%20", " ");
              var newVal =
              {
-               type: 'Player Compare ||',
-               timestamp: value.searchDate,
+               type: 'Player Compare',
+               timestamp: moment(value.searchDate),
                val1: firstNewVal,
                val2: secondNewVal
              }
@@ -977,7 +977,10 @@ $scope.myChart = new Chart($scope.ctx, {
                         display: true,
                         type: 'time',
                         time: {
-                          unit: 'day'
+                          unit: 'day',
+                          displayFormats: {
+                            day: 'MMM D'
+                          }
                         },
                         scaleLabel: {
                             display: true,

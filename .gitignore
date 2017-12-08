@@ -20,3 +20,4 @@ EC2/**
 webapp/package.json
 .nyc_output/**
 config/development.json
+config/development.json
