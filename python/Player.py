@@ -378,15 +378,12 @@ def read_in():
     # Since our input would only be having one line, parse our JSON data from that
     return lines
 
-
+average_player = {"Blocks": 0.3925925925925921, "Free Throws": 0.0028806584362139915, "Points": 8.426748971193412, "Three Pointers": 0.2771769547325101, "Rebounds": 3.565226337448557, "Assists": 1.8302469135802475, "Steals": 0.6253086419753084, "Turnovers": 1.0981481481481483}
 def main():
     data = read_in()
     if data[1] == 'get':
         if data[2] == 'average':
-            datastore = ''
-            with open('avg_player.txt', 'r') as f:
-                datastore = json.load(f)
-            print datastore
+            print average_player
         else:
             player1 = Player(data[2],"Base","2017-18")
             y_over_y = player1.year_over_year("Base")
