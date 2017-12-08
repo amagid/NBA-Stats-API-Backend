@@ -20,8 +20,6 @@ for player in players:
     player_dict = dict()
     player_dict['name'] = name
     player_dict['picture'] = "http://stats.nba.com/media/players/230x185/" + player_information[name]['personId'] + ".png"
-    if """D'Angelo Russell""" in name:
-        print player_dict['picture']
     playerID.append(player_dict)
 
 avg_dict = dict()
