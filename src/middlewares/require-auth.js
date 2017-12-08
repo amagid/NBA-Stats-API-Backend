@@ -1,6 +1,7 @@
 const jwt = require('../services/jwt');
 const publicKey = require('../../config').getKeys().publicKey;
 const User = require('../models/User');
+const APIError = require('../APIError');
 
 module.exports = requireAuthentication;
 

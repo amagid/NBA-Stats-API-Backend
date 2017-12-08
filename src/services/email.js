@@ -2,6 +2,7 @@ const emailConfig = require('../../config').get().email;
 const email = require('@sendgrid/mail');
 email.setApiKey(emailConfig.apiKey);
 const emailTemplates = require('../emailTemplates');
+const APIError = require('../APIError');
 
 module.exports = {
     sendVerificationEmail

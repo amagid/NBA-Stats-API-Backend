@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../services/db').getConnection();
+const APIError = require('../APIError');
 
 //Define model
 const PlayerQuery = db.define('player_queries', {
