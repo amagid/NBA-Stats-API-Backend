@@ -382,12 +382,12 @@ def read_in():
 def main():
     data = read_in()
     if data[1] == 'get':
-        player1 = Player(data[2],"Base","2016-17")
+        player1 = Player(data[2],"Base","2017-18")
         y_over_y = player1.year_over_year("Base")
         print json.dumps(y_over_y)
     if data[1] == 'compare':
-        player1 = Player(data[2],"Base","2016-17")
-        player2 = Player(data[3],"Base","2016-17")
+        player1 = Player(data[2],"Base","2017-18")
+        player2 = Player(data[3],"Base","2017-18")
 
         print json.dumps(player1.compare_player(player2))
 
