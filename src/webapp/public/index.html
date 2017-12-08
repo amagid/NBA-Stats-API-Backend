@@ -37,7 +37,8 @@
           <md-button class="menuBarButton" href="/register.html" ng-show="myJWT == null">Register</md-button>
         </div>
 
-        <md-button class="compareButton" ng-click="comparePlayers()">FIND THE WINNER</md-button></td>
+        <md-button class="compareButton" ng-click="comparePlayers()">FIND THE WINNER</md-button>
+        <div ng-show="showSpinner.length !== 0" style="text-align: center"><p>Loading data...</p><!--<md-progress-circular style="color: white;" mode="indeterminate" md-mode="indeterminate"></md-progress-circular>--></div>
         <table style="width: 100%; max-width: 900px;" align="center" cellpadding = "2">
           <tbody>
             <tr>
@@ -55,6 +56,9 @@
               <span><h1 style="padding-top: 20px;">The winner is: {{betterPlayer.message}}</h1></span>
       </td>
     </tr>
+
+
+
     <tr>
       <td colspan="7" align="center">
         <select ng-model='modeSelect' ng-change='changeMode(modeSelect)' ng-options = 'x for x in modes' align="center">
@@ -165,14 +169,9 @@
           <td class="imgContainer"> <img width="200" align="right" ng-src="{{rpImage}}"> </td>
         </tr>
         <tr class="chartRow">
-          <!-- TODO do the charts.. -->
-          <!-- <td colspan="3" align="right"><img width="300" src="img/fillerchart.png"> </td> -->
-          <td colspan="3"><canvas style="background-color: white" id="myChart" width="300" height="200"></canvas></td>
-          <td colspan="3" align="right">
-            <div id="myChart"></div>
-          </td>
+        <td colspan="3"><!--<canvas style="background-color: white" id="myChart" width="300" height="200"></canvas>--></td>
           <td class="table-separator"></td>
-          <!-- <td colspan="3"> <img width="300" src="img/fillerchart.png"></td> -->
+        <!--  <td colspan="3"><canvas style="background-color: white" id="myChart2" width="300" height="200"></canvas></td>-->
         </tr>
       </tbody>
     </table>

@@ -3,6 +3,8 @@ var app = angular.module('nbaApp', ['ngMaterial'])
   $mdThemingProvider.disableTheming();
 });
 app.controller('myController', function($scope, $http) {
+  $scope.showSpinner = [];
+
   $scope.myJWT = window.localStorage.getItem("NBA-JWT");
   var thisPath = window.location.pathname;
   console.log(thisPath);
@@ -478,19 +480,31 @@ app.controller('myController', function($scope, $http) {
   ]
   $scope.gamesRSide = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   $scope.gamesMid = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  var removeFromArray = function(array, val) {
+    angular.forEach(array, function(value, key) {
+      if (array.includes(val)) {
+        array.splice(array.indexOf(val), 1);
+      }
+    })
+  }
+
   // On app start, grab all the players for the autofill lists
-  if (thisPath === '/players' || thisPath === '/players.html' || thisPath === '/'){
+  if (thisPath === '/index' || thisPath === '/index.html' || thisPath === '/'){
     console.log("getting players init data");
+    $scope.showSpinner.push('playerInit');
   $http.get('/api/players').
   then(function(response) {
     //$scope.player1data = response.data
     $scope.players = response['data'];
 	console.log($scope.players);
+  removeFromArray($scope.showSpinner, 'playerInit');
     // this callback will be called asynchronously
     // when the response is available
   }, function(response) {
     console.log("There was an error getting init data!");
     console.log(response.data);
+    removeFromArray($scope.showSpinner, 'playerInit');
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
@@ -611,6 +625,7 @@ app.controller('myController', function($scope, $http) {
 
 
   if (thisPath === '/teams' || thisPath === '/teams.html' || thisPath === '/games' || thisPath === '/games.html'){
+    $scope.showSpinner.push('teamsInit');
   $http.get('/api/teams').
   then(function(response) {
     // this comes in as a json. needs to be array so it matches players response
@@ -619,11 +634,13 @@ app.controller('myController', function($scope, $http) {
       $scope.teams.push({'id': value, 'name': key});
     });
     console.log($scope.teams);
+    removeFromArray($scope.showSpinner, 'teamsInit')
     // this callback will be called asynchronously
     // when the response is available
   }, function(response) {
     console.log("There was an error getting init data!");
     console.log(response.data);
+    removeFromArray($scope.showSpinner, 'teamsInit')
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
@@ -665,6 +682,7 @@ $scope.autoCompleteOptions = {
  // This is a sort of dao function
 $scope.getPlayerStats = function(id, whichSide){
   console.log($scope.player1)
+  $scope.showSpinner.push("getplayerstats" + whichSide);
   $http.get('/api/players/' + id).
   then(function(response) {
     //$scope.player1data = response.data
@@ -674,7 +692,7 @@ $scope.getPlayerStats = function(id, whichSide){
     } else {
       $scope.rpStats = response['data'];
     }
-
+    removeFromArray($scope.showSpinner, "getplayerstats" + whichSide);
 
 
 
@@ -682,12 +700,14 @@ $scope.getPlayerStats = function(id, whichSide){
   }, function(response) {
     console.log("Error getting player data!");
     console.log(response.data);
+    removeFromArray($scope.showSpinner, "getplayerstats" + whichSide);
   });
 };
 
 // This is a sort of dao function
 $scope.getTeamStats = function(id, whichSide){
  console.log($scope.modeSelect);
+ $scope.showSpinner.push("getteamstats" + whichSide);
  $http.get('/api/teams/' + id + "/" + $scope.modeSelect.toLowerCase()).
  then(function(response) {
    //$scope.player1data = response.data
@@ -697,9 +717,11 @@ $scope.getTeamStats = function(id, whichSide){
    } else {
      $scope.rpStats = response['data'];
    }
+   removeFromArray($scope.showSpinner, "getteamstats" + whichSide);
  }, function(response) {
    console.log("Error getting player data!");
    console.log(response.data);
+   removeFromArray($scope.showSpinner, "getteamstats" + whichSide);
  });
 };
 
@@ -761,6 +783,7 @@ $scope.selectedItemChangeTeam = function(item, whichInput) {
 // This is a sort of dao function
 $scope.getMatchupStats = function(team1, team2, year, whichSide){
   console.log("whichside was " + whichSide);
+  $scope.showSpinner.push("getmatchupstats" + whichSide);
  $http.get('/api/games/' + team1 + "/" + team2 + "/" + year).
  then(function(response) {
    //$scope.player1data = response.data
@@ -775,6 +798,7 @@ $scope.getMatchupStats = function(team1, team2, year, whichSide){
      $scope.leftMatchupData[7] = response['data'].REB;
      $scope.leftMatchupData[8] = response['data'].STL;
      console.log($scope.leftMatchupData)
+     removeFromArray($scope.showSpinner, "getmatchupstats" + whichSide);
    } else {
      $scope.rightMatchupData[0] = response['data']['W/L'];
      $scope.rightMatchupData[1] = response['data'].PLUS_MINUS;
@@ -786,10 +810,12 @@ $scope.getMatchupStats = function(team1, team2, year, whichSide){
      $scope.rightMatchupData[7] = response['data'].REB;
      $scope.rightMatchupData[8] = response['data'].STL;
      console.log($scope.rightMatchupData);
+     removeFromArray($scope.showSpinner, "getmatchupstats" + whichSide);
    }
  }, function(response) {
    console.log("Error getting player data!");
    console.log(response.data);
+   removeFromArray($scope.showSpinner, "getmatchupstats" + whichSide);
  });
 };
 
@@ -868,18 +894,20 @@ $scope.createFilterFor = function(query) {
 
 // Function that gets called when user clicks 'compare'
 $scope.comparePlayers = function() {
+  $scope.showSpinner.push('comparePlayers');
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
     $http.get('/api/players/' + $scope.searchText1 + '/compare/' + $scope.searchText2, {headers: {Authorization: "Bearer " + $scope.myJWT}}).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
 	  $scope.betterPlayer = response['data'];
-
+    removeFromArray($scope.showSpinner, 'comparePlayers');
     }, function(response) {
 		// temp comment this error handling to test
       //console.log("Error getting player comparison result!");
       //console.log(response.data);
 	  console.log(response['data']);
+    removeFromArray($scope.showSpinner, 'comparePlayers');
 
 
     });
@@ -889,17 +917,20 @@ $scope.comparePlayers = function() {
 $scope.compareTeams = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
 	  console.log($scope.modeSelect);
+    $scope.showSpinner.push("compareTeams")
     $http.get('/api/teams/' + $scope.searchText1 + '/compare/' + $scope.searchText2 + "/" + $scope.modeSelect.toLowerCase(), {headers: {Authorization: "Bearer " + $scope.myJWT}}).
     then(function(response) {
       //$scope.player1data = response.data
       console.log(response['data']);
 	  $scope.betterTeam = response['data'];
+    removeFromArray($scope.showSpinner, 'compareTeams');
 
     }, function(response) {
 		// temp comment this error handling to test
       //console.log("Error getting player comparison result!");
       //console.log(response.data);
 	  console.log(response['data']);
+    removeFromArray($scope.showSpinner, 'compareTeams');
 
     });
   }
@@ -908,6 +939,7 @@ $scope.compareTeams = function() {
 // Function called when clicking compare on games screen
 $scope.compareGames = function() {
   if (typeof $scope.lpStats !== 'undefined' && typeof $scope.rpStats !== 'undefined') {
+    $scope.showSpinner.push("compareGames");
 	  console.log($scope.modeSelect);
     $http.get('/api/games/compare/' + $scope.searchText2 + "/" + $scope.searchText1 + "/" + $scope.year.team1 + "/" + $scope.searchText3 + "/" + $scope.year.team3, {headers: {Authorization: "Bearer " + $scope.myJWT}}).
     then(function(response) {
@@ -917,6 +949,7 @@ $scope.compareGames = function() {
 
     $scope.leftBar.width = response['data'].player1 + "%";
 	  $scope.rightBar.width = response['data'].player2 + "%";
+    removeFromArray($scope.showSpinner, 'compareGames');
 
 
     }, function(response) {
@@ -924,15 +957,83 @@ $scope.compareGames = function() {
       //console.log("Error getting player comparison result!");
       //console.log(response.data);
 	  console.log(response['data']);
+    removeFromArray($scope.showSpinner, 'compareGames');
 
     });
   }
 }
 
-if (thisPath === '/' || thisPath === '/index' || thisPath === '/index.html'){
+if (thisPath === '/teams' || thisPath === '/teams.html'){
 $scope.ctx = document.getElementById("myChart").getContext('2d');
 
 $scope.myChart = new Chart($scope.ctx, {
+  type: 'scatter',
+  backgroundColor: 'rgba(255, 255, 255, 1);',
+  data: {
+      //labels: "label",
+      //labels: ["one", "two", "three", "four"],
+      datasets: [{
+        label: "Score",
+        backgroundColor: '#ed174b',
+        showLine: true,
+        data:[
+          {
+            x: '2017-12-04T22:00:50.000Z',
+            y: 20
+          }, {
+            x: '2017-12-06T22:00:50.000Z',
+            y: 43
+          }, {
+            x: '2017-12-07T22:00:50.000Z',
+            y: 33
+          }
+        ],
+        fill: true
+        }
+      ]
+  },
+  options: {
+    responsive: true,
+    title: {
+      display: true,
+      text: 'Overall Score Over Time'
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false
+    },
+    hover: {
+      mode: 'nearest',
+      intersect: true
+    },
+    scales: {
+                    xAxes: [{
+                        display: true,
+                        type: 'time',
+                        time: {
+                          unit: 'day',
+                          displayFormats: {
+                            day: 'MMM D'
+                          }
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Date'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value'
+                        }
+                    }]
+                }
+  }
+});
+$scope.ctx2 = document.getElementById("myChart2").getContext('2d');
+
+$scope.myChart = new Chart($scope.ctx2, {
   type: 'scatter',
   backgroundColor: 'rgba(255, 255, 255, 1);',
   data: {

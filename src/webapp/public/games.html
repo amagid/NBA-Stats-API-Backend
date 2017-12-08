@@ -38,7 +38,7 @@
         </div>
 
         <md-button class="compareButton" ng-click="compareGames()">Compare</md-button></td>
-
+<div ng-show="showSpinner.length !== 0" style="text-align: center"><p>Loading data...</p><!--<md-progress-circular style="color: white;" mode="indeterminate" md-mode="indeterminate"></md-progress-circular>--></div>
         <div style="min-height: 75px; margin: auto !important; display: block; text-align: center;">
           <h1>{{betterTeam.message}}</h1>
         </div>
