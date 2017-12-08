@@ -47,7 +47,8 @@
             <td ng-if="item.type === 'Game Compare'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
             <td ng-if="item.type === 'Player Compare'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
             <td ng-if="item.type === 'Team Compare'"><p>{{item.val1}} vs. {{item.val2}}</p></td>
-            <td><p> on: {{item.timestamp.format('MMMM DD @ h:MM')}}</p></td>
+            <!-- <td><p> on: {{item.timestamp.format("MMMM DD [@] h:MM")}}</p></td> -->
+            <td><p> on: {{item.timestamp.month()}}/{{item.timestamp.day()}}, {{item.timestamp.hour()}}:{{item.timestamp.minute()}}</p></td>
         </tr>
         </table>
       </ul>

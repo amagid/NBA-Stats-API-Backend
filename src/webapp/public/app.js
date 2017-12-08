@@ -563,6 +563,26 @@ app.controller('myController', function($scope, $http) {
       //$scope.player1data = response.data
       $scope.gameQueries = response['data'];
   	   console.log($scope.gameQueries);
+       angular.forEach($scope.gameQueries, function(value, key) {
+         console.log(value.url);
+         if (value.url.includes("compare")) {
+           var tokenList = value.url.split("/");
+           var firstNewVal = tokenList[2].replace(/%20/g, " ");
+           var secondNewVal = tokenList[4].replace(/%20/g, " ");
+           var newVal =
+           {
+             type: 'Games Compare',
+             timestamp: value.searchDate,
+             val1: firstNewVal,
+             val2: secondNewVal
+           }
+           $scope.historyParsed.push(newVal);
+           console.log($scope.historyParsed);
+           $scope.historyParsed.sort(function(a, b) {
+            return a.timestamp - b.timestamp;
+            });
+         }
+       });
       // this callback will be called asynchronously
       // when the response is available
     }, function(response) {
@@ -588,12 +608,15 @@ app.controller('myController', function($scope, $http) {
              var newVal =
              {
                type: 'Team Compare',
-               timestamp: value.searchDate,
+               timestamp: moment(value.searchDate),
                val1: firstNewVal,
                val2: secondNewVal
              }
              $scope.historyParsed.push(newVal);
              console.log($scope.historyParsed);
+             $scope.historyParsed.sort(function(a, b) {
+              return a.timestamp - b.timestamp;
+              });
            }
          });
        }
@@ -630,6 +653,9 @@ app.controller('myController', function($scope, $http) {
              }
              $scope.historyParsed.push(newVal);
              console.log($scope.historyParsed);
+             $scope.historyParsed.sort(function(a, b) {
+              return a.timestamp - b.timestamp;
+              });
            }
          });
        }
@@ -910,7 +936,7 @@ $scope.selectedItemChangeTeam = function(item, whichInput) {
 // This is a sort of dao function
 $scope.getMatchupStats = function(team1, team2, year, whichSide){
   console.log("whichside was " + whichSide);
-  $scope.showSpinner.push("getmatchupstats" + whichSide);
+  $scope.showSpinner.push("getmatchupstats" + whichSide, {headers: {Authorization: "Bearer " + $scope.myJWT}});
  $http.get('/api/games/' + team1 + "/" + team2 + "/" + year).
  then(function(response) {
    //$scope.player1data = response.data
