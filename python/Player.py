@@ -422,13 +422,9 @@ def main():
 #jb.year_over_year('Base')
 #print jb.player_dict
 
-with open('avg_player.txt', 'r') as f:
-    dat_json = json.load(f)
-    #print dat_json
-
 #run main
 if __name__ == '__main__':
-    main()
+  main()
 
 
 #get player by id --> traditional stats ["get", "id"]
