@@ -118,7 +118,9 @@ app.controller('myController', function($scope, $http) {
   $scope.year.team1 = '2016-17';
   $scope.year.team3 = '2016-17';
 
-  $scope.gamesCats = ['Ave Win/Loss', 'Ave Plus/Minus', 'Ave FG %', 'Ave 3-Point %', 'Ave Free Throw %', 'Ave Assists', 'Ave Blocks', 'Ave Rebounds', 'Ave Steals'];
+  $scope.gamesCats = ['Wins Minus Losses', 'Ave Plus/Minus', 'Ave FG Success %', 'Ave 3-PT Success %', 'Ave Free Throw Success %', 'Ave Assists', 'Ave Blocks', 'Ave Rebounds', 'Ave Steals'];
+
+
 
   $scope.dataModels = [
     {
@@ -735,10 +737,77 @@ $scope.autoCompleteOptions = {
   itemSelected: function(item) {}
 }
 
+
+$scope.ave17 = {
+	"PF_RANK": 243.0,
+	"FGM_RANK": 243.0,
+	"FTA_RANK": 243.0,
+	"W": 26.0,
+	"MIN": 19.9,
+	"STL_RANK": 242.0,
+	"AGE": 26.85,
+	"TOV": 1.1,
+	"REB": 3.57,
+	"TEAM_ID": 1610612751.0,
+	"FG3A_RANK": 241.0,
+	"FTM": 1.42,
+	"PLAYER_ID": 551972.0,
+	"NBA_FANTASY_PTS": 17.4,
+	"REB_RANK": 243.0,
+	"W_RANK": 238.0,
+	"FG3A": 2.18,
+	"AST": 1.83,
+	"FTM_RANK": 242.0,
+	"DREB_RANK": 243.0,
+	"W_PCT_RANK": 242.0,
+	"FGA_RANK": 243.0,
+	"FG3M": 0.77,
+	"OREB": 0.85,
+	"L_RANK": 238.0,
+	"FGM": 3.12,
+	"PF": 1.68,
+	"TD3_RANK": 23.0,
+	"FG_PCT_RANK": 243.0,
+	"PTS": 8.43,
+	"FGA": 6.91,
+	"FG3M_RANK": 235.0,
+	"NBA_FANTASY_PTS_RANK": 243.0,
+	"BLKA_RANK": 242.0,
+	"GP": 53.0,
+	"STL": 0.63,
+	"AST_RANK": 243.0,
+	"FG_PCT": 0.44,
+	"L": 26.0,
+	"PLUS_MINUS_RANK": 243.0,
+	"FTA": 1.86,
+	"PLUS_MINUS": -0.34,
+	"BLK": 0.39,
+	"W_PCT": 0.48,
+	"DREB": 2.72,
+	"FT_PCT_RANK": 242.0,
+	"PFD_RANK": 243.0,
+	"FT_PCT": 0.72,
+	"BLK_RANK": 241.0,
+	"PFD": 1.6,
+	"MIN_RANK": 243.0,
+	"OREB_RANK": 243.0,
+	"DD2_RANK": 166.0,
+	"CFID": 5.0,
+	"GP_RANK": 239.0,
+	"FG3_PCT": 0.28,
+	"DD2": 4.0,
+	"TOV_RANK": 243.0,
+	"BLKA": 0.39,
+	"FG3_PCT_RANK": 235.0,
+	"TD3": 0.0,
+	"PTS_RANK": 243.0
+};
+
  // This is a sort of dao function
 $scope.getPlayerStats = function(id, whichSide){
   console.log($scope.player1)
   $scope.showSpinner.push("getplayerstats" + whichSide);
+  if (id !== 'average'){
   $http.get('/api/players/' + id).
   then(function(response) {
     //$scope.player1data = response.data
@@ -815,6 +884,32 @@ $scope.getPlayerStats = function(id, whichSide){
     console.log(response.data);
     removeFromArray($scope.showSpinner, "getplayerstats" + whichSide);
   });
+} else { // hardcode average
+  console.log("getting average")
+  if (whichSide === 0){
+    console.log($scope.ave17);
+    $scope.lpStats = {'PTS': {}, 'REB': {}, 'AST': {}, 'BLK': {}, 'STL': {}, 'TOV': {}, 'FG3M': {}, 'FTM': {}};
+    $scope.lpStats['PTS']["2017-18"] = $scope.ave17['PTS'];
+    $scope.lpStats['REB']["2017-18"] = $scope.ave17['REB'];
+    $scope.lpStats['AST']["2017-18"] = $scope.ave17['AST'];
+    $scope.lpStats['BLK']["2017-18"] = $scope.ave17['BLK'];
+    $scope.lpStats['STL']["2017-18"] = $scope.ave17['STL'];
+    $scope.lpStats['TOV']["2017-18"] = $scope.ave17['TOV'];
+    $scope.lpStats['FG3M']["2017-18"] = $scope.ave17['FG3M'];
+    $scope.lpStats['FTM']["2017-18"] = $scope.ave17['FTM'];
+  } else {
+    $scope.rpStats = {'PTS': {}, 'REB': {}, 'AST': {}, 'BLK': {}, 'STL': {}, 'TOV': {}, 'FG3M': {}, 'FTM': {}};
+    $scope.rpStats['PTS']["2017-18"] = $scope.ave17['PTS'];
+    $scope.rpStats['REB']["2017-18"] = $scope.ave17['REB'];
+    $scope.rpStats['AST']["2017-18"] = $scope.ave17['AST'];
+    $scope.rpStats['BLK']["2017-18"] = $scope.ave17['BLK'];
+    $scope.rpStats['STL']["2017-18"] = $scope.ave17['STL'];
+    $scope.rpStats['TOV']["2017-18"] = $scope.ave17['TOV'];
+    $scope.rpStats['FG3M']["2017-18"] = $scope.ave17['FG3M'];
+    $scope.rpStats['FTM']["2017-18"] = $scope.ave17['FTM'];
+  }
+  removeFromArray($scope.showSpinner, "getplayerstats" + whichSide);
+}
 };
 
 // This is a sort of dao function
@@ -902,7 +997,13 @@ $scope.selectedItemChange = function(item, whichInput) {
   // Should come in correct format so hopefully no
   // json manipulation needed
   console.log(item);
-  $scope.getPlayerStats(item.name, whichInput);
+  if (item.name === 'average') {
+    console.log(item);
+
+    $scope.getPlayerStats(item.name, whichInput);
+  } else {
+    $scope.getPlayerStats(item.name, whichInput);
+  }
 
   // Also try using the nba headshot api?
   // First we need to format for search (wants underscores)
