@@ -352,8 +352,33 @@ class Player:
 
     #slasher, defender, scorer, all-around, superstar
     def sf_type(self):
-        x = 2
-        # check for superstar status
+        min = stats['MIN']
+        if stats['PTS'] > 25:
+            if stats['AST'] > 4:
+                return "superstar"
+            else:
+                return "scoring"
+        elif stats['AST'] > 6:
+            if stats['PTS'] > 19:
+                return "superstar"
+            elif stats['PTS'] > 15:
+                return "around"
+            else:
+                return "pass-first"
+        elif (stats['PTS']/min) * 36 > 19:
+            return "scoring"
+        elif stats['FG3_PCT'] > .375:
+            return "shooter"
+        elif stats['FG3_PCT'] < .330:
+            return "slasher"
+        elif (stats['MIN']/stats['STL'] >= 28 and stats['MIN']/stats['BLK'] >= 36):
+            return "defensive"
+        elif stats['PTS']/stats['AST'] <= 2.7:
+            return "around"
+        elif stats['PTS']/stats['AST'] > 2.7:
+            return "scoring"
+        else:
+            return "around"
 
     #labels as a stretch-4, defensive-minded player, scorer, all-around, superstar
     def pf_type(self):
@@ -382,14 +407,9 @@ def read_in():
 def main():
     data = read_in()
     if data[1] == 'get':
-        if data[2] == 'average':
-            with open('avg_player.txt', 'r') as f:
-                dat_json = json.load(f)
-                print dat_json
-        else:
-            player1 = Player(data[2],"Base","2017-18")
-            y_over_y = player1.year_over_year("Base")
-            print json.dumps(y_over_y)
+        player1 = Player(data[2],"Base","2017-18")
+        y_over_y = player1.year_over_year("Base")
+        print json.dumps(y_over_y)
     if data[1] == 'compare':
         if(data[2] == 'average' or data[3] == 'average'):
             sys.exit('404')
